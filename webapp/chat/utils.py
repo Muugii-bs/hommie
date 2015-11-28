@@ -5,6 +5,10 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 import replacers
+import os
+
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
+APP_STATIC = os.path.join(APP_ROOT, 'static')
 
 
 def slugify(value):
@@ -30,8 +34,8 @@ def get_or_create(klass, **kwargs):
 
 
 # read Emotion-Lexicon.txt
-with open("Emotion-Lexicon.txt", 'r') as emoleRaw:
-        emoleRaw = emoleRaw.readlines()
+with open(os.path.join(APP_STATIC, "Emotion-Lexicon.txt"), 'r') as emoleRaw:
+    emoleRaw = emoleRaw.readlines()
 
 
 # create dic
