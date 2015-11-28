@@ -1,12 +1,21 @@
+# -*- coding:utf-8 -*-
 import re
 import unicodedata
 from werkzeug.exceptions import NotFound
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
+from nltk import FreqDist
 import replacers
 import os
 from datetime import datetime
+import codecs
+import MeCab
+
+
+### Constants
+MECAB_MODE = 'mecabrc'
+PARSE_TEXT_ENCODING = 'utf-8'
 
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
@@ -60,7 +69,14 @@ for line in emoleRaw:
     dic_emolex_stemmed[PorterStemmer().stem(word)][category] = flag
     dic_emolex_stemmed[PorterStemmer().stem(word)]["_original_word"] = word
 
-# print("All Words: %s" % len(dic_emolex.keys()))
+# read Japanese WordNet Affect
+with open(os.path.join(APP_STATIC, "mood_jp.txt"), "r") as text_file:
+    dic_wna_jp = {}
+    lines = text_file.readlines()
+    for line in lines:
+        key, val = line.split()
+        dic_wna_jp[key] = val
+
 
 # sum of all words emotion-lexicon
 def tweet_emolex(words, words_stemmed, debug = False):
@@ -149,13 +165,13 @@ def preprocessing(text, debug = False):
     return words, words_stemmed
 
 
-def mood(text, debug = False):
+def mood_eng(text, debug = False):
     words, words_stemmed = preprocessing(text, debug)
     emolex_dic = tweet_emolex(words, words_stemmed, debug)
 
-    mood_dic_scores = {'anger': emolex_dic['anger'],
-                       'fear': emolex_dic['fear'],
-                       'sadness': emolex_dic['sadness'],
+    mood_dic_scores = {'angry': emolex_dic['anger'],
+                       'scared': emolex_dic['fear'],
+                       'sad': emolex_dic['sadness'],
                        'happy': emolex_dic['joy']}
 
     if debug:
@@ -166,12 +182,38 @@ def mood(text, debug = False):
     if not max_val:
         return 'normal'
 
-    ans = max(mood_dic_scores.iterkeys(), key=lambda k: mood_dic_scores[k])
+    return max(mood_dic_scores.iterkeys(), key=lambda k: mood_dic_scores[k])
 
-    new_moods = {
-        'anger': 'anger',
-        'fear': 'scared',
-        'sadness': 'sad',
-        'happy': 'happy',
-    }
-    return new_moods[ans]
+
+def mood(unicode_string, debug = False):
+    tagger = MeCab.Tagger(MECAB_MODE)
+    unicode_string = unicode(unicode_string, "utf-8")
+    text = unicode_string.encode(PARSE_TEXT_ENCODING)
+    node = tagger.parseToNode(text)
+    node = node.next
+    words_dic = {}
+    while node:
+        word = node.surface.decode("utf-8")
+        root = node.feature.split(",")[6]
+        if root in dic_wna_jp:
+            words_dic[root] = dic_wna_jp[root]
+        else:
+            words_dic[word] = mood_eng(word)
+        node = node.next
+
+    if debug:
+        for key in words_dic.keys():
+            print key, ": ", words_dic[key]
+
+    values = [val for val in words_dic.values() if val != 'normal']
+
+    if not len(values):
+        return 'normal'
+
+    ans = FreqDist(values).max()
+
+    if ans == "anger":
+        return "angry"
+
+    if ans != "ambiguous":
+        return ans
