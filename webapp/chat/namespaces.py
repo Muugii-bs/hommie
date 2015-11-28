@@ -2,6 +2,7 @@ from socketio.namespace import BaseNamespace
 from socketio.mixins import RoomsMixin, BroadcastMixin
 
 from chat import app
+from .utils import mood
 
 class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
     nicknames = []
@@ -39,7 +40,7 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
     def on_user_message(self, msg):
         self.log('User message: {0}'.format(msg))
         self.emit_to_room(self.room, 'msg_to_room',
-                          self.session['nickname'], msg)
+                          self.session['nickname'], msg, mood(msg))
         return True
 
     # def recv_data(self, data):

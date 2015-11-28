@@ -8,36 +8,41 @@ $(function() {
         socket.emit('join', window.room);
     });
 
-    socket.on('announcement', function (msg) {
-        $('#lines').append($('<p>').append($('<em>').text(msg)));
+    socket.on('announcement', function (user) {
+        //$('#lines').append($('<p>').append($('<em>').text(msg)));
+		render_user(user);
     });
 
     socket.on('nicknames', function (nicknames) {
-        $('#nicknames').empty().append($('<span>Online: </span>'));
+        /*$('#nicknames').empty().append($('<span>Online: </span>'));
         for (var i in nicknames) {
           $('#nicknames').append($('<b>').text(nicknames[i]));
-        }
+        }*/
+		declare_users(nicknames);
     });
 
-    socket.on('msg_to_room', message);
+	socket.on('sensor_data', function (nickname, data) {
+		render_data(nickname, data);
+	});
+
+    socket.on('msg_to_room', function (nickname, msg, emotion) {
+		render_msg(nickname, msg, emotion);	
+	});
 
     socket.on('reconnect', function () {
-        $('#lines').remove();
-        message('System', 'Reconnected to the server');
+        //$('#lines').remove();
+		reconnect();
+        render_msg('System', 'Reconnected to the server', '');
     });
 
     socket.on('reconnecting', function () {
-        message('System', 'Attempting to re-connect to the server');
+        render_msg('System', 'Attempting to re-connect to the server', '');
     });
 
     socket.on('error', function (e) {
-        message('System', e ? e : 'A unknown error occurred');
+        render_msg('System', e ? e : 'A unknown error occurred', '');
     });
-
-    function message (from, msg) {
-        $('#lines').append($('<p>').append($('<b>').text(from), msg));
-    }
-
+	
     // DOM manipulation
     $(function () {
         $('#set-nickname').submit(function (ev) {

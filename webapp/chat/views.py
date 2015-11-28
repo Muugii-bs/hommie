@@ -55,7 +55,7 @@ def api_sensor_value():
     """
     Handles post from the sensors.
     """
-    app.logger.error("sensor_value request: {}".format(request.form))
+    app.logger.error("sensor_value request: {}".format(unicode(request.form)))
 
     sensor_id = request.form.get("sensor_id")
     value = request.form.get("value")
@@ -64,4 +64,4 @@ def api_sensor_value():
         sv = SensorValue(value=value, timestamp=get_current_time(), sensor_id=sensor.id)
         db.session.add(sv)
         db.session.commit()
-    return ('', 204)
+    return ('OK', 200)
