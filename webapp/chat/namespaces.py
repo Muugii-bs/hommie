@@ -5,7 +5,7 @@ from chat import app
 
 class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
     nicknames = []
-	sensor_data = []
+    sensor_data = []
 
     def initialize(self):
         self.logger = app.logger
