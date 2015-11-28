@@ -4,7 +4,7 @@ import flask.ext.login as flask_login
 from flask import redirect, url_for, flash
 
 from chat import app, db, login_manager
-from .models import Family, Sensor, SensorValue, User
+from .models import Family, Sensor, SensorValue, User, UserType
 from .namespaces import ChatNamespace
 from .utils import get_object_or_404, get_or_create, get_current_time
 from .forms import LoginForm
@@ -59,7 +59,12 @@ def index():
     # todo: if group_id is None redirect to create group page
     user = User.query.get(flask_login.current_user.id)
     family = Family.query.get(user.id)
-    context = {"family": family, "user": user}
+    ms = User.query.filter_by(family_id=family.id)
+    members = []
+    for m in ms:
+        members.append((m.id, UserType.query.get(m.type_id).typename))
+    app.logger.debug("members length: {}".format(len(members)))
+    context = {"family": family, "user": user, "members": members}
     return render_template('room.html', **context)
 
 
@@ -92,7 +97,7 @@ def api_sensor_value():
     """
     Handles post from the sensors.
     """
-    app.logger.error("sensor_value request: {}".format(unicode(request.form)))
+    app.logger.debug("sensor_value request: {}".format(unicode(request.form)))
 
     sensor_id = request.form.get("sensor_id")
     value = request.form.get("value")
