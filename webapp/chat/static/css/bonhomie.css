@@ -1,3 +1,7 @@
+body {
+	padding-top: 20px;
+}
+
 #people> div{
     /*border: 10px;*/
     /*border-color: black;*/
