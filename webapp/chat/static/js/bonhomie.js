@@ -1,6 +1,7 @@
 var total = 0;
 var types = ["grandma", "dad", "mom", "son", "daughter"];
 var emos = ["angry", "sad", "happy", "normal", "scared"];
+var colors = ["#B4E0DC", "#1DAFEC", "#9CD09C", "#A18981", "#F3896B"];
 
 $qtable = $("<table>");
 $qdiv = [];
@@ -34,9 +35,9 @@ var render_user = function(user){
 	var $div = [];
 	var $person = $("<div>", {id: user, class: sideDiv});
 	$div[0] = $("<div>", {class: "col-xs-6"})
-		.html($("<img>", {class: "img-responsive", src:"static/img/"+types[user-1]+"_normal.png", style: "width: 100%;"}));
+		.html($("<img>", {class: "img-responsive", src:"static/img/"+types[user-1]+"_normal.png", style: "width: 100%"}));
 	$div[1] = $("<div>", {class: "message col-xs-6"})
-		.html($("<p>", {class: sideMessage}));
+		.html($("<p>", {class: sideMessage, style: "background-color: " + colors[user-1]}));
 	$person.append($div[1-bit]).append($div[bit]);
 	$("#people").append($person);
 	render_message(user, "Hello");

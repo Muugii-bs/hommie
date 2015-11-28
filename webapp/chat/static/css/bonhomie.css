@@ -31,7 +31,7 @@
    width: 0;
    height: 0;
    border-top: 13px solid transparent;
-   border-right: 26px solid orange;
+   /*border-right: 26px solid orange;*/
    border-bottom: 13px solid transparent;
 }
 .talkbubble.right:before {
@@ -42,7 +42,7 @@
    width: 0;
    height: 0;
    border-top: 13px solid transparent;
-   border-left: 26px solid orange;
+   /*border-left: 26px solid orange;*/
    border-bottom: 13px solid transparent;
 }
 
