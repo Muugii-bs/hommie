@@ -1,11 +1,13 @@
 from flask import Response, request, render_template, url_for, redirect
 from socketio import socketio_manage
 import flask.ext.login as flask_login
+from flask import redirect, url_for, flash
 
 from chat import app, db, login_manager
 from .models import Family, Sensor, SensorValue, User
 from .namespaces import ChatNamespace
 from .utils import get_object_or_404, get_or_create, get_current_time
+from .forms import LoginForm
 
 
 @login_manager.unauthorized_handler
@@ -15,36 +17,35 @@ def unauthorized():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'GET':
-        return '''
-               <form action='login' method='POST'>
-                <input type='text' name='email' id='email' placeholder='email'></input>
-                <input type='password' name='pw' id='pw' placeholder='password'></input>
-                <input type='submit' name='submit'></input>
-               </form>
-               '''
-
-    email = request.form['email']
-    pw = request.form['pw']
-    if email and pw:
-        user, authenticated = User.authenticate(email, pw)
+    if flask_login.current_user.is_authenticated:
+        return redirect(url_for('protected'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user, authenticated = User.authenticate(form.email.data, form.password.data)
         if user and authenticated:
+            if user.status_code == 0:
+                flash(u'Please activate your email address.', 'warning')
+                return render_template('login.html', form=form)
             if flask_login.login_user(user, remember=True):
-                return flask.redirect(flask.url_for('protected'))
+                flash('Logged in successfully.', 'success')
+                return redirect(url_for('protected'))
+        else:
+            flash(u'Your email or password is incorrect.', 'danger')
 
-    return 'Bad login'
+    return render_template('login.html', form=form)
 
 
 @app.route('/logout')
 def logout():
     flask_login.logout_user()
-    return 'Logged out'
+    flash('Logged out.', 'info')
+    return redirect(url_for('welcome'))
 
 
 @app.route('/protected')
 @flask_login.login_required
 def protected():
-    return 'Logged in as: ' + flask_login.current_user.id
+    return 'Logged in as: ' + str(flask_login.current_user.id)
 
 
 @app.route('/welcome')

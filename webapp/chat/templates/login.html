@@ -1,0 +1,8 @@
+{% from "_form.html" import render_form %}
+{% extends "base.html" %}
+{% block content %}
+<h2 style="text-align: center;">Sign in</h2>
+<div style="width:300px;margin: 0 auto;margin-top:40px;">
+    {{ render_form(url_for('login'), form)}}
+</div>
+{% endblock %}

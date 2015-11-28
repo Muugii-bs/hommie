@@ -31,6 +31,25 @@
         </script>
     </head>
     <body>
+        {% block flash_message %}
+        <div class="container-fluid">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+            <div class="container-fluid">
+                <div id='flash_message_container'>
+                    {% for category, msg in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ msg }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% endwith %}
+        </div>
+        {% endblock %}
+
         <div id="main">
             {% block content %}
             {% endblock content %}
