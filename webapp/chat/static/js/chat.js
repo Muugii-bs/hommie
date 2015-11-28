@@ -34,7 +34,7 @@ $(function() {
         message('System', e ? e : 'A unknown error occurred');
     });
 
-    function message (from, msg) {
+    function message (from, msg, mood) {
         $('#lines').append($('<p>').append($('<b>').text(from), msg));
     }
 
