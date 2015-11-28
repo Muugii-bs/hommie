@@ -1,10 +1,10 @@
 from flask import Response, request, render_template, url_for, redirect
 from socketio import socketio_manage
 
-from chat import app
-from .models import Family
+from chat import app, db
+from .models import Family, Sensor, SensorValue
 from .namespaces import ChatNamespace
-from .utils import get_object_or_404, get_or_create
+from .utils import get_object_or_404, get_or_create, get_current_time
 
 @app.route('/')
 def rooms():
@@ -48,3 +48,20 @@ def socketio(remaining):
         app.logger.error("Exception while handling socketio connection",
                          exc_info=True)
     return Response()
+
+
+@app.route('/api/sensor_value', methods=['POST'])
+def api_sensor_value():
+    """
+    Handles post from the sensors.
+    """
+    app.logger.error("sensor_value request: {}".format(request.form))
+
+    sensor_id = request.form.get("sensor_id")
+    value = request.form.get("value")
+    if sensor_id and value:
+        sensor = get_object_or_404(Sensor, id=int(sensor_id))
+        sv = SensorValue(value=value, timestamp=get_current_time(), sensor_id=sensor.id)
+        db.session.add(sv)
+        db.session.commit()
+    return ('', 204)

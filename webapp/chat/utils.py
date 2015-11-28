@@ -6,6 +6,8 @@ from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 import replacers
 import os
+from datetime import datetime
+
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
 APP_STATIC = os.path.join(APP_ROOT, 'static')
@@ -31,6 +33,10 @@ def get_or_create(klass, **kwargs):
         instance = klass(**kwargs)
         instance.save()
         return instance, True
+
+
+def get_current_time():
+    return datetime.utcnow()
 
 
 # read Emotion-Lexicon.txt
@@ -106,9 +112,6 @@ def tweet_emolex(words, words_stemmed, debug = False):
                 dic_tweet_emolex[key] += dic_emolex_stemmed[words_stemmed[i]][key]
 
     return dic_tweet_emolex
-
-
-
 
 
 def preprocessing(text, debug = False):
