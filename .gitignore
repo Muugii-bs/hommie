@@ -1,3 +1,10 @@
+# Emacs tmp files
 *~
+
+# OS X tmp files
 *.DS_Store
+
+# Python byte code files
+*.pyc
+
 webapp/venv
