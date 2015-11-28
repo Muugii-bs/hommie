@@ -1,10 +1,51 @@
 from flask import Response, request, render_template, url_for, redirect
 from socketio import socketio_manage
+import flask.ext.login as flask_login
 
-from chat import app, db
-from .models import Family, Sensor, SensorValue
+from chat import app, db, login_manager
+from .models import Family, Sensor, SensorValue, User
 from .namespaces import ChatNamespace
 from .utils import get_object_or_404, get_or_create, get_current_time
+
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    return redirect(url_for('login'))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return '''
+               <form action='login' method='POST'>
+                <input type='text' name='email' id='email' placeholder='email'></input>
+                <input type='password' name='pw' id='pw' placeholder='password'></input>
+                <input type='submit' name='submit'></input>
+               </form>
+               '''
+
+    email = request.form['email']
+    pw = request.form['pw']
+    if email and pw:
+        user, authenticated = User.authenticate(email, pw)
+        if user and authenticated:
+            if flask_login.login_user(user, remember=True):
+                return flask.redirect(flask.url_for('protected'))
+
+    return 'Bad login'
+
+
+@app.route('/logout')
+def logout():
+    flask_login.logout_user()
+    return 'Logged out'
+
+
+@app.route('/protected')
+@flask_login.login_required
+def protected():
+    return 'Logged in as: ' + flask_login.current_user.id
+
 
 @app.route('/welcome')
 def welcome():

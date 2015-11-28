@@ -1,40 +1,11 @@
 from flask import url_for
+import flask.ext.login as flask_login
+from werkzeug import check_password_hash, generate_password_hash
 
 from chat import db
 from .utils import slugify
 
 STRING_LEN = 100
-
-
-class ChatRoom(db.Model):
-    __tablename__ = 'chatrooms'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(STRING_LEN), nullable=False)
-    slug = db.Column(db.String(STRING_LEN))
-    users = db.relationship('ChatUser', backref='chatroom', lazy='dynamic')
-
-    def __unicode__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return url_for('room', slug=self.slug)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        db.session.add(self)
-        db.session.commit()
-
-
-class ChatUser(db.Model):
-    __tablename__ = 'chatusers'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(STRING_LEN), nullable=False)
-    session = db.Column(db.String(STRING_LEN), nullable=False)
-    chatroom_id = db.Column(db.Integer, db.ForeignKey('chatrooms.id'))
-
-    def __unicode__(self):
-        return self.name
 
 
 class Family(db.Model):
@@ -57,13 +28,41 @@ class Family(db.Model):
         db.session.commit()
 
 
-class User(db.Model):
+class User(db.Model, flask_login.UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(STRING_LEN), nullable=False)
     email = db.Column(db.String(STRING_LEN))
+
+    _password = db.Column('password', db.String(STRING_LEN), nullable=False)
+    def _get_password(self):
+        return self._password
+
+    def _set_password(self, password):
+        self._password = generate_password_hash(password)
+    # Hide password encryption by exposing password field only.
+    password = db.synonym('_password',
+                          descriptor=property(_get_password,
+                                              _set_password))
+
     type_id = db.Column(db.Integer, db.ForeignKey('user_type.id'))
     family_id = db.Column(db.Integer, db.ForeignKey('family.id'))
+
+    def check_password(self, password):
+        if self.password is None:
+            return False
+        return check_password_hash(self.password, password)
+
+    @classmethod
+    def authenticate(cls, email, password):
+        user_login = cls.query.filter(User.email == email).first()
+
+        if user_login:
+            authenticated = user_login.check_password(password)
+        else:
+            authenticated = False
+
+        return user_login, authenticated
 
 
 class Message(db.Model):

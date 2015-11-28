@@ -26,6 +26,7 @@ $(function() {
 
     socket.on('msg_to_room', function (nickname, msg, emotion) {
 		render_msg(nickname, msg, emotion);	
+		console.log(nickname + " " + msg + " " + emotion);
 	});
 
     socket.on('reconnect', function () {
@@ -47,19 +48,18 @@ $(function() {
         var user = Math.floor((Math.random() * 6) + 1);
         $("#nick").val(user);
 
-        $('#set-nickname').submit(function (ev) {
-            socket.emit('nickname', user, function (set) {
-                if (set) {
-                    clear();
-                    return $('#chat').addClass('nickname-set');
-                }
-                $('#nickname-err').css('visibility', 'visible');
-            });
-            return false;
-        });
+        //$('#set-nickname').submit(function (ev) {
+        socket.emit('nickname', user, function (set) {
+            if (set) {
+                clear();
+                return $('#chat').addClass('nickname-set');
+            }
+            $('#nickname-err').css('visibility', 'visible');
+         });
+            //return false;
+        //});
 
         $('#send-message').submit(function () {
-
             render_msg($("#nick").val(), $('#message').val());
             // message('me', $('#message').val());
             socket.emit('user message', $('#message').val());
