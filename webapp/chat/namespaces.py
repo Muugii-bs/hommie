@@ -38,9 +38,9 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         return True
 
     def on_user_message(self, msg):
-        self.log('User message: {0}'.format(msg))
-        self.emit_to_room(self.room, 'msg_to_room',
-                          self.session['nickname'], msg, mood(msg))
+        msg_mood = mood(msg)
+        self.log('User message mood: {0}'.format(msg_mood))
+        self.emit_to_room(self.room, 'msg_to_room', self.session['nickname'], msg, msg_mood)
         return True
 
     # def recv_data(self, data):
