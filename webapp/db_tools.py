@@ -63,7 +63,7 @@ def create_defaults(db):
         db.session.commit()
 
         user = User(name='{} Suzuki'.format(type_name), email='{}@gmail.com'.format(type_name),
-                    type_id=user_type.id, family_id=1)
+                    type_id=user_type.id, family_id=1, password='hommee', status_code=1)
         db.session.add(user)
         db.session.commit()
 

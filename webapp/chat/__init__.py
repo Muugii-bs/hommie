@@ -33,8 +33,5 @@ from chat.models import User
 
 
 @login_manager.user_loader
-def user_loader(email):
-    user = User.query.filter_by(email=email).first()
-    if not user:
-        return
-    return user
+def load_user(userid):
+    return User.query.get(int(userid))

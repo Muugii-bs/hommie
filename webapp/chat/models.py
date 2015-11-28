@@ -6,6 +6,8 @@ from chat import db
 from .utils import slugify
 
 STRING_LEN = 100
+INACTIVE = 0
+ACTIVE = 1
 
 
 class Family(db.Model):
@@ -33,6 +35,7 @@ class User(db.Model, flask_login.UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(STRING_LEN), nullable=False)
     email = db.Column(db.String(STRING_LEN))
+    status_code = db.Column(db.SmallInteger, default=INACTIVE)
 
     _password = db.Column('password', db.String(STRING_LEN), nullable=False)
     def _get_password(self):
