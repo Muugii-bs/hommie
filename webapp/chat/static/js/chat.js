@@ -12,7 +12,6 @@ $(function() {
         //$('#lines').append($('<p>').append($('<em>').text(msg)));
         render_msg(user.substring(0,1), "Logged In");
     });
-
     socket.on('nicknames', function (nicknames) {
         /*$('#nicknames').empty().append($('<span>Online: </span>'));
         for (var i in nicknames) {
@@ -61,7 +60,7 @@ $(function() {
 
         $('#send-message').submit(function () {
 
-            render_msg(user, $('#message').val());
+            render_msg($("#nick").val(), $('#message').val());
             // message('me', $('#message').val());
             socket.emit('user message', $('#message').val());
             clear();
