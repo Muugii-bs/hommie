@@ -18,8 +18,8 @@ var UserBox = React.createClass({
     );
   }
 });
-
+/*
 ReactDOM.render(
   <UserBox />,
   document.getElementById('content')
-);
+);*/
