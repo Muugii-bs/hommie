@@ -4,7 +4,7 @@
 
 {% block extra_js %}
 <script type="text/javascript">
-    window.room = "{{ room.id }}";
+ window.room = "{{ room.id }}";
 </script>
 
 <script type="text/javascript" src="static/js/bonhomie.js"></script>
@@ -69,29 +69,27 @@
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+    <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Choose your model</h4>
-      </div>
-      <div class="modal-body">
-        <div id="modalTable" style="margin: -10px 0 10px 0;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Choose your model</h4>
+            </div>
+            <div class="modal-body">
+                <div id="modalTable" style="margin: -10px 0 10px 0;">
 
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
 
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
-
-  </div>
 </div>
 
 {% endblock %}
-
-
