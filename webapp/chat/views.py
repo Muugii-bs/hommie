@@ -6,6 +6,14 @@ from .models import Family, Sensor, SensorValue
 from .namespaces import ChatNamespace
 from .utils import get_object_or_404, get_or_create, get_current_time
 
+@app.route('/welcome')
+def welcome():
+    """
+    Landing page.
+    """
+    return render_template('landing.html')
+
+
 @app.route('/')
 def rooms():
     """
