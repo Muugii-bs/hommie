@@ -10,3 +10,18 @@ $ source venv/bin/activate # activate the venv
 ```
 
 Then open `localhost:5000` on your browser.
+
+## Installing NLP manually
+
+### Installing Mecab
+```sh
+$ cd webapp/chat/static
+$ pip install mecab-python-0.996.tar.gz
+```
+
+### Installing NLTK
+```sh
+$ python
+>>> import nltk
+>>> nltk.download()
+```
