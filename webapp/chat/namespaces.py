@@ -5,7 +5,6 @@ from chat import app
 
 class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
     nicknames = []
-    sensor_data = []
 
     def initialize(self):
         self.logger = app.logger
@@ -23,7 +22,7 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         self.log('Nickname: {0}'.format(nickname))
         self.nicknames.append(nickname)
         self.session['nickname'] = nickname
-        self.broadcast_event('announcement', nickname)
+        self.broadcast_event('announcement', '%s has connected' % nickname)
         self.broadcast_event('nicknames', self.nicknames)
         return True, nickname
 
@@ -32,7 +31,7 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         self.log('Disconnected')
         nickname = self.session['nickname']
         self.nicknames.remove(nickname)
-        self.broadcast_event('announcement', nickname)
+        self.broadcast_event('announcement', '%s has disconnected' % nickname)
         self.broadcast_event('nicknames', self.nicknames)
         self.disconnect(silent=True)
         return True
@@ -40,13 +39,13 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
     def on_user_message(self, msg):
         self.log('User message: {0}'.format(msg))
         self.emit_to_room(self.room, 'msg_to_room',
-            self.session['nickname'], msg)
+                          self.session['nickname'], msg)
         return True
 
-	def recv_data(self, data):
-		# Send sensor data.
-		self.log('User data: {0}'.format(data))
-		self.sensor_data.append(data);
-		self.emit_to_room(self.room, 'sensor_data', 
-			self.session['nickname', data])
-		return True
+    # def recv_data(self, data):
+    #     # Send sensor data.
+    #     self.log('User data: {0}'.format(data))
+    #     self.sensor_data.append(data);
+    #     self.emit_to_room(self.room, 'sensor_data',
+    #                       self.session['nickname'], data)
+    #     return True
