@@ -34,7 +34,7 @@ var render_user = function(user){
 	var $div = [];
 	var $person = $("<div>", {id: user, class: sideDiv});
 	$div[0] = $("<div>", {class: "col-xs-6"})
-		.html($("<img>", {class: "img-responsive", src:"static/img/"+types[user-1]+".png", style: "width: 100%;"}));
+		.html($("<img>", {class: "img-responsive", src:"static/img/"+types[user-1]+"_normal.png", style: "width: 100%;"}));
 	$div[1] = $("<div>", {class: "message col-xs-6"})
 		.html($("<p>", {class: sideMessage}));
 	$person.append($div[1-bit]).append($div[bit]);
