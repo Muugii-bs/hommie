@@ -10,7 +10,7 @@ $(function() {
 
     socket.on('announcement', function (user) {
         //$('#lines').append($('<p>').append($('<em>').text(msg)));
-		render_user(user);
+        render_msg(user.substring(0,1), "Logged In");
     });
 
     socket.on('nicknames', function (nicknames) {
@@ -18,7 +18,7 @@ $(function() {
         for (var i in nicknames) {
           $('#nicknames').append($('<b>').text(nicknames[i]));
         }*/
-		declare_users(nicknames);
+		// declare_users(nicknames);
     });
 
 	socket.on('sensor_data', function (nickname, data) {
@@ -45,8 +45,11 @@ $(function() {
 	
     // DOM manipulation
     $(function () {
+        var user = Math.floor((Math.random() * 6) + 1);
+        $("#nick").val(user);
+
         $('#set-nickname').submit(function (ev) {
-            socket.emit('nickname', $('#nick').val(), function (set) {
+            socket.emit('nickname', user, function (set) {
                 if (set) {
                     clear();
                     return $('#chat').addClass('nickname-set');
@@ -57,7 +60,9 @@ $(function() {
         });
 
         $('#send-message').submit(function () {
-            message('me', $('#message').val());
+
+            render_msg(user, $('#message').val());
+            // message('me', $('#message').val());
             socket.emit('user message', $('#message').val());
             clear();
             $('#lines').get(0).scrollTop = 10000000;
