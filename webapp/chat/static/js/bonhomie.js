@@ -37,21 +37,22 @@ var render_user = function(user){
 	$div[0] = $("<div>", {class: "col-xs-6"})
 	.html($("<img>", {class: "img-responsive"+(bit ?" flip":""),src:"static/img/"+types[user-1]+"_normal.png", style: "width: 100%;"}));
 	$div[1] = $("<div>", {class: "message col-xs-6"})
-		.html($("<p>", {class: sideMessage, style: "background-color: " + colors[user-1]}));
+		.html($("<div>", {class: sideMessage, style: "background-color: " + colors[user-1]}));
 	$person.append($div[1-bit]).append($div[bit]);
 	$("#people").append($person);
 	render_msg(user, "Hello", "normal");
 }
 
 var render_msg = function (user, msg, emotion){
-	$('#lines').append($('<p>').append('<b>' + types[user-1] + ': </b>').append($('<em>').text(msg)));
-	if (user=='System'){
+	if (user=='System' || user=='undefined'){
 		// $('#lines').append($('<p>').append($('<em>').text(msg)));
 		return;
 	}
+	$("#" + user).find("div .qtime").remove();
+	$('#lines').append($('<p>').append('<b>' + types[user-1] + ': </b>').append($('<em>').text(msg)));
 	tag = (new Date()).getTime();
 	$span = $("<span tag='" + tag + "'>").html(msg+"<br/>");
-	$("#" + user + " .message > p").append($span);
+	$("#" + user + " .message > div").append($span);
 	if (emotion) $("#" + user +"> div>img").attr('src','static/img/'+types[(user-1)%5]+'_' + emotion+'.png');
 }
 
@@ -63,17 +64,25 @@ var declare_users = function(users){
 for (var i=1; i<6; i++)
 	render_user(i);
 
-$("#butt").click(function(){
-	var user = Math.floor((Math.random() * 6) + 1);
-	render_msg(user, "asdasd", "normal");
-});
+var showTime = function(e, t){
+	var qtime = new Date(parseInt(t));
+	$qp = $("<div>", {class: 'qtime', style:'font-size:8px; font-strech:condensed'}).html(qtime.toString());
+	e.append($qp);
+}
 
 window.setInterval(function(){
 	// console.log("Cleaning");
 	$(".message").each(function(){
-		$(this).find("p>span").each(function(index){
+		var messageTotal = $(this).find("div>span").length;
+		var user = $(this).parent().attr('id');
+		if (messageTotal ==1){
+			if ($(this).find('.qtime').length==0)
+				showTime($(this).find('div'),$(this).find('span').get(0).getAttribute('tag'));
+			return;
+		}
+		$(this).find("div>span").each(function(index){
 		dtag = (new Date()).getTime();
-		if (dtag - $(this).attr('tag') > 5000){
+		if (dtag - $(this).attr('tag') > 5000 ){
 			$(this).fadeOut( "slow", function() {
 				$(this).remove();
 			});

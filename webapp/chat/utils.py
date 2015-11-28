@@ -164,6 +164,14 @@ def mood(text, debug = False):
     max_val = max(mood_dic_scores.values())
 
     if not max_val:
-        return 'neutral'
+        return 'normal'
 
-    return max(mood_dic_scores.iterkeys(), key=lambda k: mood_dic_scores[k])
+    ans = max(mood_dic_scores.iterkeys(), key=lambda k: mood_dic_scores[k])
+
+    new_moods = {
+        'anger': 'anger',
+        'fear': 'scared',
+        'sadness': 'sad',
+        'happy': 'happy',
+    }
+    return new_moods[ans]
