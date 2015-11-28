@@ -18,7 +18,7 @@ def unauthorized():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if flask_login.current_user.is_authenticated:
-        return redirect(url_for('protected'))
+        return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
         user, authenticated = User.authenticate(form.email.data, form.password.data)
@@ -27,8 +27,8 @@ def login():
                 flash(u'Please activate your email address.', 'warning')
                 return render_template('login.html', form=form)
             if flask_login.login_user(user, remember=True):
-                flash('Logged in successfully.', 'success')
-                return redirect(url_for('protected'))
+                # flash('Logged in successfully.', 'success')
+                return redirect(url_for('index'))
         else:
             flash(u'Your email or password is incorrect.', 'danger')
 
@@ -38,41 +38,28 @@ def login():
 @app.route('/logout')
 def logout():
     flask_login.logout_user()
-    flash('Logged out.', 'info')
-    return redirect(url_for('welcome'))
+    # flash('Logged out.', 'info')
+    return redirect(url_for('index'))
 
 
+# test controller
 @app.route('/protected')
 @flask_login.login_required
 def protected():
     return 'Logged in as: ' + str(flask_login.current_user.id)
 
 
-@app.route('/welcome')
-def welcome():
-    """
-    Landing page.
-    """
-    return render_template('landing.html')
-
-
 @app.route('/')
-def rooms():
+def index():
     """
-    Homepage - lists all rooms.
+    Universal Homepage.
     """
-    context = {"rooms": Family.query.all()}
-    return render_template('rooms.html', **context)
-
-
-@app.route('/<path:slug>')
-def room(slug):
-    """
-    Show a room.
-    """
-    # context = {"room": get_object_or_404(ChatRoom, slug=slug)}
-    context = {"room": get_object_or_404(Family, slug=slug)}
-    # todo: check privelege
+    if not flask_login.current_user.is_authenticated:
+        return render_template('landing.html')
+    # todo: if group_id is None redirect to create group page
+    user = User.query.get(flask_login.current_user.id)
+    family = Family.query.get(user.id)
+    context = {"family": family, "user": user}
     return render_template('room.html', **context)
 
 
@@ -114,4 +101,5 @@ def api_sensor_value():
         sv = SensorValue(value=value, timestamp=get_current_time(), sensor_id=sensor.id)
         db.session.add(sv)
         db.session.commit()
+        # todo send to sockets
     return ('OK', 200)
