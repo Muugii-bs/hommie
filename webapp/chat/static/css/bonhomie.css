@@ -1,24 +1,29 @@
-.row > div > div{
+#people> div{
     /*border: 10px;*/
-    border-color: black;
+    /*border-color: black;*/
     /*border-style: solid;*/
     border-width: 5px;
     height: 30vh;
+}
+
+#lines{
+  height: 50vh;
+  overflow-y: scroll;
 }
 
 
 
 .talkbubble {
    width: 120px;
-   height: 80px;
+   height: 100px;
    padding: 10px;
-   background: red;
+   background: orange;
    position: relative;
    -moz-border-radius:    10px;
    -webkit-border-radius: 10px;
    border-radius:         10px;
 }
-.talkbubble.right:before {
+.talkbubble.left:before {
    content:"";
    position: absolute;
    right: 100%;
@@ -26,10 +31,10 @@
    width: 0;
    height: 0;
    border-top: 13px solid transparent;
-   border-right: 26px solid red;
+   border-right: 26px solid orange;
    border-bottom: 13px solid transparent;
 }
-.talkbubble.left:before {
+.talkbubble.right:before {
    content:"";
    position: absolute;
    left: 100%;
