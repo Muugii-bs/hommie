@@ -10,3 +10,23 @@ $ source venv/bin/activate # activate the venv
 ```
 
 Then open `localhost:5000` on your browser.
+
+## Installing NLP manually
+
+### Installing Mecab
+```sh
+# on mac
+$ brew install mecab
+$ brew install mecab-ipadic
+$ cd webapp/chat/static
+$ pip install mecab-python-0.996.tar.gz
+```
+
+[Centos Here](http://qiita.com/saicologic/items/ab70e14f7e2ec2ee0b4d)
+
+### Installing NLTK
+```sh
+$ python
+>>> import nltk
+>>> nltk.download()
+```

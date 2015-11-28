@@ -2,6 +2,8 @@ var total = 0;
 var types = ["grandma", "dad", "mom", "son", "daughter"];
 var emos = ["angry", "sad", "happy", "normal", "scared"];
 var colors = ["#B4E0DC", "#1DAFEC", "#9CD09C", "#A18981", "#F3896B"];
+var atms = []
+var images = ["static/img/winter_wp1.jpg", "static/img/winter_wp2.jpg", "static/img/winter_wp3.jpg", "static/img/summer_wp1.jpg", "static/img/summer_wp2.png", "static/img/summer_wp3.jpg"];
 
 $qtable = $("<table>");
 $qdiv = [];
@@ -44,8 +46,9 @@ var render_user = function(user){
 }
 
 var render_msg = function (user, msg, emotion){
+
+	atms.push(emotion);
 	if (user=='System' || user=='undefined'){
-		// $('#lines').append($('<p>').append($('<em>').text(msg)));
 		return;
 	}
 	$("#" + user).find("div .qtime").remove();
@@ -71,7 +74,6 @@ var showTime = function(e, t){
 }
 
 window.setInterval(function(){
-	// console.log("Cleaning");
 	$(".message").each(function(){
 		var messageTotal = $(this).find("div>span").length;
 		var user = $(this).parent().attr('id');
@@ -92,3 +94,20 @@ window.setInterval(function(){
 
 	});
 }, 1000);
+
+window.setInterval(function(){
+	cnt = atms.length;
+	sum = 0;
+	for (var i = 0; i < cnt; i++) {
+		if(atms[i] != 'normal' && atms[i] != 'happy') {
+			sum ++;
+		}
+	}
+	if (sum > cnt/2) {
+		num = Math.floor((Math.random() * (images.length - 1)) + 1);
+		console.log('num: ', num, 'sum: ', sum);
+		$(document.body).css('background-image', 'url(' + images[num] + ')');
+	}
+	atms = [];
+
+}, 10000);
