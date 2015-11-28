@@ -58,7 +58,7 @@ def index():
         return render_template('landing.html')
     # todo: if group_id is None redirect to create group page
     user = User.query.get(flask_login.current_user.id)
-    family = Family.query.get(user.id)
+    family = Family.query.get(user.family_id)
     ms = User.query.filter_by(family_id=family.id)
     members = []
     for m in ms:
