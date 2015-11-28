@@ -1,0 +1,120 @@
+@keyframes linear {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 130px 0;
+  }
+}
+@keyframes radial {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 65px;
+  }
+}
+@keyframes repeating {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 65px;
+  }
+}
+@keyframes electronic {
+  0%,
+  100% {
+    background-position: 32.5px -32.5px;
+  }
+  25% {
+    background-position: 97.5px 32.5px;
+  }
+  50% {
+    background-position: 32.5px 97.5px;
+  }
+  75% {
+    background-position: -32.5px 32.5px;
+  }
+}
+.biliboard {
+  width: 130px;
+  height: 130px;
+  border-radius: 65px;
+  text-align: center;
+  position: relative;
+  background: #fff;
+  color: #333;
+  font: 18px open, tahoma;
+}
+.biliboard:before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 65px;
+  transform: scale(1.05, 1.08);
+  position: absolute;
+  background: #f00;
+  background: linear-gradient(90deg, #fafafa, #fafafa, #1D8EF7, #fafafa, #fafafa);
+  background-position: 65px 0;
+  top: 0;
+  animation: linear 1s infinite linear;
+  left: 0;
+  z-index: -1;
+}
+.biliboard.radial:before {
+  background: radial-gradient(#fafafa, #fafafa, #F2A61A, #fafafa, #fafafa);
+  animation: radial 1s infinite linear;
+}
+.biliboard.repeating:before {
+  background: repeating-linear-gradient(-45deg, #fafafa, #fafafa 30px, #5FC914 30px, #5FC914 60px) fixed;
+  animation: repeating 1s infinite linear;
+}
+.biliboard.electronic:before {
+  /*background: radial-gradient( #EA238D, #EA238D, #EA238D, #EA238D, #fafafa, #fafafa ) no-repeat;*/
+  background-size: 55px 55px;
+  animation: electronic 2s infinite linear;
+}
+.col4:before {
+  background: radial-gradient(#EA238D, #EA238D, #EA238D, #EA238D, #fafafa, #fafafa) no-repeat;
+}
+.col3:before {
+  background: radial-gradient(#38B462, #38B462, #38B462, #38B462, #fafafa, #fafafa) no-repeat;
+}
+.col2:before {
+  background: radial-gradient(#2BA1C7, #2BA1C7, #2BA1C7, #2BA1C7, #fafafa, #fafafa) no-repeat;
+}
+.col1:before {
+  background: radial-gradient(#FFA74B, #FFA74B, #FFA74B, #FFA74B, #fafafa, #fafafa) no-repeat;
+}
+.description_body {
+  background-color: none !important;
+  border-color: #bbb;
+  color: #333;
+  text-shadow: 0 1px 0 #f3f3f3;
+}
+.whatsnext {
+  margin: 30px 0 0 100px;
+}
+img {
+  width: 130px;
+  height: 130px;
+}
+td {
+  padding: 8px;
+}
+table {
+  margin: 0 auto;
+  /* or margin: 0 auto 0 auto */
+}
+/*.ui-mobile-viewport .ui-overlay-a{
+  background-color: none !important;
+}*/
+/*a {
+	display: block;
+	margin: auto;
+	margin-top: 50px;
+	text-decoration: none;
+	color: inherit;
+}*/

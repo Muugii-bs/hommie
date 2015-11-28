@@ -1,4 +1,30 @@
 var total = 0;
+var types = ["grandma", "dad", "mom", "son", "daughter"];
+var emos = ["angry", "sad", "happy", "normal", "scared"];
+
+$qtable = $("<table>");
+$qdiv = [];
+for (var i=1; i<6; i++){
+	$qa = $("<a>", {href:"#", id: "img"+i}).append($("<img>", {src: "static/img/"+types[i-1]+".png"}));
+	$qa.click(function(){
+		console.log($(this).attr('id'));
+	});
+	$qdiv[i] = $("<div>", {class: "biliboard electronic col"+i})
+		.append($qa);
+}
+$qtable.append($("<tr>", {style: "width:100%"})
+	.append($("<td>").append($qdiv[1]))
+	.append($("<td>").append($qdiv[2])))
+.append($("<tr>", {style: "width:100%"})
+	.append($("<td>").append($qdiv[3]))
+	.append($("<td>").append($qdiv[4])))
+.append($("<tr>", {style: "width:100%"})
+	.append($("<td>").append($qdiv[5])));
+
+console.log($qtable);
+$("#modalTable").html($qtable);
+
+
 var render_user = function(user){
 	var bit = user%2;
 	var side = bit ? 'left': 'right';
@@ -35,9 +61,7 @@ window.setInterval(function(){
 	$(".message").each(function(){
 		$(this).find("p>span").each(function(index){
 		dtag = (new Date()).getTime();
-		console.log(dtag - $(this).attr('tag'));
 		if (dtag - $(this).attr('tag') > 5000){
-			console.log($(this).attr('tag'));
 			$(this).fadeOut( "slow", function() {
 				$(this).remove();
 			});
