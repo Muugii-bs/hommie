@@ -187,7 +187,6 @@ def mood_eng(text, debug = False):
 
 def mood(unicode_string, debug = False):
     tagger = MeCab.Tagger(MECAB_MODE)
-    unicode_string = unicode(unicode_string, "utf-8")
     text = unicode_string.encode(PARSE_TEXT_ENCODING)
     node = tagger.parseToNode(text)
     node = node.next
