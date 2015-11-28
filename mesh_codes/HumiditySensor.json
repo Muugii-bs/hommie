@@ -1,0 +1,63 @@
+{
+  "formatVersion": "1.0",
+  "tagData": {
+    "name": "Humidity send",
+    "icon": "./res/x2/default_icon.png",
+    "description": "Humidity sensor data",
+    "functions": [
+      {
+        "id": "function_0",
+        "name": "Send Data",
+        "connector": {
+          "inputs": [
+            {
+              "label": "10"
+            },
+            {
+              "label": "20"
+            },
+            {
+              "label": "30"
+            },
+            {
+              "label": "40"
+            },
+            {
+              "label": "50"
+            },
+            {
+              "label": "60"
+            },
+            {
+              "label": "70"
+            },
+            {
+              "label": "80"
+            },
+            {
+              "label": "90"
+            },
+            {
+              "label": "100"
+            }
+          ],
+          "outputs": []
+        },
+        "properties": [
+          {
+            "name": "sendURL",
+            "referenceName": "sendURL",
+            "type": "string",
+            "defaultValue": "http://localhost"
+          }
+        ],
+        "extension": {
+          "initialize": "return {\n    runtimeValues : { humidity : 0 }   //\"count\"という変数を定義して初期化する\n}",
+          "receive": "var humidity = 0;\nhumidity = 10 * index + 10;\n\nruntimeValues.humidity = humidity;\n    return {\n        resultType : \"continue\",        //処理を継続\n        runtimeValues : runtimeValues   //runtimeValuesとして返す\n    };",
+          "execute": "var sendURL = properties.sendURL;\n\nvar humidity = runtimeValues.humidity;\nlog(\"Humidity: \" + humidity);\nvar data = { \"humidity\" : humidity };\n\najax ({\n    url : sendURL,\n    type : \"post\",\n\tdataType: 'json',\n    data :  { \"humidity\" : humidity },\n    timeout : 5000,\n    success : function ( contents ) {\n\t\tlog(\"POST sent. \" + sendURL);\n         \n    },\n    error : function ( request, errorMessage ) {\n        log(\"POST error. \" + sendURL);\n        callbackSuccess( {\n            resultType : \"continue\"\n        } );\n    }\n});\n \nreturn {\n    resultType : \"pause\"\n};",
+          "result": ""
+        }
+      }
+    ]
+  }
+}

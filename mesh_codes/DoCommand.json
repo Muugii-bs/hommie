@@ -1,0 +1,52 @@
+{
+  "formatVersion": "1.0",
+  "tagData": {
+    "name": "Do Command",
+    "icon": "./res/x2/default_icon.png",
+    "description": "Do command from server",
+    "functions": [
+      {
+        "id": "function_0",
+        "name": "Do Command",
+        "connector": {
+          "inputs": [
+            {
+              "label": ""
+            }
+          ],
+          "outputs": [
+            {
+              "label": "0"
+            },
+            {
+              "label": "1"
+            },
+            {
+              "label": "2"
+            },
+            {
+              "label": "3"
+            },
+            {
+              "label": "4"
+            }
+          ]
+        },
+        "properties": [
+          {
+            "name": "sendURL",
+            "referenceName": "sendURL",
+            "type": "string",
+            "defaultValue": "propety value"
+          }
+        ],
+        "extension": {
+          "initialize": "//Initialize \"outputIndex\"\nreturn {\n    runtimeValues : {\n        outputIndex : 0\n    },\n    resultType : \"continue\"\n};",
+          "receive": "",
+          "execute": "var sendURL = properties.sendURL;\n\najax ({\n    url : sendURL,\n    type : \"get\",\n    data :  \"\",\n    timeout : 5000,\n    success : function ( contents ) {\n\t\tlog(\"GET sent. \" + sendURL);\n\t\tlog(contents);\n\t\truntimeValues.outputIndex = parseInt(contents);\n    },\n    error : function ( request, errorMessage ) {\n        log(\"GET error. \" + sendURL);\n        callbackSuccess( {\n            resultType : \"continue\"\n        } );\n    }\n});\n \nreturn {\n        resultType : \"continue\",        //処理を継続\n        runtimeValues : runtimeValues   //runtimeValuesとして返す\n};",
+          "result": "//Select an output connector depending on the \"outputIndex\" value updated in \"Execute\"\nreturn {\n    indexes : [ runtimeValues.outputIndex ],\n    resultType : \"continue\"\n};"
+        }
+      }
+    ]
+  }
+}

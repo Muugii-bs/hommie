@@ -12,7 +12,7 @@ APP_STATIC = os.path.join(APP_ROOT, 'static')
 
 
 def slugify(value):
-    value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
+    value = unicodedata.normalize('NFKD', unicode(value)).encode('ascii', 'ignore')
     value = unicode(re.sub('[^\w\s-]', '', value).strip().lower())
     return re.sub('[-\s]+', '-', value)
 
