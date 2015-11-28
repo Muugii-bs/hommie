@@ -5,6 +5,8 @@
 {% block extra_js %}
 <script type="text/javascript">
  window.room = "{{ family.id }}";
+ var user = "{{user.id}}"
+ console.log(user);
 </script>
 
 <script type="text/javascript" src="static/js/bonhomie.js"></script>
