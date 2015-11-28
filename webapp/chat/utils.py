@@ -213,6 +213,12 @@ def mood(unicode_string, debug = False):
 
     if ans == "anger":
         return "angry"
+    if ans == "sadness":
+        return "sad"
+    if ans == "fear":
+        return "scared"
+    if ans == "joy":
+        return "happy"
 
     if ans != "ambiguous":
         return ans
