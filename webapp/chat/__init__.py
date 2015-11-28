@@ -77,6 +77,11 @@ def init_db():
 
 
 # views
+
+@app.route("/bonhomie")
+def bonhomie():
+    return render_template('bonhomie.html')
+    
 @app.route('/')
 def rooms():
     """
