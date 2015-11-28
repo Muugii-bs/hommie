@@ -99,6 +99,23 @@ server.on("request", function(req, res) {
     else if (req.url === "/api/getcommand"){
         res.write(String(do_command));
     }
+    // edison actions
+    else if (req.url === "/api/action1"){
+        console.log("Action 1!");
+        // action1
+        ledLight();
+        res.write("ok");
+    }
+    else if (req.url === "/api/action2"){
+        console.log("Action 2!");
+        // action2
+        res.write("ok");
+    }
+    else if (req.url === "/api/action3"){
+        console.log("Action 3!");
+        // action3
+        res.write("ok");
+    }
     else if (req.url === "/api/test") {
         var body = '';
 
@@ -109,7 +126,6 @@ server.on("request", function(req, res) {
         });
         req.on('end', function () {
             var post = qs.parse(body);
-            console.log(post, post.humidity);
             res.write("ok");
         });
     }
@@ -127,6 +143,8 @@ server.listen(http_port);
 // ===POST data to main server
 var request = require("request")
 var mainServerURL = "http://10.10.0.209:8000/api/test"
+// loop every 5 second
+// sends sensor datas
 setInterval(function(){
     var url = mainServerURL;
 
@@ -155,7 +173,7 @@ setInterval(function(){
             console.log("response.statusText: " + response.statusText)
         }
     });
-},5000);
+},5000 * 10);
 
 // ===reset shake every 5 min
 setInterval(function(){
@@ -168,7 +186,6 @@ setInterval(function(){
 var groveSensor = require('jsupm_grove');
 // Create the temperature sensor object using AIO pin 0
 var temp = new groveSensor.GroveTemp(0);
-console.log(temp.name());
 
 // Read the temperature ten times, printing both the Celsius and Farenheit
 var readTemp = function() {
@@ -178,6 +195,18 @@ var readTemp = function() {
         Math.round(fahrenheit) + " degrees Fahrenheit");
     return celsius;
 };
+
+// ===LED===
+// Create the Grove LED object using GPIO pin 2
+var led = new groveSensor.GroveLed(2);
+
+function ledLight(){
+    led.write(1);
+    setTimeout(function(){
+        led.write(0);
+    }, 2000);
+}
+
 
 // ===Motor===
 var Uln200xa_lib = require('jsupm_uln200xa');

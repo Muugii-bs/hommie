@@ -44,6 +44,12 @@ class Family(db.Model):
     slug = db.Column(db.String(STRING_LEN))
     admin_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    def __unicode__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return url_for('room', slug=self.slug)
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)

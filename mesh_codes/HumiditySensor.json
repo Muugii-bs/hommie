@@ -54,7 +54,7 @@
         "extension": {
           "initialize": "return {\n    runtimeValues : { humidity : 0 }   //\"count\"という変数を定義して初期化する\n}",
           "receive": "var humidity = 0;\nhumidity = 10 * index + 10;\n\nruntimeValues.humidity = humidity;\n    return {\n        resultType : \"continue\",        //処理を継続\n        runtimeValues : runtimeValues   //runtimeValuesとして返す\n    };",
-          "execute": "var sendURL = properties.sendURL;\n\nvar humidity = runtimeValues.humidity;\nlog(\"Humidity: \" + humidity);\nvar data = { \"humidity\" : humidity };\n\najax ({\n    url : sendURL,\n    type : \"post\",\n\tdataType: 'json',\n    data :  { \"humidity\" : humidity },\n    timeout : 5000,\n    success : function ( contents ) {\n\t\tlog(\"POST sent. \" + sendURL);\n         \n    },\n    error : function ( request, errorMessage ) {\n        log(\"POST error. \" + sendURL);\n        callbackSuccess( {\n            resultType : \"continue\"\n        } );\n    }\n});\n \nreturn {\n    resultType : \"pause\"\n};",
+          "execute": "var sendURL = properties.sendURL;\n\nvar humidity = runtimeValues.humidity;\nlog(\"Humidity: \" + humidity);\nvar data = { \"humidity\" : humidity };\n\najax ({\n    url : sendURL,\n    type : \"post\",\n\tdataType: 'json',\n    data :  { \"humidity\" : humidity },\n    timeout : 5000,\n    success : function ( contents ) {\n\t\tlog(\"POST sent. \" + sendURL);\n\t\tcallbackSuccess( {\n            resultType : \"continue\"\n        } );\n         \n    },\n    error : function ( request, errorMessage ) {\n        log(\"POST error. \" + sendURL);\n        callbackSuccess( {\n            resultType : \"continue\"\n        } );\n    }\n});\n \nreturn {\n    resultType : \"pause\"\n};",
           "result": ""
         }
       }

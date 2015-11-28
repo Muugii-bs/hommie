@@ -43,7 +43,7 @@
         "extension": {
           "initialize": "//Initialize \"outputIndex\"\nreturn {\n    runtimeValues : {\n        outputIndex : 0\n    },\n    resultType : \"continue\"\n};",
           "receive": "",
-          "execute": "var sendURL = properties.sendURL;\n\najax ({\n    url : sendURL,\n    type : \"get\",\n    data :  \"\",\n    timeout : 5000,\n    success : function ( contents ) {\n\t\tlog(\"GET sent. \" + sendURL);\n\t\tlog(contents);\n\t\truntimeValues.outputIndex = parseInt(contents);\n    },\n    error : function ( request, errorMessage ) {\n        log(\"GET error. \" + sendURL);\n        callbackSuccess( {\n            resultType : \"continue\"\n        } );\n    }\n});\n \nreturn {\n        resultType : \"continue\",        //処理を継続\n        runtimeValues : runtimeValues   //runtimeValuesとして返す\n};",
+          "execute": "var sendURL = properties.sendURL;\n\najax ({\n    url : sendURL,\n    type : \"get\",\n    data :  \"\",\n    timeout : 5000,\n    success : function ( contents ) {\n\t\tlog(\"GET sent. \" + sendURL);\n\t\tlog(contents);\n\t\truntimeValues.outputIndex = parseInt(contents);\n\t\tcallbackSuccess( {\n            resultType : \"continue\",\n            runtimeValues : runtimeValues\n        } );\n    },\n    error : function ( request, errorMessage ) {\n        log(\"GET error. \" + sendURL);\n        callbackSuccess( {\n            resultType : \"continue\",\n            runtimeValues : runtimeValues\n        } );\n    }\n});\n \nreturn {\n    resultType : \"pause\"\n};",
           "result": "//Select an output connector depending on the \"outputIndex\" value updated in \"Execute\"\nreturn {\n    indexes : [ runtimeValues.outputIndex ],\n    resultType : \"continue\"\n};"
         }
       }

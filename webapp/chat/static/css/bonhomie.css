@@ -18,7 +18,7 @@
    -webkit-border-radius: 10px;
    border-radius:         10px;
 }
-.talkbubble.left:before {
+.talkbubble.right:before {
    content:"";
    position: absolute;
    right: 100%;
@@ -29,7 +29,7 @@
    border-right: 26px solid red;
    border-bottom: 13px solid transparent;
 }
-.talkbubble.right:before {
+.talkbubble.left:before {
    content:"";
    position: absolute;
    left: 100%;

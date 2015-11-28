@@ -27,7 +27,7 @@
         "extension": {
           "initialize": "",
           "receive": "",
-          "execute": "var getURL = properties.getURL;\n\najax ({\n    url : getURL,\n    type : \"GET\",\n    data : \"\",\n    timeout : 5000,\n    success : function ( contents ) {\n\t\tlog(\"GET sent. \" + getURL);\n         \n    },\n    error : function ( request, errorMessage ) {\n        log(\"GET error. \" + getURL);\n        callbackSuccess( {\n            resultType : \"continue\"\n        } );\n    }\n});\n \nreturn {\n    resultType : \"pause\"\n};",
+          "execute": "var getURL = properties.getURL;\n\najax ({\n    url : getURL,\n    type : \"GET\",\n    data : \"\",\n    timeout : 5000,\n    success : function ( contents ) {\n\t\tlog(\"GET sent. \" + getURL);\n\t\tcallbackSuccess( {\n                    resultType : \"continue\"\n\t\t} );\n         \n    },\n    error : function ( request, errorMessage ) {\n        log(\"GET error. \" + getURL);\n        callbackSuccess( {\n                    resultType : \"continue\"\n\t\t} );\n    }\n});\n \nreturn {\n    resultType : \"pause\"\n};",
           "result": ""
         }
       }
