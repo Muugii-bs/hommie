@@ -1,7 +1,7 @@
 # Hommee.co
 Try me [http://hommee.co/](http://hommee.co/)
 ## 製品概要
-![Hommee.co](https://raw.github.com/wiki/jphacks/TK_03/images/sc01.jpg)
+![Hommee.co](./images/sc01.jpg)
 
 家族の絆を深める、家族内チャットツール。家族メンバーの感情分析などによって家族間コミュニケーションを促進させる。
 
@@ -17,13 +17,13 @@ Try me [http://hommee.co/](http://hommee.co/)
 またMESHやIntel EdisonによってIoT化された家のアバターもチャット内におり、温度や湿度などのモニタリングができたり、家に話しかけることで電気を消したり、家に帰った時には家がお帰りなさいと暖かく迎えてくれる。AIを持った家が家族メンバーのひとりとして具現化する。
 ### 特長
 
-![Hommee.co](https://raw.github.com/wiki/jphacks/TK_03/images/sc02.jpg)
+![Hommee.co](./images/sc02.jpg)
 ####1. 特長1
 anger, fear, sadness, happy, neutralなどの感情分析、可視化
 
-![happy](https://raw.github.com/wiki/jphacks/TK_03/images/emotion01.jpg)
-![emotion](https://raw.github.com/wiki/jphacks/TK_03/images/emotion02.jpg)
-![anger](https://raw.github.com/wiki/jphacks/TK_03/images/emotion02.jpg)
+![happy](./images/emotion01.png)
+![emotion](./images/emotion02.png)
+![anger](./images/emotion03.png)
 ####2. 特長2
 MESHやEdisonによって、スマート化された家。温度、湿度、人感センサーなどのデータをモニタリング。
 ####3. 特長3
@@ -44,7 +44,7 @@ MESHやEdisonによって、スマート化された家。温度、湿度、人�
 ## 開発技術
 ### 活用した技術
 
-![Hommee.co](https://raw.github.com/wiki/jphacks/TK_03/images/sc03.jpg)
+![Hommee.co](./images/sc03.jpg)
 #### API・データ
 * Python nltk 自然言語処理ライブラリ
 * Openweather 天気予報
