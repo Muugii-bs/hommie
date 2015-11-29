@@ -139,8 +139,8 @@ function move_character() {
 	character = $('#character');
 	//character.removeClass("hidden");
 	character.animate({opacity: 1}, 1);
-	character.animate({left: "-=750px"}, 5000);
-	character.animate({left: "+=750px"}, 1);
+	character.animate({left: "-=1550px"}, 7000);
+	character.animate({left: "+=1550px"}, 1);
 	//character.addClass("hidden");
 	character.animate({opacity: 0.01}, 1);
 }
@@ -193,7 +193,7 @@ function getLocation() {
 
 
 
-$('#myHome').click(function(){
+$('#6>div>img').click(function(){
 	$('.home-modal-lg').modal();
 	$('#temps').html(13);
 	$tmp = $("#" + familySize + "div >img");

@@ -13,13 +13,15 @@ body {
 }
 
 #lines{
-  background-color: #5D4037;
+  /*background-color: #5D4037;*/
+  background-color: #424242;
   color: floralwhite;
   border-radius: 3px;
   text-align: inherit;
   text-indent: 20px;
   height: 35vh;
   overflow-y: scroll;
+  height:665px;
 }
 
 img.flip {
@@ -110,7 +112,7 @@ img.flip {
 
 #character {
 	position:absolute;
-	left: 70px;
-    bottom: -95px;
+	left: 0px;
+    bottom: 0px;
 	opacity: 0.01;
 }

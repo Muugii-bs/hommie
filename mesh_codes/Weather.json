@@ -1,0 +1,52 @@
+{
+  "formatVersion": "1.0",
+  "tagData": {
+    "name": "Weather Tag",
+    "icon": "./res/x2/default_icon.png",
+    "description": "Weather",
+    "functions": [
+      {
+        "id": "function_0",
+        "name": "Weather",
+        "connector": {
+          "inputs": [
+            {
+              "label": ""
+            }
+          ],
+          "outputs": [
+            {
+              "label": "Sunny"
+            },
+            {
+              "label": "Cloudy"
+            },
+            {
+              "label": "Rainy"
+            }
+          ]
+        },
+        "properties": [
+          {
+            "name": "location",
+            "referenceName": "location",
+            "type": "string",
+            "defaultValue": "propety value"
+          },
+          {
+            "name": "apikey",
+            "referenceName": "apikey",
+            "type": "string",
+            "defaultValue": "propety value"
+          }
+        ],
+        "extension": {
+          "initialize": "//Initialize \"outputIndex\"\nreturn {\n    runtimeValues : {\n        outputIndex : 0\n    },\n    resultType : \"continue\"\n};",
+          "receive": "",
+          "execute": "//The API which gets daily weather forecast\nvar apiURL = \"http://api.openweathermap.org/data/2.5/forecast/daily\";\n \n//The parameter of the API\n//Pass the value of the property\nvar data = {\n    \"q\" : properties.location,\n    \"cnt\" : 1,\n    \"APPID\" : properties.apikey //Please replace it with the App ID you get\n};\n \najax ({\n    url : apiURL,\n    data : data,\n    type : \"get\",\n    timeout : 5000,\n    success : function ( contents ) {\n        //Validate the contents\n        if ( !contents.list || !contents.list[ 0 ] || !contents.list[ 0 ].weather || !contents.list[ 0 ].weather[ 0 ] || !contents.list[ 0 ].weather[ 0 ].id ) {\n            log(\"Weather : Invalid data\");\n            runtimeValues.outputIndex = -1;\n            callbackSuccess( {\n                resultType : \"continue\",\n                runtimeValues : runtimeValues\n            } );\n        }\n \n        //Extract the ID part indicating the weather and convert it to the number value\n        var idNum = contents.list[ 0 ].weather[ 0 ].id + 0;\n \n        //Change the value of \"outputIndex\" depending on the weather\n        if ( ( 200 <= idNum && idNum <= 531 ) || ( 600 <= idNum && idNum <= 622 ) ) { //Rainy\n            runtimeValues.outputIndex = 2;\n        } else if ( 701 <= idNum && idNum <= 781 ) { //Cloudy\n            runtimeValues.outputIndex = 1;\n        } else if ( 800 <= idNum && idNum <= 802 ) { //Sunny\n            runtimeValues.outputIndex = 0;\n        } else {\n            runtimeValues.outputIndex = 1;\n        }\n         \n        callbackSuccess( {\n            resultType : \"continue\",\n            runtimeValues : runtimeValues\n        } );\n    },\n    error : function ( request, errorMessage ) {\n        log(\"Weather : Network error\");\n        runtimeValues.outputIndex = -1;\n        callbackSuccess( {\n            resultType : \"continue\",\n            runtimeValues : runtimeValues\n        } );\n    }\n});\n \nreturn {\n    resultType : \"pause\"\n};",
+          "result": "//Select an output connector depending on the \"outputIndex\" value updated in \"Execute\"\nreturn {\n    indexes : [ runtimeValues.outputIndex ],\n    resultType : \"continue\"\n};"
+        }
+      }
+    ]
+  }
+}
