@@ -5,13 +5,15 @@ var colors = ["#B4E0DC", "#1DAFEC", "#9CD09C", "#A18981", "#F3896B"];
 var atms = []
 var images = ["static/img/winter_wp1.jpg", "static/img/winter_wp2.jpg", "static/img/winter_wp3.jpg", "static/img/summer_wp1.jpg", "static/img/summer_wp2.png", "static/img/summer_wp3.jpg"];
 
-var render_msg = function (user, msg, emotion){
+var render_msg = function (user, msg, emotion, place){
 	atms.push(emotion);
 	if (user=='System' || user=='undefined'){
 		return;
 	}
 	$("#" + user).find("div .qtime").remove();
-	$('#lines').append($('<p>').append('<b>' + ms[user] + ': </b>').append($('<em>').text(msg)));
+	if (place!='home' && place!='university')  place='building';
+	fa = '<i class="fa fa-2x fa-' + place+ '"></i>';
+	$('#lines').append($('<p>').append(fa + '<b>' + ms[user] + ': </b>').append($('<em>').text(msg)));
 	tag = (new Date()).getTime();
 	$span = $("<span tag='" + tag + "'>").html(msg+"<br/>");
 	$("#" + user + " .message > div").append($span);
@@ -107,7 +109,7 @@ school["lat"]= 35.5969408;
 school["long"]= 139.67262;
 var home = [];
 home["lat"]=35.6597839;
-home["long"]139.6770864;
+home["long"] = 139.6770864;
 
 
 function distance(lat1, lon1, lat2, lon2, unit) {
