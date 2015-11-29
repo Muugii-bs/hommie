@@ -85,7 +85,6 @@ def create():
 @app.route('/socket.io/<path:remaining>')
 def socketio(remaining):
     try:
-        # socketio_manage(request.environ, {'/chat': ChatNamespace}, request)
         socketio_manage(request.environ, {'/chat': ChatNamespace}, request)
     except:
         app.logger.error("Exception while handling socketio connection",
