@@ -101,3 +101,10 @@ img.flip {
 	position:relative;
 	top: 20px;
 }
+
+#character {
+	position:absolute;
+	left: 70px;
+    bottom: -95px;
+	opacity: 0.01;
+}
