@@ -43,7 +43,7 @@ var render_user = function(user){
 	//$div[1].html({class: "img-responsive", id: "myHome", src:"static/img/house.png, style: "width: 30%});
 	$person.append($div[1-bit]).append($div[bit]);
 	$("#people").append($person);
-	render_msg(user, "Hello", "normal");
+	render_msg(user, (ms[user]=='house')?"HOME":"", "normal");
 }
 
 var declare_users = function(){
