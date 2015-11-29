@@ -109,5 +109,19 @@ function showPosition(position) {
 	lat = position.coords.latitude;
 	lon = position.coords.longitude;
 	url = "comgooglemaps://?center=" + lat + "," + lon + "&zoom=14&views=traffic";
-	$("#map").html(url);          
+	$("#map").html(url);
 }
+
+
+
+$('#myHome').click(function(){
+	$('.bs-example-modal-lg').modal();
+	$('#temps').html(13);
+})
+
+
+$('#home-light').click(function(){
+	console.log("light on");
+	$.get('http://10.10.0.209:8000/api/action1');
+})
+
