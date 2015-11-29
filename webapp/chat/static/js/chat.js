@@ -26,11 +26,11 @@ $(function() {
 
     socket.on('msg_to_room', function (nickname, msg, emotion) {
         render_msg(nickname, msg, emotion);
-		console.log(nickname + " " + msg + " " + emotion);
+		// console.log(nickname + " " + msg + " " + emotion);
 	});
     socket.on('user_message_feedback', function (nickname, msg, emotion) {
         render_msg(nickname, msg, emotion);
-        console.log(nickname + " " + msg + " " + emotion);
+        // console.log(nickname + " " + msg + " " + emotion);
     });
 
     socket.on('reconnect', function () {
@@ -68,12 +68,11 @@ $(function() {
             socket.emit('user message', $('#message').val());
             clear();
             $('#lines').get(0).scrollTop = 10000000;
-            return false;
+            // return false;
         });
 
         function clear () {
             $('#message').val('').focus();
         }
     });
-
 });
