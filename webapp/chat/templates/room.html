@@ -18,6 +18,9 @@ var familySize = {{members | length}};
 
 <script type="text/javascript" src="static/js/bonhomie.js"></script>
 <script type="text/javascript" src="static/js/chat.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.9/d3.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.5.1/rickshaw.min.js"></script>
+<script type="text/javascript" src="static/js/graph.js"></script>
 <script type="text/javascript">
 var messageHistory = [];
 var message;
@@ -45,6 +48,7 @@ function doSetTimeout(a,b,c, t) {
 
 </script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.5.1/rickshaw.min.css" media="all">
 <link rel="stylesheet" href="static/css/home_button.css" media="all">
 
 {% endblock %}
@@ -97,6 +101,11 @@ function doSetTimeout(a,b,c, t) {
 				<img id="character" class="img-responsive" src="static/img/character.png" alt="" style="width: 80%;">
                 <img id="myHome" class="img-responsive" src="static/img/house.png" alt="" style="width: 100%;">
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="chart_container">
+	    <div id="chart"></div>
         </div>
     </div>
 </div>
