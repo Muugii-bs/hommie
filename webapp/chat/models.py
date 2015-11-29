@@ -1,5 +1,6 @@
 from flask import url_for
 import flask.ext.login as flask_login
+import json
 from werkzeug import check_password_hash, generate_password_hash
 
 from chat import db
@@ -92,6 +93,16 @@ class SensorValue(db.Model):
     value = db.Column(db.String(STRING_LEN), nullable=False)
     timestamp = db.Column(db.DateTime)
     sensor_id = db.Column(db.Integer, db.ForeignKey('sensor.id'))
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {
+            'id': self.id,
+            'value':  self.value,
+            'sensor_id'  : self.sensor_id,
+            'timestamp': json.dumps(self.timestamp.isoformat())
+        }
 
 
 class UserType(db.Model):
