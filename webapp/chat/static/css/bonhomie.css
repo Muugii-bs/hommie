@@ -3,6 +3,8 @@ body {
 }
 
 #people> div{
+	position:relative;
+	top:20px;
     /*border: 10px;*/
     /*border-color: black;*/
     /*border-style: solid;*/
@@ -11,6 +13,11 @@ body {
 }
 
 #lines{
+  background-color: #5D4037;
+  color: floralwhite;
+  border-radius: 3px;
+  text-align: inherit;
+  text-indent: 20px;
   height: 35vh;
   overflow-y: scroll;
 }
@@ -76,4 +83,21 @@ img.flip {
  padding-top: 0px;
 }
 
+.col-xs-8 {
+	background-color:currentColor;
+	border-radius: 4px;
+}
 
+#line-title {
+	text-align:end;
+	background-color:floralwhite;
+	color:#5D4037;
+	border-radius: 2px;
+	position:relative;
+	top: -20px;
+}
+
+.container {
+	position:relative;
+	top: 20px;
+}
