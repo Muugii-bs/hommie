@@ -17,6 +17,8 @@ class Family(db.Model):
     name = db.Column(db.String(STRING_LEN), nullable=False)
     slug = db.Column(db.String(STRING_LEN))
     admin_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    home_lat = db.Column(db.Float)
+    home_long = db.Column(db.Float)
 
     def __unicode__(self):
         return self.name
@@ -37,6 +39,9 @@ class User(db.Model, flask_login.UserMixin):
     name = db.Column(db.String(STRING_LEN), nullable=False)
     email = db.Column(db.String(STRING_LEN))
     status_code = db.Column(db.SmallInteger, default=INACTIVE)
+
+    work_lat = db.Column(db.Float)
+    work_long = db.Column(db.Float)
 
     _password = db.Column('password', db.String(STRING_LEN), nullable=False)
     def _get_password(self):

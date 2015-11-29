@@ -1,9 +1,17 @@
 var total = 0;
-// var types = ["grandma", "dad", "mom", "son", "daughter"];
+// var types = ["grandma", "dad", "mom", "son", "daughter", "grandpa"];
 var emos = ["angry", "sad", "happy", "normal", "scared"];
-var colors = ["#B4E0DC", "#1DAFEC", "#9CD09C", "#A18981", "#F3896B"];
+var colors = ["#B4E0DC", "#1DAFEC", "#9CD09C", "#A18981", "#F3896B", "#BF1E2E"];
+var colors = {}
 var atms = []
-var images = ["static/img/winter_wp1.jpg", "static/img/winter_wp2.jpg", "static/img/winter_wp3.jpg", "static/img/summer_wp1.jpg", "static/img/summer_wp2.png", "static/img/summer_wp3.jpg"];
+var images = ["static/img/winter_wp1.jpg", "static/img/winter_wp2.jpg", "static/img/winter_wp3.jpg", "static/img/summer_wp1.jpg", "static/img/summer_wp2.png", "static/img/summer_wp3.jpg"]
+
+colors["grandma"] = "#B4E0DC";
+colors["dad"] = "#1DAFEC";
+colors["mom"] = "#9CD09C";
+colors["son"] = "#A18981";
+colors["daughter"] = "#F3896B";
+colors["grandpa"] = "#BF1E2E";
 
 var render_msg = function (user, msg, emotion, place){
 	atms.push(emotion);
@@ -21,7 +29,6 @@ var render_msg = function (user, msg, emotion, place){
 }
 
 var render_user = function(user){
-	if (ms[user]=='house') return;
 	var bit = user%2;
 	var side = bit ? 'left': 'right';
 	var sideDiv = 'col-xs-6 pull-' + side; 
@@ -30,9 +37,10 @@ var render_user = function(user){
 	var $div = [];
 	var $person = $("<div>", {id: user, class: sideDiv});
 	$div[0] = $("<div>", {class: "col-xs-6"})
-	.html($("<img>", {class: "img-responsive"+(bit ?" flip":""),src:"static/img/"+ms[user]+"_normal.png", style: "width: 100%;"}));
+	.html($("<img>", {class: "img-responsive"+(bit ?" ":""),src:"static/img/"+ms[user]+"_normal.png", style: "width: 100%;"}));
 	$div[1] = $("<div>", {class: "message col-xs-6"})
-		.html($("<div>", {class: sideMessage, style: "background-color: " + colors[user-1]}));
+		.html($("<div>", {class: sideMessage, style: "background-color: " + colors[ms[user]]}));
+	//$div[1].html({class: "img-responsive", id: "myHome", src:"static/img/house.png, style: "width: 30%});
 	$person.append($div[1-bit]).append($div[bit]);
 	$("#people").append($person);
 	render_msg(user, (ms[user]=='house')?"HOME":"", "normal");
