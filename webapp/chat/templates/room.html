@@ -33,7 +33,7 @@ var message;
 {% endfor %}
 
 for (var i=0; i<messageHistory.length; i++){
-    doSetTimeout(messageHistory[i]['user'], messageHistory[i]['msg'], messageHistory[i]['emotion'], 1000*i);
+    doSetTimeout(messageHistory[i]['user'], messageHistory[i]['msg'], messageHistory[i]['emotion'], 100*i);
 }
 
 function doSetTimeout(a,b,c, t) {
