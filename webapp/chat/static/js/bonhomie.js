@@ -182,7 +182,7 @@ function getLocation() {
 
 
 
-$('#myHome').click(function(){
+$('#6>div>img').click(function(){
 	$('.home-modal-lg').modal();
 	$('#temps').html(13);
 })
