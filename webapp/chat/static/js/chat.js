@@ -10,7 +10,7 @@ $(function() {
 
     socket.on('announcement', function (user) {
         //$('#lines').append($('<p>').append($('<em>').text(msg)));
-        render_msg(user.substring(0,1), "Logged In");
+        // render_msg(user.substring(0,1), "Logged In");
     });
     socket.on('nicknames', function (nicknames) {
         /*$('#nicknames').empty().append($('<span>Online: </span>'));
@@ -48,31 +48,34 @@ $(function() {
     });
 	
     // DOM manipulation
-    $(function () {
-        $("#nick").val(user);
+   
+    $("#nick").val(user);
 
-        //$('#set-nickname').submit(function (ev) {
-        socket.emit('nickname', user, function (set) {
-            if (set) {
-                clear();
-                return $('#chat').addClass('nickname-set');
-            }
-            $('#nickname-err').css('visibility', 'visible');
-         });
-            //return false;
-        //});
-
-        $('#send-message').submit(function () {
-            // render_msg($("#nick").val(), $('#message').val());
-            // message('me', $('#message').val());
-            socket.emit('user message', $('#message').val());
+    //$('#set-nickname').submit(function (ev) {
+    socket.emit('nickname', user, function (set) {
+        if (set) {
             clear();
-            $('#lines').get(0).scrollTop = 10000000;
-            // return false;
-        });
-
-        function clear () {
-            $('#message').val('').focus();
+            return $('#chat').addClass('nickname-set');
         }
+        $('#nickname-err').css('visibility', 'visible');
+     });
+        //return false;
+    //});
+
+    $('#send-message').submit(function () {
+        // render_msg($("#nick").val(), $('#message').val());
+        // message('me', $('#message').val());
+        socket.emit('user message', $('#message').val());
+        clear();
+        $('#lines').get(0).scrollTop = 10000000;
+        return false;
     });
+    $("#messageButton").click(function(){
+         clear();
+    });
+
+    var clear = function () {
+        $('#message').val('').focus();
+    }   
 });
+

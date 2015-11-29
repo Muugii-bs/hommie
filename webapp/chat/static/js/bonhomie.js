@@ -20,7 +20,6 @@ var render_msg = function (user, msg, emotion, place){
 	if (emotion) $("#" + user +"> div>img").attr('src','static/img/'+ms[user]+'_' + emotion+'.png');
 }
 
-
 var render_user = function(user){
 	if (ms[user]=='house') return;
 	var bit = user%2;
@@ -36,7 +35,7 @@ var render_user = function(user){
 		.html($("<div>", {class: sideMessage, style: "background-color: " + colors[user-1]}));
 	$person.append($div[1-bit]).append($div[bit]);
 	$("#people").append($person);
-	render_msg(user, "Hello", "normal");
+	render_msg(user, (ms[user]=='house')?"HOME":"", "normal");
 }
 
 var declare_users = function(){
