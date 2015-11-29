@@ -147,12 +147,22 @@ function getLocation() {
 
 // getLocation();   
 
+
+
 $('#myHome').click(function(){
-	$('.bs-example-modal-lg').modal();
+	$('.home-modal-lg').modal();
 	$('#temps').html(13);
 })
+
 
 $('#home-light').click(function(){
 	console.log("light on");
 	$.get('http://10.10.0.209:8000/api/action1');
+})
+
+
+$('#3>div>img').click(function(){
+	console.log("grandpa clicked");
+	$('.grandpa-modal').modal();
+
 })
