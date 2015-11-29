@@ -142,7 +142,7 @@ server.listen(http_port);
 
 // ===POST data to main server
 var request = require("request")
-var mainServerURL = "http://10.10.0.209:8000/api/test"
+var mainServerURL = "http://10.10.1.228:5000/api/sensor_value"
 // loop every 5 second
 // sends sensor datas
 setInterval(function(){
@@ -152,28 +152,44 @@ setInterval(function(){
     data.humidity = gl_humidity;
     data.temperature = readTemp();
     data.shake = gl_shake;
+    console.log("Send T: " + data.temperature + ", H: " + data.humidity + "%, S: " + data.shake);
 
 
     // fire request
-    request({
-        url: url,
-        method: "POST",
-        json: true,
-        headers: {
-            "content-type": "application/json",
-        },
-        body: JSON.stringify(data)
-    }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            console.log(body)
+    sendSensorData(1, String(data.temperature));
+    sendSensorData(2, String(data.humidity));
+    sendSensorData(3, String(data.shake));
+},5000);
+
+function sendSensorData (sensor_id, value){
+    // { "sensor_id": sensor_id, "value": value }
+    var query = { form: { "sensor_id": sensor_id, "value": value } };
+    request.post(
+        mainServerURL,
+        query,
+        function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log( "Sensor data sent. " + sensor_id + ":" + value + body)
+            }
         }
-        else {
-            console.log("error: " + error)
-            console.log("response.statusCode: " + response.statusCode)
-            console.log("response.statusText: " + response.statusText)
-        }
-    });
-},5000 * 10);
+    );
+}
+
+// ===socketio-client
+var mainServerSocket = "http://10.10.1.228:5000/chat";
+var io = require('socket.io-client');
+var socket = io.connect(mainServerSocket);
+socket.on('connect', function (data) {
+  console.log("socket connect.");
+});
+socket.on('sendMsgFromServer', function (msg) {
+    console.log("message:",msg);
+});
+
+setInterval(function(){
+  socket.emit("sendMsgFromClient","send client msg");
+}, 1000 * 5);
+
 
 // ===reset shake every 5 min
 setInterval(function(){
@@ -191,8 +207,6 @@ var temp = new groveSensor.GroveTemp(0);
 var readTemp = function() {
     var celsius = temp.value();
     var fahrenheit = celsius * 9.0/5.0 + 32.0;
-    console.log(celsius + " degrees Celsius, or " +
-        Math.round(fahrenheit) + " degrees Fahrenheit");
     return celsius;
 };
 
