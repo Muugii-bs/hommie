@@ -110,7 +110,7 @@ def create_defaults(db):
             elif i == 1:
                 v = 50 - 20 * math.cos(x)
             else:
-                if timestamp.h >= 15 and timestamp.h <= 21:
+                if timestamp.hour >= 15 and timestamp.hour <= 21:
                     v = 0
                 else:
                     v = randint(0, 200)
