@@ -93,11 +93,27 @@ function doSetTimeout(a,b,c, t) {
 			<!--<div class="homebubble">
 			</div>-->
             <div>
-                <img class="img-responsive" src="static/img/house.png" alt="" style="width: 100%;">
+			</div>
+				<img id="character" class="img-responsive" src="static/img/character.png" alt="" style="width: 80%;">
+                <img id="myHome" class="img-responsive" src="static/img/house.png" alt="" style="width: 100%;">
             </div>
         </div>
     </div>
 </div>
 
+<!-- Home modal -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="text-align: center">
+      <h4>Home Info</h4>
+        <div id="temps">
+
+        </div>
+
+    <button type="button" id="home-light" >Light</button>
+
+    </div>
+  </div>
+</div>
 
 {% endblock %}

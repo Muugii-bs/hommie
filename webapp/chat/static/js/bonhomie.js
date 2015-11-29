@@ -86,11 +86,21 @@ window.setInterval(function(){
 		num = Math.floor((Math.random() * (images.length - 1)) + 1);
 		console.log('num: ', num, 'sum: ', sum);
 		$(document.body).css('background-image', 'url(' + images[num] + ')');
+		move_character();
 	}
 	atms = [];
 
 }, 10000);
 
+function move_character() {
+	character = $('#character');
+	//character.removeClass("hidden");
+	character.animate({opacity: 1}, 1);
+	character.animate({left: "-=750px"}, 5000);
+	character.animate({left: "+=750px"}, 1);
+	//character.addClass("hidden");
+	character.animate({opacity: 0.01}, 1);
+}
 
 var school = [];
 school["lat"]= 35.5969408;
@@ -116,6 +126,7 @@ function distance(lat1, lon1, lat2, lon2, unit) {
     return dist
 }
  
+
 var lat, lon;
 
 function showPosition(position) {
@@ -133,3 +144,13 @@ function getLocation() {
 }
 
 // getLocation();   
+
+$('#myHome').click(function(){
+	$('.bs-example-modal-lg').modal();
+	$('#temps').html(13);
+})
+
+$('#home-light').click(function(){
+	console.log("light on");
+	$.get('http://10.10.0.209:8000/api/action1');
+})
