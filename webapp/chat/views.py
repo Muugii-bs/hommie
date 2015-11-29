@@ -1,6 +1,10 @@
-from flask import Response, request, render_template, url_for, redirect, flash
+from flask import Response, request, render_template, url_for, redirect, flash, jsonify
 from socketio import socketio_manage
+from sqlalchemy import and_
+from datetime import timedelta
+
 import flask.ext.login as flask_login
+import json
 
 from chat import app, db, login_manager
 from .models import Family, Sensor, SensorValue, User, UserType, Message
@@ -108,3 +112,23 @@ def api_sensor_value():
         db.session.commit()
         # todo send to sockets
     return ('OK', 200)
+
+
+@app.route('/api/sensor_history', methods=['GET'])
+def api_sensor_history():
+    """
+    Returns sensor data
+    """
+    sensor_id = request.args.get('sensor_id')
+    span_mins = request.args.get('span_mins')
+
+    if sensor_id and span_mins:
+        sensor = get_object_or_404(Sensor, id=int(sensor_id))
+        start_time = get_current_time() - timedelta(minutes=int(span_mins))
+        svs = SensorValue.query.filter(and_(SensorValue.sensor_id==sensor.id, SensorValue.timestamp>start_time))
+        data = jsonify({'data': [ record.serialize for record in svs.all() ]})
+        resp = data
+        resp.status_code = 200
+        return resp
+
+    return ({'data': []} , 200)
