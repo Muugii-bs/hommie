@@ -10,30 +10,30 @@ var ajaxGraph = new Rickshaw.Graph.Ajax( {
     renderer: 'line',
     dataURL: 'api/sensor_history?sensor_id=1&span_mins=1440',
     onData: function(d) {
-        // console.log(d['data']);
-        for (i = 0; i < d['data'].length; i++) {
-           // console.log(d['data'][i]);
-           var id = d['data'][i]['id'];
-           var sensor_id = d['data'][i]['sensor_id'];
-           var timestamp = d['data'][i]['timestamp'];
-           var value = parseInt(d['data'][i]['value']);
-           console.log(id, sensor_id, timestamp, value);
-           if(sensor_id == 1){
-                console.log(data_sensor1);
-                // var data = {};
-                // data['x'] = value;
-                // data['y'] = value;
-                // data_sensor1.push(data);
-                data_sensor1.push({x: value, y: value})
-                // JSON.stringify(data_sensor1);
-           }
-           if(sensor_id == 2){
-                data_sensor2.push({'x': value, 'y': value});
-           }
-           if(sensor_id == 3){
-                data_sensor3.push({'x': value, 'y': value});
-           }
-        }
+        console.log(d['data']);
+        // for (i = 0; i < d['data'].length; i++) {
+        //    // console.log(d['data'][i]);
+        //    var id = d['data'][i]['id'];
+        //    var sensor_id = d['data'][i]['sensor_id'];
+        //    var timestamp = d['data'][i]['timestamp'];
+        //    var value = parseInt(d['data'][i]['value']);
+        //    console.log(id, sensor_id, timestamp, value);
+        //    if(sensor_id == 1){
+        //         console.log(data_sensor1);
+        //         // var data = {};
+        //         // data['x'] = value;
+        //         // data['y'] = value;
+        //         // data_sensor1.push(data);
+        //         data_sensor1.push({x: value, y: value})
+        //         // JSON.stringify(data_sensor1);
+        //    }
+        //    if(sensor_id == 2){
+        //         data_sensor2.push({'x': value, 'y': value});
+        //    }
+        //    if(sensor_id == 3){
+        //         data_sensor3.push({'x': value, 'y': value});
+        //    }
+        // }
 
         return d
         },
@@ -60,7 +60,7 @@ var graph = new Rickshaw.Graph( {
         height: 250,
         series: [ {
                 color: 'steelblue',
-                data: data_sensor1
+                data: data
         } ]
 } );
 
