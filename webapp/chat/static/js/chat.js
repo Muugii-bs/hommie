@@ -45,7 +45,6 @@ $(function() {
 	
     // DOM manipulation
     $(function () {
-        var user = Math.floor((Math.random() * 6) + 1);
         $("#nick").val(user);
 
         //$('#set-nickname').submit(function (ev) {

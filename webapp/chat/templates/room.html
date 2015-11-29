@@ -5,6 +5,15 @@
 {% block extra_js %}
 <script type="text/javascript">
  window.room = "{{ family.id }}";
+ var user = "{{user.id}}";
+ var ms = [];
+ var msid = [];
+var familySize = {{members | length}};
+{% for id, type in members %}
+        ms[{{id}}]= '{{type}}';
+        msid.push({{id}});
+{% endfor %}
+
 </script>
 
 <script type="text/javascript" src="static/js/bonhomie.js"></script>
