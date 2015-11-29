@@ -32,6 +32,12 @@ img.flip {
   filter: FlipH;                 /* IE 6/7/8 */
 }
 
+#home-light{
+  position: relative;
+  left: 80%;
+  bottom: 120px;
+}
+
 
 
 .talkbubble {

@@ -22,9 +22,15 @@ var render_msg = function (user, msg, emotion, place){
 	if (place!='home' && place!='university')  place='building';
 	fa = '<i class="fa fa-2x fa-' + place+ '"></i>';
 	$('#lines').append($('<p>').append(fa + '<b>' + ms[user] + ': </b>').append($('<em>').text(msg)));
+	
 	tag = (new Date()).getTime();
-	$span = $("<span tag='" + tag + "'>").html(msg+"<br/>");
+	$span = $("<span>", {tag:tag}).html(msg+"<br/>");
+	// $span = $("<span>", {tag:tag});
 	$("#" + user + " .message > div").append($span);
+	// $span.typed({
+ //        strings: [msg],
+ //        typeSpeed: 3
+ //      })
 	if (emotion) $("#" + user +"> div>img").attr('src','static/img/'+ms[user]+'_' + emotion+'.png');
 }
 
@@ -43,6 +49,11 @@ var render_user = function(user){
 	//$div[1].html({class: "img-responsive", id: "myHome", src:"static/img/house.png, style: "width: 30%});
 	$person.append($div[1-bit]).append($div[bit]);
 	$("#people").append($person);
+	if (user==familySize){
+		// $qi = $("<i>", {class: "fa fa-power-off"});
+		$qi = $("<button>", {type:"button",id:"home-light"}).text("Light");
+		$div[0].append($qi);
+	}
 	render_msg(user, (ms[user]=='house')?"HOME":"", "normal");
 }
 
@@ -104,7 +115,7 @@ window.setInterval(function(){
 		});
 
 	});
-}, 1000);
+}, 500);
 
 window.setInterval(function(){
 	cnt = atms.length;
@@ -180,9 +191,13 @@ function getLocation() {
 
 // getLocation();   
 
-$('#myHome').click(function(){
+
+$('#6>div>img').click(function(){
 	$('.home-modal-lg').modal();
 	$('#temps').html(13);
+	$tmp = $("#" + familySize + "div >img");
+	console.log($tmp);
+
 })
 
 

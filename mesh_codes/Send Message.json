@@ -1,0 +1,42 @@
+{
+  "formatVersion": "1.0",
+  "tagData": {
+    "name": "Send Message",
+    "icon": "./res/x2/default_icon.png",
+    "description": "Send message as a home",
+    "functions": [
+      {
+        "id": "function_0",
+        "name": "Send Message",
+        "connector": {
+          "inputs": [
+            {
+              "label": ""
+            }
+          ],
+          "outputs": []
+        },
+        "properties": [
+          {
+            "name": "getURL",
+            "referenceName": "getURL",
+            "type": "string",
+            "defaultValue": "propety value"
+          },
+          {
+            "name": "message",
+            "referenceName": "message",
+            "type": "string",
+            "defaultValue": "こんにちは。"
+          }
+        ],
+        "extension": {
+          "initialize": "",
+          "receive": "",
+          "execute": "var getURL = properties.getURL;\nvar message = properties.message;\nvar query = { form: { \"message\": message} };\n\najax ({\n    url : getURL,\n    type : \"POST\",\n    data : query,\n    timeout : 5000,\n    success : function ( contents ) {\n\t\tlog(\"GET sent. \" + getURL);\n\t\tcallbackSuccess( {\n                    resultType : \"continue\"\n\t\t} );\n         \n    },\n    error : function ( request, errorMessage ) {\n        log(\"GET error. \" + getURL);\n        callbackSuccess( {\n                    resultType : \"continue\"\n\t\t} );\n    }\n});\n \nreturn {\n    resultType : \"pause\"\n};",
+          "result": ""
+        }
+      }
+    ]
+  }
+}

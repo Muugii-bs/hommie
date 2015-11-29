@@ -71,7 +71,9 @@ $(function() {
         return false;
     });
     $("#messageButton").click(function(){
+         socket.emit('user message', $('#message').val());
          clear();
+         $('#lines').get(0).scrollTop = 10000000;
     });
 
     var clear = function () {
