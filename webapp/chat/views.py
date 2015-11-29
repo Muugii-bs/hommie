@@ -3,7 +3,7 @@ from socketio import socketio_manage
 import flask.ext.login as flask_login
 
 from chat import app, db, login_manager
-from .models import Family, Sensor, SensorValue, User, UserType
+from .models import Family, Sensor, SensorValue, User, UserType, Message
 from .namespaces import ChatNamespace
 from .utils import get_object_or_404, get_or_create, get_current_time
 from .forms import LoginForm
@@ -85,7 +85,6 @@ def create():
 @app.route('/socket.io/<path:remaining>')
 def socketio(remaining):
     try:
-        # socketio_manage(request.environ, {'/chat': ChatNamespace}, request)
         socketio_manage(request.environ, {'/chat': ChatNamespace}, request)
     except:
         app.logger.error("Exception while handling socketio connection",
