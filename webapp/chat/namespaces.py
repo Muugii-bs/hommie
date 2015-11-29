@@ -1,8 +1,9 @@
 from socketio.namespace import BaseNamespace
 from socketio.mixins import RoomsMixin, BroadcastMixin
 
-from chat import app
-from .utils import mood
+from chat import app, db
+from .utils import mood, get_current_time
+from .models import Message
 
 class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
     nicknames = []
@@ -41,6 +42,9 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         msg_mood = mood(msg)
         self.log('User message mood: {0}'.format(msg_mood))
         self.emit_to_room_including_self(self.room, 'msg_to_room', self.session['nickname'], msg, msg_mood)
+        m = Message(text=msg, emotion=msg_mood, timestamp=get_current_time(), sender_user_id=self.session['nickname'], family_id=self.room)
+        db.session.add(m)
+        db.session.commit()
         return True
 
 
