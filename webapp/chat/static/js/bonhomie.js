@@ -180,8 +180,6 @@ function getLocation() {
 
 // getLocation();   
 
-
-
 $('#myHome').click(function(){
 	$('.home-modal-lg').modal();
 	$('#temps').html(13);
@@ -191,6 +189,13 @@ $('#myHome').click(function(){
 $('#home-light').click(function(){
 	console.log("light on");
 	$.get('http://10.10.0.209:8000/api/action1');
+	pic = msid[familySize - 1];
+	$tmp = $("#" + pic).find('div>img');
+	$tmp.attr('src', 'static/img/house_happy.png');  
+	console.log("id: ", pic, "tmp: ", $tmp); 
+	setTimeout(function(){
+		$tmp.attr('src', 'static/img/house_normal.png');
+	}, 5000);
 })
 
 
