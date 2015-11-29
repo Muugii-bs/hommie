@@ -106,7 +106,7 @@ img.flip {
 
 #character {
 	position:absolute;
-	left: 70px;
+	left: 0px;
     bottom: 0px;
 	opacity: 0.01;
 }

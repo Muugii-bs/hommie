@@ -128,8 +128,8 @@ function move_character() {
 	character = $('#character');
 	//character.removeClass("hidden");
 	character.animate({opacity: 1}, 1);
-	character.animate({left: "-=750px"}, 5000);
-	character.animate({left: "+=750px"}, 1);
+	character.animate({left: "-=1550px"}, 7000);
+	character.animate({left: "+=1550px"}, 1);
 	//character.addClass("hidden");
 	character.animate({opacity: 0.01}, 1);
 }
