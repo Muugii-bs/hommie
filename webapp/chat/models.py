@@ -72,8 +72,9 @@ class Message(db.Model):
     __tablename__ = 'message'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(STRING_LEN), nullable=False)
-    emotion = db.Column(db.Enum('anger', 'fear', 'sadness', 'happy', 'neutral'))
+    emotion = db.Column(db.Enum('angry', 'scared', 'sad', 'happy', 'normal'))
     timestamp = db.Column(db.DateTime)
+    family_id = db.Column(db.Integer, db.ForeignKey('family.id'))
     sender_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 

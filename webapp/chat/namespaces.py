@@ -1,8 +1,9 @@
 from socketio.namespace import BaseNamespace
 from socketio.mixins import RoomsMixin, BroadcastMixin
 
-from chat import app
-from .utils import mood
+from chat import app, db
+from .utils import mood, get_current_time
+from .models import Message
 
 class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
     nicknames = []
@@ -40,10 +41,29 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
     def on_user_message(self, msg):
         msg_mood = mood(msg)
         self.log('User message mood: {0}'.format(msg_mood))
-        self.emit_to_room(self.room, 'msg_to_room', self.session['nickname'], msg, msg_mood)
+        self.emit_to_room_including_self(self.room, 'msg_to_room', self.session['nickname'], msg, msg_mood)
+        m = Message(text=msg, emotion=msg_mood, timestamp=get_current_time(), sender_user_id=self.session['nickname'], family_id=self.room)
+        db.session.add(m)
+        db.session.commit()
         return True
 
-    # def recv_data(self, data):
+
+    # helper mothods #
+    def emit_to_room_including_self(self, room, event, *args):
+        """This is sent to all in the room (in this particular Namespace) including self"""
+        pkt = dict(type="event",
+                   name=event,
+                   args=args,
+                   endpoint=self.ns_name)
+        room_name = self._get_room_name(room)
+        for sessid, socket in self.socket.server.sockets.iteritems():
+            if 'rooms' not in socket.session:
+                continue
+            if room_name in socket.session['rooms']:
+                socket.send_packet(pkt)
+
+
+# def recv_data(self, data):
     #     # Send sensor data.
     #     self.log('User data: {0}'.format(data))
     #     self.sensor_data.append(data);

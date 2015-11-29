@@ -1,7 +1,6 @@
-from flask import Response, request, render_template, url_for, redirect
+from flask import Response, request, render_template, url_for, redirect, flash
 from socketio import socketio_manage
 import flask.ext.login as flask_login
-from flask import redirect, url_for, flash
 
 from chat import app, db, login_manager
 from .models import Family, Sensor, SensorValue, User, UserType
@@ -42,7 +41,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-# test controller
+# test controller: not used
 @app.route('/protected')
 @flask_login.login_required
 def protected():
@@ -64,10 +63,12 @@ def index():
     for m in ms:
         members.append((m.id, UserType.query.get(m.type_id).typename))
     app.logger.debug("members length: {}".format(len(members)))
-    context = {"family": family, "user": user, "members": members}
+    msgs = Message.query.filter_by(family_id=family.id)
+    context = {"family": family, "user": user, "members": members, "messages": msgs}
     return render_template('room.html', **context)
 
 
+# todo: not used now
 @app.route('/create', methods=['POST'])
 def create():
     """
