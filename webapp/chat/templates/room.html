@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}{{ room }}{% endblock %}
+{% block title %}{{ family }}{% endblock %}
 
 {% block extra_js %}
 <script type="text/javascript">
- window.room = "{{ room.id }}";
+ window.room = "{{ family.id }}";
 </script>
 
 <script type="text/javascript" src="static/js/bonhomie.js"></script>
 <script type="text/javascript" src="static/js/chat.js"></script>
-<script type="text/javascript" src="static/js/style.js"></script>
 
 <link rel="stylesheet" href="static/css/home_button.css" media="all">
 
