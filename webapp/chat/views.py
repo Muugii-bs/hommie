@@ -3,7 +3,7 @@ from socketio import socketio_manage
 import flask.ext.login as flask_login
 
 from chat import app, db, login_manager
-from .models import Family, Sensor, SensorValue, User, UserType
+from .models import Family, Sensor, SensorValue, User, UserType, Message
 from .namespaces import ChatNamespace
 from .utils import get_object_or_404, get_or_create, get_current_time
 from .forms import LoginForm

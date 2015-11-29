@@ -59,7 +59,7 @@ $(function() {
         //});
 
         $('#send-message').submit(function () {
-            render_msg($("#nick").val(), $('#message').val());
+            // render_msg($("#nick").val(), $('#message').val());
             // message('me', $('#message').val());
             socket.emit('user message', $('#message').val());
             clear();

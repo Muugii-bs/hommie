@@ -18,6 +18,32 @@ var familySize = {{members | length}};
 
 <script type="text/javascript" src="static/js/bonhomie.js"></script>
 <script type="text/javascript" src="static/js/chat.js"></script>
+<script type="text/javascript">
+var messageHistory = [];
+var message;
+{% for msg in messages %}
+    message= {};
+    message['user'] = {{msg.sender_user_id}};
+    message['msg'] = '{{msg.text}}';
+    message['emotion'] = '{{msg.emotion}}';
+    messageHistory.push(message);
+{% endfor %}
+
+for (var i=0; i<messageHistory.length; i++){
+    doSetTimeout(messageHistory[i]['user'], messageHistory[i]['msg'], messageHistory[i]['emotion'], 1000*i);
+}
+
+function doSetTimeout(a,b,c, t) {
+    if (c=='undefined')
+        setTimeout(function(){
+            render_msg(a,b,c);
+        }, t);
+    else setTimeout(function(){
+            render_msg(a,b);
+        }, t);
+}
+
+</script>
 
 <link rel="stylesheet" href="static/css/home_button.css" media="all">
 
@@ -25,6 +51,7 @@ var familySize = {{members | length}};
 
 {% block content %}
 
+<div id="map"></div>
 <div class="container" >
     <div class="row">
         <div class="col-xs-8">
@@ -71,5 +98,6 @@ var familySize = {{members | length}};
         </div>
     </div>
 </div>
+
 
 {% endblock %}
