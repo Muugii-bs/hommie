@@ -25,6 +25,7 @@ var render_user = function(user){
 }
 
 var render_msg = function (user, msg, emotion){
+	console.log(user + ": " + msg + " * ");
 
 	atms.push(emotion);
 	if (user=='System' || user=='undefined'){
@@ -102,3 +103,32 @@ function move_character() {
 	//character.addClass("hidden");
 	character.animate({opacity: 0.01}, 1);
 }
+
+getLocation();    
+var lat, lon;
+function getLocation() {
+	if (navigator.geolocation) {
+	  navigator.geolocation.getCurrentPosition(showPosition);
+	} else {
+	  alert("Geolocation is not supported by this browser.");
+	}
+}
+
+function showPosition(position) {
+	lat = position.coords.latitude;
+	lon = position.coords.longitude;
+	url = "comgooglemaps://?center=" + lat + "," + lon + "&zoom=14&views=traffic";
+	$("#map").html(url);
+}
+
+$('#myHome').click(function(){
+	$('.bs-example-modal-lg').modal();
+	$('#temps').html(13);
+})
+
+
+$('#home-light').click(function(){
+	console.log("light on");
+	$.get('http://10.10.0.209:8000/api/action1');
+})
+

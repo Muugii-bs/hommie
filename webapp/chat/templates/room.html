@@ -18,6 +18,32 @@ var familySize = {{members | length}};
 
 <script type="text/javascript" src="static/js/bonhomie.js"></script>
 <script type="text/javascript" src="static/js/chat.js"></script>
+<script type="text/javascript">
+var messageHistory = [];
+var message;
+{% for msg in messages %}
+    message= {};
+    message['user'] = {{msg.sender_user_id}};
+    message['msg'] = '{{msg.text}}';
+    message['emotion'] = '{{msg.emotion}}';
+    messageHistory.push(message);
+{% endfor %}
+
+for (var i=0; i<messageHistory.length; i++){
+    doSetTimeout(messageHistory[i]['user'], messageHistory[i]['msg'], messageHistory[i]['emotion'], 1000*i);
+}
+
+function doSetTimeout(a,b,c, t) {
+    if (c=='undefined')
+        setTimeout(function(){
+            render_msg(a,b,c);
+        }, t);
+    else setTimeout(function(){
+            render_msg(a,b);
+        }, t);
+}
+
+</script>
 
 <link rel="stylesheet" href="static/css/home_button.css" media="all">
 
@@ -25,6 +51,7 @@ var familySize = {{members | length}};
 
 {% block content %}
 
+<div id="map"></div>
 <div class="container" >
     <div class="row">
         <div class="col-xs-8">
@@ -66,11 +93,27 @@ var familySize = {{members | length}};
 			<!--<div class="homebubble">
 			</div>-->
             <div>
-                <img class="img-responsive" src="static/img/house.png" alt="" style="width: 100%;">
 			</div>
 				<img id="character" class="img-responsive" src="static/img/character.png" alt="" style="width: 80%;">
+                <img id="myHome" class="img-responsive" src="static/img/house.png" alt="" style="width: 100%;">
+            </div>
         </div>
     </div>
+</div>
+
+<!-- Home modal -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="text-align: center">
+      <h4>Home Info</h4>
+        <div id="temps">
+
+        </div>
+
+    <button type="button" id="home-light" >Light</button>
+
+    </div>
+  </div>
 </div>
 
 {% endblock %}
