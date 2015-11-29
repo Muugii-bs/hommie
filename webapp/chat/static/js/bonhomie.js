@@ -40,18 +40,32 @@ var render_user = function(user){
 }
 
 var declare_users = function(){
-	for (var i=0; i<msid.length; i++)
+	var house=0;
+	for (var i=0; i<msid.length; i++){
+		if (ms[msid[i]]=='house') {
+			house = i;
+			continue;
+		}
 		render_user(msid[i]);
+	}
+	render_user(msid[house]);
 }
 
 declare_users();
 // for (var i=1; i<6; i++)
 // 	render_user(i);
-
-var showTime = function(e, t){
-	var qtime = new Date(parseInt(t));
-	$qp = $("<div>", {class: 'qtime', style:'font-size:8px; font-strech:condensed'}).html(qtime.toString());
-	e.append($qp);
+var calcSpan = function(dtime){
+	var text ="Active ";
+	if (dtime>60){
+		dtime=Math.round(dtime/60);
+		if (dtime>60){
+			dtime=Math.round(dtime/60);
+			if (dtime>24) text = text+dtime + "day(s) ";
+			else text = text+dtime + "hour(s) ";
+		} else text = text+dtime + "min(s) ";
+	} else text = text + " a few seconds ";
+	text = text+" ago.";
+	return text;
 }
 
 window.setInterval(function(){
@@ -59,8 +73,17 @@ window.setInterval(function(){
 		var messageTotal = $(this).find("div>span").length;
 		var user = $(this).parent().attr('id');
 		if (messageTotal ==1){
-			if ($(this).find('.qtime').length==0)
-				showTime($(this).find('div'),$(this).find('span').get(0).getAttribute('tag'));
+			var t = $(this).find('span').get(0).getAttribute('tag');
+			var qtime = new Date(parseInt(t));
+			var dtime = Math.round((new Date().getTime()-qtime)/1000);
+
+			if ($(this).find('.qtime').length==0){
+				$qp = $("<div>", {class: 'qtime', style:'font-size:8px; font-strech:condensed'}).html(calcSpan(dtime));
+				$(this).find('div').append($qp);
+			}
+			else {
+				$(this).find('.qtime').html(calcSpan(dtime))
+			}
 			return;
 		}
 		$(this).find("div>span").each(function(index){
@@ -104,12 +127,15 @@ function move_character() {
 	character.animate({opacity: 0.01}, 1);
 }
 
-var school = [];
-school["lat"]= 35.5969408;
-school["long"]= 139.67262;
+var work = [];
+work["lat"]= 35.5969408;
+work["long"]= 139.67262;
 var home = [];
 home["lat"]=35.6597839;
 home["long"] = 139.6770864;
+var school =[];
+school["lat"]= 35.7085195;
+school["long"]=139.7568903;
 
 
 function distance(lat1, lon1, lat2, lon2, unit) {
