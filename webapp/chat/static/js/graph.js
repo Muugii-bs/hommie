@@ -65,3 +65,38 @@ var graph = new Rickshaw.Graph( {
 } );
 
 graph.render();
+
+
+
+
+// ================================================
+
+var data_grandpa = [
+        { x: 0, y: 40 },
+        { x: 1, y: 44 },
+        { x: 2, y: 47 },
+        { x: 3, y: 50 },
+        { x: 4, y: 55 },
+        { x: 5, y: 60 },
+        { x: 6, y: 55 },
+        { x: 7, y: 44 },
+        { x: 8, y: 30 },
+        { x: 9, y: 20 },
+        { x: 10, y: 13 },
+        { x: 11, y: 12 },
+        { x: 12, y: 10 },
+        { x: 13, y: 12 },
+        { x: 14, y: 12 },
+        { x: 15, y: 13 } ];
+
+var graph_grandpa = new Rickshaw.Graph( {
+        element: document.querySelector("#chart_grandpa"),
+        width: 580,
+        height: 250,
+        series: [ {
+                color: 'red',
+                data: data_grandpa
+        } ]
+} );
+
+graph_grandpa.render();
