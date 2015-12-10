@@ -92,3 +92,11 @@ MESHやEdisonによって、スマート化された家。温度、湿度、人�
 参考論文：
 http://aclweb.org/anthology//W/W11/W11-1710.pdf
 https://github.com/clemtoy/WNAffect
+
+### 実際に使ってみるには、
+####以下のメールアドレスから一つ選んで、hommeeというパスワードでログインしください。
+* mom@gmail.com
+* dad@gmail.com
+* grandpa@gmail.com
+* son@gmail.com
+* daughter@gmail.com
