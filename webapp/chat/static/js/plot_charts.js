@@ -76,7 +76,7 @@ function plot_chart(data1, data2, label1, label2, xmax, dates){
              lines: {show: true, fill: true, },
             curvedLines: {  active: true, fit: true, apply: true },},
 
-            legend: {position: "sw"},
+            legend: {position: "nw"},
 
             yaxis: {
                 min: 0,
