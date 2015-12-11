@@ -322,6 +322,7 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 
 
 
+
 function showPosition(position) {
 	console.log("Location: " + my_place);
 	var lat, lon;
@@ -346,14 +347,16 @@ function getLocation() {
 	}
 }
 
+
 getLocation();
 
 
-$('#6>div>img').click(function(){
+$('#6>div').click(function(){
 	$('.home-modal-lg').modal();
 	$('#temps').html(13);
 	$tmp = $("#" + familySize + "div >img");
 	console.log($tmp);
+	HomeTempPlot();
 
 });
 
@@ -371,7 +374,7 @@ $('#home-light').click(function(){
 });
 
 
-$('#3>div>img').click(function(){
+$('#3>div').click(function(){
 	console.log("grandpa clicked");
 	$('.grandpa-modal').modal();
 
