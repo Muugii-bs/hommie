@@ -118,9 +118,11 @@ def api_home_message():
     """
     Gets home message.
     """
-    family_id = request.form.get('family_id')
-    msg = request.form.get('msg')
-    emotion = request.form.get('emotion')
+    data = request.get_json()
+    print "Home message received: ", data
+    family_id = data.get('family_id')
+    msg = data.get('msg')
+    emotion = data.get('emotion')
 
     m = Message(text = msg, emotion = emotion, timestamp = get_current_time(), sender_user_id=6, family_id = family_id)
     db.session.add(m)
