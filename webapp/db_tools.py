@@ -72,21 +72,27 @@ def create_defaults(db):
 
         messages = []
         if i <= 1:
-            # work
-            work_lat = 35.5969408
-            work_long = 139.67262
+            # work @ OOkaayma
+            work_lat = 35.6056755
+            work_long = 139.6829839
+            place = 'building'
             messages.append("I will be in home at {} clock".format(randint(18, 24)))
             messages.append("I love my kids")
         elif i == 3 or i == 4:
             # school
-            work_lat = 35.7085195
-            work_long = 139.7568903
+            # work_lat = 35.7085195
+            # work_long = 139.7568903
+            #PAAK
+            work_lat = 35.6618698
+            work_long = 139.6993757
+            place = 'university'
             messages.append("I will be in home at {} clock".format(randint(14, 17)))
             messages.append("I am hungry.")
         else:
-            # home
+            # home Komaba
             work_lat = 35.6597839
             work_long = 139.6770864
+            place = 'home'
             messages.append("I am at home, as always :)")
             messages.append("Take care kids")
             messages.append("It is cloudy today. It may rain.")
@@ -101,7 +107,7 @@ def create_defaults(db):
         for msg in messages:
             timestamp = now - timedelta(minutes=j)
             j += 1
-            m = Message(text=msg, emotion=mood(msg), timestamp=timestamp, family_id=family.id, sender_user_id=user.id)
+            m = Message(text=msg, emotion=mood(msg), timestamp=timestamp, family_id=family.id, sender_user_id=user.id, place=place)
             db.session.add(m)
         db.session.commit()
 

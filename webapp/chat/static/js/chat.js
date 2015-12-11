@@ -20,16 +20,16 @@ $(function() {
 		// declare_users(nicknames);
     });
 
-	socket.on('sensor_data', function (nickname, data) {
-		render_data(nickname, data);
-	});
+    socket.on('sensor_data', function (nickname, data) {
+	render_data(nickname, data);
+    });
 
-    socket.on('msg_to_room', function (nickname, msg, emotion) {
-        render_msg(nickname, msg, emotion);
+    socket.on('msg_to_room', function (nickname, msg, emotion, place) {
+        render_msg(nickname, msg, emotion, place);
 		// console.log(nickname + " " + msg + " " + emotion);
 	});
-    socket.on('user_message_feedback', function (nickname, msg, emotion) {
-        render_msg(nickname, msg, emotion);
+    socket.on('user_message_feedback', function (nickname, msg, emotion, place) {
+        render_msg(nickname, msg, emotion, place);
         // console.log(nickname + " " + msg + " " + emotion);
     });
 
@@ -55,23 +55,24 @@ $(function() {
     socket.emit('nickname', user, function (set) {
         if (set) {
             clear();
-            return $('#chat').addClass('nickname-set');
+            $('#chat').addClass('nickname-set');
         }
         $('#nickname-err').css('visibility', 'visible');
-     });
+    });
         //return false;
     //});
 
     $('#send-message').submit(function () {
         // render_msg($("#nick").val(), $('#message').val());
         // message('me', $('#message').val());
-        socket.emit('user message', $('#message').val());
+        socket.emit('user message', $('#message').val(), my_place);
         clear();
         $('#lines').get(0).scrollTop = 10000000;
         return false;
     });
     $("#messageButton").click(function(){
-         socket.emit('user message', $('#message').val());
+         console.log("Message" + my_place);
+         socket.emit('user message', $('#message').val(), my_place);
          clear();
          $('#lines').get(0).scrollTop = 10000000;
     });
@@ -92,4 +93,3 @@ $(function() {
         $('#message').val('').focus();
     };
 });
-
