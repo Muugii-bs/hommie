@@ -10,7 +10,7 @@ var ajaxGraph = new Rickshaw.Graph.Ajax( {
     renderer: 'line',
     dataURL: 'api/sensor_history?sensor_id=1&span_mins=1440',
     onData: function(d) {
-        console.log(d['data']);
+        // console.log(d['data']);
         // for (i = 0; i < d['data'].length; i++) {
         //    // console.log(d['data'][i]);
         //    var id = d['data'][i]['id'];
@@ -100,3 +100,6 @@ var graph_grandpa = new Rickshaw.Graph( {
 } );
 
 graph_grandpa.render();
+
+
+// -------------------------------
