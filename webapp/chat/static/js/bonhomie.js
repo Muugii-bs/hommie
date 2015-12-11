@@ -19,9 +19,23 @@ Plot = function ( stage ) {
   this.setDimensions = function( x, y, unit ) {
     this.elm.style.width = x + unit;
     this.elm.style.height = y + unit;
+
     this.emotion.style.width = x + unit;
     this.emotion.style.height = y + unit;
+    this.emotion.style.zIndex = 1;
     this.emotion.style.background="url('../static/img/happy.png') no-repeat right top";
+    this.emotion.style.backgroundSize="contain";
+    this.emotion.style.position="relative";
+    this.emotion.style.left="8vmin";
+    this.emotion.style.bottom="14vmin";
+    this.emotion.setAttribute("class", "emotion");
+
+    this.message.setAttribute("class", "message");
+    this.message.style.position="relative";
+    this.message.style.width = x + unit;
+    // this.message.style.top = y + unit;
+    this.message.innerHTML = "Last Message";
+
     this.width = x;
     this.height = y;
   };
@@ -37,7 +51,7 @@ Plot = function ( stage ) {
     this.elm.id = role;
     // console.log(role);
     // this.elm.style.backgroundImage="url('../static/img/"+role+"_normal.png')";
-    this.elm.style.background="url('../static/img/"+ms[role]+"_normal.png') no-repeat right top";
+    this.elm.style.background="url('../static/img/"+ms[role]+".png') no-repeat right top";
     this.elm.style.backgroundSize="contain";
   
   };
@@ -61,7 +75,10 @@ Plot = function ( stage ) {
   }
   this.elm = document.createElement( 'div' );
   this.emotion = document.createElement( 'div' );
+  this.message = document.createElement( 'div' );
+  // this.emotion.innerHTML = "ETETE";
   this.elm.appendChild(this.emotion);
+  this.elm.appendChild(this.message);
   
   this.elm.style.position = 'absolute';
   stage.appendChild( this.elm );
@@ -156,10 +173,10 @@ var render_msg = function (user, msg, emotion, place){
 
 
 
-var picSize = 160/familySize, //vmin
-    centerX = 40 - picSize, //vw
-    centerY = 50 - picSize, //vh
-    plotRadius = 20; //vmin
+var picSize = 150/familySize, //vmin
+    centerX = 45 - picSize, //vw
+    centerY = 65- picSize, //vh
+    plotRadius = 30; //vmin
   
 
 var distribute_users = function(){
@@ -174,6 +191,8 @@ var distribute_users = function(){
     p.setDimensions( picSize, picSize, 'vmin');
     p.setBackground(i+1);
     x = plotRadius * Math.cos( angle ) + centerX;
+    if (x<centerX) x+=5; else x-=5;
+    x = Math.max(2, Math.min(x, 40));
     y = plotRadius * Math.sin( angle ) + centerY;
     p.position( centerX,centerY );
     animateMe(p, x,y);
