@@ -1,17 +1,22 @@
 var total = 0;
-// var types = ["grandma", "dad", "mom", "son", "daughter", "grandpa"];
 var emos = ["angry", "sad", "happy", "normal", "scared"];
-// var colors = ["#B4E0DC", "#1DAFEC", "#9CD09C", "#A18981", "#F3896B", "#BF1E2E"];
 var colors = {};
 var atms = [];
-var images = ["static/img/winter_wp1.jpg", "static/img/winter_wp2.jpg", "static/img/winter_wp3.jpg", "static/img/summer_wp1.jpg", "static/img/summer_wp2.png", "static/img/summer_wp3.jpg"];
+var images = ["static/img/winter_wp1.jpg", 
+			  "static/img/winter_wp2.jpg", 
+			  "static/img/winter_wp3.jpg", 
+			  "static/img/summer_wp1.jpg", 
+			  "static/img/summer_wp2.png", 
+			  "static/img/summer_wp3.jpg"];
+
 var emotion_score = {}
 
-emotion_score["sad"] 	= 0;
-emotion_score["angry"] 	= 0;
-emotion_score["scared"] = 0;
-emotion_score["normal"] = 1;
-emotion_score["happy"] 	= 2;
+emotion_score["sad"] 		= 0;
+emotion_score["angry"] 		= 0;
+emotion_score["scared"] 	= 0;
+emotion_score["undefined"] 	= 1;
+emotion_score["normal"] 	= 1;
+emotion_score["happy"] 		= 2;
 
 colors["grandma"] 	= "#B4E0DC";
 colors["dad"] 		= "#1DAFEC";
@@ -132,7 +137,7 @@ var render_msg = function (sender, msg, emotion, place){
  //        strings: [msg],
  //        typeSpeed: 3
  //      })
-  console.log(sender + " is " + emotion);
+ //console.log(sender + " is " + emotion);
   if (emotion) $("#" + sender +"> div>img").attr('src','static/img/'+ms[sender]+'_' + emotion+'.png');
 }
 
@@ -197,7 +202,7 @@ var distribute_users = function(){
     angle = 0,
     x = 0,
     y = 0;
-    console.log(ms);
+    //console.log(ms);
   for( var i = 0; i < familySize; i++ ) {
     var p = new Plot( stage );
     p.setDimensions( picSize, picSize, 'vmin');
@@ -311,24 +316,30 @@ window.setInterval(function(){
 	atms = [];
 	*/
 	for (var i = 0; i < cnt; i++) {
-		tmp = atms[i].split(".");
-		user1 = tmp[0];
-		emotion1 = emp[1];
-		tmp1 = atms[i+1].split(".");
-		user2 = tmp1[0];
-		emotion2 = tmp1[1];
-		if ((user1 == 'dad' || user1 == 'mom') && (user2 == 'mom' || user2 == 'dad')) {
-			score = 0;
-			score += emotion_score[emotion1] + emotion_score[emotion2];
-			if (score < 2) {
-				home_msg_sad();
-				atms = [];
-			}
-			else if (score > 2) {
-				home_msg_happy();
-				atms = [];
+		if (atms[i] && atms[i+1]) {
+			var t = atms[i];
+			var tmp = t.split('.');
+			//console.log(tmp);
+			user1 = tmp[0];
+			emotion1 = tmp[1];
+			var t1 = atms[i+1];
+			var tmp1 = t1.split('.');
+			user2 = tmp1[0];
+			emotion2 = tmp1[1];
+			if ((user1 == 'dad' || user1 == 'mom') && (user2 == 'mom' || user2 == 'dad')) {
+				score = 0;
+				score += emotion_score[emotion1] + emotion_score[emotion2];
+				if (score < 2) {
+					home_msg_sad();
+					atms = [];
+				}
+				else if (score > 2) {
+					home_msg_happy();
+					atms = [];
+				}
 			}
 		}
+	}
 }, 100);
 
 function move_character() {
@@ -371,7 +382,7 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 
 
 function showPosition(position) {
-	console.log("Location: " + my_place);
+	//console.log("Location: " + my_place);
 	var lat, lon;
 	lat = position.coords.latitude;
 	lon = position.coords.longitude;
@@ -409,12 +420,12 @@ $('#6>div').click(function(){
 
 
 $('#home-light').click(function(){
-	console.log("light on");
+	//console.log("light on");
 	$.get('http://10.10.0.209:8000/api/action1');
 	pic = msid[familySize - 1];
 	$tmp = $("#" + pic).find('div>img');
 	$tmp.attr('src', 'static/img/house_happy.png');
-	console.log("id: ", pic, "tmp: ", $tmp);
+	//console.log("id: ", pic, "tmp: ", $tmp);
 	setTimeout(function(){
 		$tmp.attr('src', 'static/img/house_normal.png');
 	}, 5000);
@@ -422,7 +433,7 @@ $('#home-light').click(function(){
 
 
 $('#3>div').click(function(){
-	console.log("grandpa clicked");
+	//console.log("grandpa clicked");
 	$('.grandpa-modal').modal();
 
 });
