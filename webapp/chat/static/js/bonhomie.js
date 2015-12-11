@@ -5,13 +5,20 @@ var emos = ["angry", "sad", "happy", "normal", "scared"];
 var colors = {};
 var atms = [];
 var images = ["static/img/winter_wp1.jpg", "static/img/winter_wp2.jpg", "static/img/winter_wp3.jpg", "static/img/summer_wp1.jpg", "static/img/summer_wp2.png", "static/img/summer_wp3.jpg"];
+var emotion_score = {}
 
-colors["grandma"] = "#B4E0DC";
-colors["dad"] = "#1DAFEC";
-colors["mom"] = "#9CD09C";
-colors["son"] = "#A18981";
-colors["daughter"] = "#F3896B";
-colors["grandpa"] = "#BF1E2E";
+emotion_score["sad"] 	= 0;
+emotion_score["angry"] 	= 0;
+emotion_score["scared"] = 0;
+emotion_score["normal"] = 1;
+emotion_score["happy"] 	= 2;
+
+colors["grandma"] 	= "#B4E0DC";
+colors["dad"] 		= "#1DAFEC";
+colors["mom"] 		= "#9CD09C";
+colors["son"] 		= "#A18981";
+colors["daughter"] 	= "#F3896B";
+colors["grandpa"] 	= "#BF1E2E";
 
 
 Plot = function ( stage ) {
@@ -86,7 +93,8 @@ var animateMe = function(object, x, y){
 
 
 var render_msg = function (sender, msg, emotion, place){
-  atms.push(emotion);
+  var user_emotion = ms[sender] + '.' + emotion;
+  atms.push(user_emotion);
   if (sender=='System' || sender=='undefined'){
     return;
   }
@@ -261,6 +269,7 @@ window.setInterval(function(){
 
 window.setInterval(function(){
 	cnt = atms.length;
+	/*
 	sum = 0;
 	sum1 = 0;
 	for (var i = 0; i < cnt; i++) {
@@ -281,8 +290,27 @@ window.setInterval(function(){
 		home_msg_happy();
 	}
 	atms = [];
-
-}, 10000);
+	*/
+	for (var i = 0; i < cnt; i++) {
+		tmp = atms[i].split(".");
+		user1 = tmp[0];
+		emotion1 = emp[1];
+		tmp1 = atms[i+1].split(".");
+		user2 = tmp1[0];
+		emotion2 = tmp1[1];
+		if ((user1 == 'dad' || user1 == 'mom') && (user2 == 'mom' || user2 == 'dad')) {
+			score = 0;
+			score += emotion_score[emotion1] + emotion_score[emotion2];
+			if (score < 2) {
+				home_msg_sad();
+				atms = [];
+			}
+			else if (score > 2) {
+				home_msg_happy();
+				atms = [];
+			}
+		}
+}, 100);
 
 function move_character() {
 	character = $('#character');
