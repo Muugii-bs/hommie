@@ -6,6 +6,11 @@
 <script type="text/javascript">
  window.room = "{{ family.id }}";
  var user = "{{user.id}}";
+ var home_lat = "{{family.home_lat}}";
+ var home_long = "{{family.home_long}}";
+ var work_lat = "{{user.work_lat}}";
+ var work_long = "{{user.work_long}}";
+ var my_place = 'street-view';
  var ms = [];
  var msid = [];
 var familySize = {{members | length}};

@@ -38,11 +38,11 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         self.disconnect(silent=True)
         return True
 
-    def on_user_message(self, msg):
+    def on_user_message(self, msg, place):
         msg_mood = mood(msg)
         self.log('User message mood: {0}'.format(msg_mood))
-        self.emit_to_room(self.room, 'msg_to_room', self.session['nickname'], msg, msg_mood)
-        self.emit("user_message_feedback", self.session['nickname'], msg, msg_mood)
+        self.emit_to_room(self.room, 'msg_to_room', self.session['nickname'], msg, msg_mood, place)
+        self.emit("user_message_feedback", self.session['nickname'], msg, msg_mood, place)
         m = Message(text=msg, emotion=msg_mood, timestamp=get_current_time(), sender_user_id=self.session['nickname'], family_id=self.room)
         db.session.add(m)
         db.session.commit()
