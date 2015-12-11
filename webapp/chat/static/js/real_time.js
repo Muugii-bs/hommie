@@ -3,6 +3,7 @@
         // We use an inline data source in the example, usually data would
         // be fetched from a server
 
+
         var data = [],
             totalPoints = 300;
 
@@ -37,6 +38,28 @@
             return res;
         }
 
+        function getAPI(){
+            var url = "api/sensor_history?sensor_id=1&span_mins=1440";
+            var data_temp = [];
+            var current_temp = 20;
+
+            // Temperature
+            $.getJSON(url, function(temp){
+                for (var i = 0; i < temp['data'].length; i++) {
+                    var value = temp['data'][i]['value'];
+                    data_temp.push([i, value])
+                    current_temp = value;
+                }
+
+            }).then(function(){
+                console.log(data_temp);
+                return data_temp;
+            });
+        }
+
+        getAPI();
+
+
         // Set up the control widget
 
         var updateInterval = 30;
@@ -62,7 +85,7 @@
                 max: 100
             },
             xaxis: {
-                show: false
+                show: true
             }
         });
 

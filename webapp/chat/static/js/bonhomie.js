@@ -127,7 +127,7 @@ window.setInterval(function(){
 	}
 	if (sum > cnt/2) {
 		num = Math.floor((Math.random() * (images.length - 1)) + 1);
-		console.log('num: ', num, 'sum: ', sum);
+		// console.log('num: ', num, 'sum: ', sum);
 		$(document.body).css('background-image', 'url(' + images[num] + ')');
 		move_character();
 	}
@@ -171,7 +171,7 @@ function distance(lat1, lon1, lat2, lon2, unit) {
     if (unit=="N") { dist = dist * 0.8684 }
     return dist
 }
- 
+
 
 var lat, lon;
 
@@ -179,7 +179,7 @@ function showPosition(position) {
 	lat = position.coords.latitude;
 	lon = position.coords.longitude;
 	url = "comgooglemaps://?center=" + lat + "," + lon + "&zoom=14&views=traffic";
-	$("#map").html(Math.round(distance(lat, lon, home['lat'], home['long'], "K")*1000));          
+	$("#map").html(Math.round(distance(lat, lon, home['lat'], home['long'], "K")*1000));
 }
 function getLocation() {
 	if (navigator.geolocation) {
@@ -189,7 +189,7 @@ function getLocation() {
 	}
 }
 
-// getLocation();   
+// getLocation();
 
 
 $('#6>div>img').click(function(){
@@ -197,6 +197,7 @@ $('#6>div>img').click(function(){
 	$('#temps').html(13);
 	$tmp = $("#" + familySize + "div >img");
 	console.log($tmp);
+	HomeTempPlot();
 
 })
 
@@ -206,8 +207,8 @@ $('#home-light').click(function(){
 	$.get('http://10.10.0.209:8000/api/action1');
 	pic = msid[familySize - 1];
 	$tmp = $("#" + pic).find('div>img');
-	$tmp.attr('src', 'static/img/house_happy.png');  
-	console.log("id: ", pic, "tmp: ", $tmp); 
+	$tmp.attr('src', 'static/img/house_happy.png');
+	console.log("id: ", pic, "tmp: ", $tmp);
 	setTimeout(function(){
 		$tmp.attr('src', 'static/img/house_normal.png');
 	}, 5000);
