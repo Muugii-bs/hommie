@@ -16,6 +16,8 @@ function HomeTempPlot(){
             var date = temp['data'][i]['timestamp'];
             date = (new Date(date.slice(1, -1))).toString().slice(16, 24)
             data_temp.push([i, value]);
+
+            if (i % 2 == 0) {};
             dates.push([i, date]);
             current_temp = value;
             current_date = date;
@@ -45,8 +47,8 @@ function HomeTempPlot(){
                 dates.slice(-10)
             );
 
-            $("#home_temperature").text(current_temp);
-            $("#home_humidity").text(current_humi);
+            $("#home_temperature").text(Math.round(current_temp).toString() + "°C");
+            $("#home_humidity").text(Math.round(current_humi).toString() + "%");
         });
     });
 
@@ -74,7 +76,7 @@ function plot_chart(data1, data2, label1, label2, xmax, dates){
              lines: {show: true, fill: true, },
             curvedLines: {  active: true, fit: true, apply: true },},
 
-            legend: {position: "sw"},
+            legend: {position: "nw"},
 
             yaxis: {
                 min: 0,
