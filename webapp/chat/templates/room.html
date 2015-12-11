@@ -27,8 +27,6 @@ var familySize = {{members | length}};
 </script>
 
 
-
-
 <script type="text/javascript" src="static/js/bonhomie.js"></script>
 <script type="text/javascript" src="static/js/chat.js"></script>
 
@@ -77,7 +75,7 @@ function doSetTimeout(a,b,c, t) {
 
 {% block content %}
 
-<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+<nav class="hidden navbar navbar-default navbar-fixed-top topnav" role="navigation" >
     <div class="container topnav">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -107,7 +105,7 @@ function doSetTimeout(a,b,c, t) {
     <div class="row">
         <div class="col-xs-8">
             <div id="people">
-
+                <section class="stage"></section>
 				<!--		<img id="myHome" class="img-responsive" src="static/img/house.png" alt="" style="width: 30%;">-->
             </div>
             <!-- Chat -->
