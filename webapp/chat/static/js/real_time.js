@@ -52,7 +52,7 @@
                 }
 
             }).then(function(){
-                console.log(data_temp);
+                // console.log(data_temp);
                 return data_temp;
             });
         }
