@@ -85,26 +85,30 @@ var animateMe = function(object, x, y){
 
 
 
-var render_msg = function (user, msg, emotion, place){
+var render_msg = function (sender, msg, emotion, place){
   atms.push(emotion);
-  if (user=='System' || user=='undefined'){
+  if (sender=='System' || sender=='undefined'){
     return;
   }
-  $("#" + user).find("div .qtime").remove();
+  $("#" + sender).find("div .qtime").remove();
   if (place!='home' && place!='university')  place='building';
   fa = '<i class="fa fa-2x fa-' + place+ '"></i>';
-  $('#lines').append($('<p>').append(fa + '<b>' + ms[user] + ': </b>').append($('<em>').text(msg)));
-  
+  if (sender == user) {
+	$('#lines').append($('<p style=\"text-align: right\">').append($('<em style=\"background-color: ' + colors[ms[sender]] + '; padding: 6px; border-radius: 10px\">').text(msg)));
+  } else {
+	$('#lines').append($('<p>').append($('<em style=\"background-color: ' + colors[ms[sender]] + '; padding: 6px; border-radius: 10px\">').text(msg)));
+  }
+
   tag = (new Date()).getTime();
   $span = $("<span>", {tag:tag}).html(msg+"<br/>");
   // $span = $("<span>", {tag:tag});
-  $("#" + user + " .message > div").append($span);
+  $("#" + sender + " .message > div").append($span);
   // $span.typed({
  //        strings: [msg],
  //        typeSpeed: 3
  //      })
-  console.log(user + " is " + emotion);
-  if (emotion) $("#" + user +"> div>img").attr('src','static/img/'+ms[user]+'_' + emotion+'.png');
+  console.log(sender + " is " + emotion);
+  if (emotion) $("#" + sender +"> div>img").attr('src','static/img/'+ms[sender]+'_' + emotion+'.png');
 }
 
 // var render_msg = function (user_id, msg, emotion, place){
