@@ -258,16 +258,23 @@ window.setInterval(function(){
 window.setInterval(function(){
 	cnt = atms.length;
 	sum = 0;
+	sum1 = 0;
 	for (var i = 0; i < cnt; i++) {
 		if(atms[i] != 'normal' && atms[i] != 'happy') {
 			sum ++;
 		}
+		else {
+			sum1 ++;
+		}
 	}
 	if (sum > cnt/2) {
 		num = Math.floor((Math.random() * (images.length - 1)) + 1);
-		console.log('num: ', num, 'sum: ', sum);
 		// $(document.body).css('background-image', 'url(' + images[num] + ')');
-		move_character();
+		//move_character();
+		home_msg_sad();
+	}
+	else if (sum1 == cnt) {
+		home_msg_happy();
 	}
 	atms = [];
 
@@ -275,11 +282,9 @@ window.setInterval(function(){
 
 function move_character() {
 	character = $('#character');
-	//character.removeClass("hidden");
 	character.animate({opacity: 1}, 1);
 	character.animate({left: "-=1550px"}, 7000);
 	character.animate({left: "+=1550px"}, 1);
-	//character.addClass("hidden");
 	character.animate({opacity: 0.01}, 1);
 }
 
@@ -367,3 +372,13 @@ $('#3>div>img').click(function(){
 	$('.grandpa-modal').modal();
 
 });
+
+function home_msg_sad() {
+	 msg_senti = "皆、雰囲気が良くないね！元気出して、お仕事、お勉強頑張ろう!";
+	 render_msg(familySize - 1, msg_senti, 'sad', 'home');
+}
+
+function home_msg_happy() {
+	msg_senti = "皆今日元気だね！嬉しい！";
+	render_msg(familySize - 1, msg_senti, 'happy', 'home');
+}
