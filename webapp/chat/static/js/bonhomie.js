@@ -342,7 +342,7 @@ function getLocation() {
 getLocation();
 
 
-$('#6>div>img').click(function(){
+$('#6>div').click(function(){
 	$('.home-modal-lg').modal();
 	$('#temps').html(13);
 	$tmp = $("#" + familySize + "div >img");
@@ -365,7 +365,7 @@ $('#home-light').click(function(){
 });
 
 
-$('#3>div>img').click(function(){
+$('#3>div').click(function(){
 	console.log("grandpa clicked");
 	$('.grandpa-modal').modal();
 
