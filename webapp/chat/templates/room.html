@@ -79,9 +79,9 @@ function doSetTimeout(a,b,c, t) {
 
 
 <div id="map" class="hidden"></div>
-<div class="container" >
+<div class="container-fluid" >
     <div class="row">
-        <div class="col-xs-8">
+        <div class="col-xs-7">
             <div id="people">
 
 		<!--		<img id="myHome" class="img-responsive" src="static/img/house.png" alt="" style="width: 30%;">-->
@@ -89,39 +89,53 @@ function doSetTimeout(a,b,c, t) {
             <!-- Chat -->
             <div class="col-xs-12" >
                 <div id="chat">
-                    <div class="hidden" id="nickname">
-                        <form id="set-nickname" class="wrap">
-                            <p>Please type in your nickname and press enter.</p>
-                            <input id="nick">
-                            <p id="nickname-err">Nickname already in use</p>
-                        </form>
-                    </div>
+                    <!-- <div class="hidden" id="nickname">
+                         <form id="set-nickname" class="wrap">
+                         <p>Please type in your nickname and press enter.</p>
+                         <input id="nick">
+                         <p id="nickname-err">Nickname already in use</p>
+                         </form>
+                         </div> -->
                     <div id="connecting">
                         <div class="wrap">Connecting to socket.io server</div>
                     </div>
 
-                    <div id="messages" class="hidden">
-                        <div id="nicknames"><span>Online:</span></div>
-                        <!-- <div id="lines"></div> -->
-                    </div>
+                    <!-- <div id="messages" class="hidden">
+                         <div id="nicknames"><span>Online:</span></div>
+                         </div> -->
 
-                    <form id="send-message">
-                        <input id="message" data-emoji-input="unicode">
-                        <button id="messageButton" type="button" class="btn btn-info btn-send">Send</button>
-                    </form>
+                    <!-- <form id="send-message">
+                         <input id="message" data-emoji-input="unicode">
+                         <button id="messageButton" type="button" class="btn btn-info btn-send">Send</button>
+                         </form> -->
                 </div>
             </div>
             <!-- Chat ends -->
         </div>
 
-        <div class="col-xs-4">
+        <div class="col-xs-5">
             <div id="lines">
             </div>
-	    <h2 id="line-title">Timeline</h2>
+            <form id="send-message">
+                <div class="row">
+                    <!-- <input id="message">
+                         <button id="messageButton" type="button" class="btn btn-info">Send</button> -->
+                    <div class="col-xs-12">
+                        <div class="input-group input-group-lg">
+                            <input id="message" type="text" class="form-control" />
+                            <div class="input-group-btn">
+                                <button id="messageButton" type="button" class="btn btn-info">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+	    <!-- <h2 id="line-title">Timeline</h2> -->
 	    <!--<div class="homebubble">
 		 </div>-->
-            <div>
-	    </div>
+            <!-- <div>
+	         </div> -->
 	    <img id="character" class="img-responsive" src="static/img/character.png" alt="" style="width: 80%;">
         </div>
     </div>
