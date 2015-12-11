@@ -24,12 +24,12 @@ $(function() {
 		render_data(nickname, data);
 	});
 
-    socket.on('msg_to_room', function (nickname, msg, emotion) {
-        render_msg(nickname, msg, emotion);
+    socket.on('msg_to_room', function (nickname, msg, emotion, place) {
+        render_msg(nickname, msg, emotion, place);
 		// console.log(nickname + " " + msg + " " + emotion);
 	});
-    socket.on('user_message_feedback', function (nickname, msg, emotion) {
-        render_msg(nickname, msg, emotion);
+    socket.on('user_message_feedback', function (nickname, msg, emotion, place) {
+        render_msg(nickname, msg, emotion, place);
         // console.log(nickname + " " + msg + " " + emotion);
     });
 
@@ -65,13 +65,14 @@ $(function() {
     $('#send-message').submit(function () {
         // render_msg($("#nick").val(), $('#message').val());
         // message('me', $('#message').val());
-        socket.emit('user message', $('#message').val());
+        socket.emit('user message', $('#message').val(), my_place);
         clear();
         $('#lines').get(0).scrollTop = 10000000;
         return false;
     });
     $("#messageButton").click(function(){
-         socket.emit('user message', $('#message').val());
+         console.log("Message" + my_place);
+         socket.emit('user message', $('#message').val(), my_place);
          clear();
          $('#lines').get(0).scrollTop = 10000000;
     });

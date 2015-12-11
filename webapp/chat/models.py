@@ -82,6 +82,7 @@ class Message(db.Model):
     timestamp = db.Column(db.DateTime)
     family_id = db.Column(db.Integer, db.ForeignKey('family.id'))
     sender_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    place = db.Column(db.String(STRING_LEN))
 
 
 class Sensor(db.Model):

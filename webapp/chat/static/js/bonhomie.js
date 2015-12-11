@@ -13,25 +13,28 @@ colors["son"] = "#A18981";
 colors["daughter"] = "#F3896B";
 colors["grandpa"] = "#BF1E2E";
 
-var render_msg = function (user, msg, emotion, place){
+var render_msg = function (user_id, msg, emotion, place){
+	console.log("place: " + place);
+	
+	if (place=='undefined')  place='street-view';
 	atms.push(emotion);
-	if (user=='System' || user=='undefined'){
+	if (user_id=='System' || user_id=='undefined'){
 		return;
 	}
-	$("#" + user).find("div .qtime").remove();
-	if (place!='home' && place!='university')  place='building';
+	$("#" + user_id).find("div .qtime").remove();
+	
 	fa = '<i class="fa fa-2x fa-' + place+ '"></i>';
-	$('#lines').append($('<p>').append(fa + '<b>' + ms[user] + ': </b>').append($('<em>').text(msg)));
+	$('#lines').append($('<p>').append(fa + '<b>' + ms[user_id] + ': </b>').append($('<em>').text(msg)));
 	
 	tag = (new Date()).getTime();
 	$span = $("<span>", {tag:tag}).html(msg+"<br/>");
 	// $span = $("<span>", {tag:tag});
-	$("#" + user + " .message > div").append($span);
+	$("#" + user_id + " .message > div").append($span);
 	// $span.typed({
  //        strings: [msg],
  //        typeSpeed: 3
  //      })
-	if (emotion) $("#" + user +"> div>img").attr('src','static/img/'+ms[user]+'_' + emotion+'.png');
+	if (emotion) $("#" + user_id +"> div>img").attr('src','static/img/'+ms[user_id]+'_' + emotion+'.png');
 }
 
 var render_user = function(user){
@@ -54,7 +57,7 @@ var render_user = function(user){
 		$qi = $("<button>", {type:"button",id:"home-light"}).text("Light");
 		$div[0].append($qi);
 	}
-	render_msg(user, (ms[user]=='house')?"HOME":"", "normal");
+	render_msg(user, (ms[user]=='house')?"HOME":"", "normal", my_place);
 }
 
 var declare_users = function(){
@@ -145,15 +148,15 @@ function move_character() {
 	character.animate({opacity: 0.01}, 1);
 }
 
-var work = [];
-work["lat"]= 35.5969408;
-work["long"]= 139.67262;
-var home = [];
-home["lat"]=35.6597839;
-home["long"] = 139.6770864;
-var school =[];
-school["lat"]= 35.7085195;
-school["long"]=139.7568903;
+// var work = [];
+// work["lat"]= 35.5969408;
+// work["long"]= 139.67262;
+// var home = [];
+// home["lat"]=35.6597839;
+// home["long"] = 139.6770864;
+// var school =[];
+// school["lat"]= 35.7085195;
+// school["long"]=139.7568903;
 
 
 function distance(lat1, lon1, lat2, lon2, unit) {
@@ -173,13 +176,23 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 }
  
 
-var lat, lon;
+
 
 function showPosition(position) {
+	console.log("Location: " + my_place);
+	var lat, lon;
 	lat = position.coords.latitude;
 	lon = position.coords.longitude;
-	url = "comgooglemaps://?center=" + lat + "," + lon + "&zoom=14&views=traffic";
-	$("#map").html(Math.round(distance(lat, lon, home['lat'], home['long'], "K")*1000));          
+	// url = "comgooglemaps://?center=" + lat + "," + lon + "&zoom=14&views=traffic";
+	// $("#map").html();
+	//street-view, university, building, home
+	if (Math.round(distance(lat, lon, home_lat, home_long, "K")*1000) < 50){
+		my_place = 'home';
+		
+	} else if (Math.round(distance(lat, lon, work_lat, work_long, "K")*1000) < 50){
+		my_place = 'work';
+		if (user == 3 || user == 4)  my_place = 'university';
+	}
 }
 function getLocation() {
 	if (navigator.geolocation) {
@@ -189,7 +202,7 @@ function getLocation() {
 	}
 }
 
-// getLocation();   
+getLocation();   
 
 
 $('#6>div>img').click(function(){
