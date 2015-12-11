@@ -85,8 +85,8 @@ function doSetTimeout(a,b,c, t) {
 				<!--		<img id="myHome" class="img-responsive" src="static/img/house.png" alt="" style="width: 30%;">-->
             </div>
             <!-- Chat -->
-            <div class="col-xs-12" >
-                <div id="chat">
+            <!-- <div class="col-xs-12" >
+                 <div id="chat"> -->
                     <!-- <div class="hidden" id="nickname">
                          <form id="set-nickname" class="wrap">
                          <p>Please type in your nickname and press enter.</p>
@@ -94,9 +94,9 @@ function doSetTimeout(a,b,c, t) {
                          <p id="nickname-err">Nickname already in use</p>
                          </form>
                          </div> -->
-                    <div id="connecting">
-                        <div class="wrap">Connecting to socket.io server</div>
-                    </div>
+            <!-- <div id="connecting">
+                 <div class="wrap">Connecting to socket.io server</div>
+                 </div> -->
 
                     <!-- <div id="messages" class="hidden">
                          <div id="nicknames"><span>Online:</span></div>
@@ -106,8 +106,8 @@ function doSetTimeout(a,b,c, t) {
                          <input id="message" data-emoji-input="unicode">
                          <button id="messageButton" type="button" class="btn btn-info btn-send">Send</button>
                          </form> -->
-                </div>
-            </div>
+            <!-- </div>
+                 </div> -->
             <!-- Chat ends -->
         </div>
 
@@ -116,8 +116,6 @@ function doSetTimeout(a,b,c, t) {
             </div>
             <form id="send-message">
                 <div class="row">
-                    <!-- <input id="message">
-                         <button id="messageButton" type="button" class="btn btn-info">Send</button> -->
                     <div class="col-xs-12">
                         <div class="input-group input-group-lg">
                             <input id="message" type="text" class="form-control" />
@@ -134,7 +132,7 @@ function doSetTimeout(a,b,c, t) {
 		 </div>-->
             <!-- <div>
 	         </div> -->
-	    <img id="character" class="img-responsive" src="static/img/character.png" alt="" style="width: 80%;">
+	    <img id="character" class="img-responsive hidden" src="static/img/character.png" alt="" style="width: 80%;">
         </div>
     </div>
 </div>
@@ -143,18 +141,37 @@ function doSetTimeout(a,b,c, t) {
 
 <!-- Home modal -->
 <div class="modal fade home-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content" style="text-align: center">
-      <h4>Home Info</h4>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="text-align: center">
+            <div class="modal-header">
+                <h4>Home Info</h4>
+            </div>
+            <div class="modal-body">
 
-        <div id="chart_home" class="demo-container-grandpa" style="width:600px;height:400px;margin-left: 50px">
+                <div class="row" id="chart_home_banner">
+                    <div class="col-xs-4">
+                        <img src="static/img/temperature.png" style="display: inline; height: 64px; width: 64px">
+                        <h2 style="display: inline; height: 64px;">
+                            <span id="home_temperature" class="label label-pill label-info">24</span>
+                        </h2>
+                    </div>
+                    <div class="col-xs-4">
+                        <img src="static/img/humidity.png" style="display: inline; height: 64px; width: 64px">
+                        <h2 style="display: inline; height: 64px;">
+                            <span id="home_humidity" class="label label-pill label-info">45</span>
+                        </h2>
+                    </div>
+                    <div class="col-xs-4">
+                        <img src="static/img/light-bulb.png" style="display: inline; height: 64px; width: 64px">
+                        <button id="home_light" class="btn btn-warning">Toggle</button>
+                    </div>
+                </div>
+
+                <div id="chart_home" class="demo-container-grandpa" >
+                </div>
+            </div>
         </div>
-
-        <div id="current_temp">
-        </div>
-
     </div>
-  </div>
 </div>
 
 

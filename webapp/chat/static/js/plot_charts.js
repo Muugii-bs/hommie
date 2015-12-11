@@ -5,16 +5,20 @@ function HomeTempPlot(){
     var dates = [];
     var current_temp = 20;
     var current_date;
+    var interval = 12 * 5;
 
     // Temperature
     $.getJSON(url, function(temp){
         // console.log(temp);
 
-        for (var i = 0; i < temp['data'].length; i++) {
+        for (var i = 0; i < temp['data'].length; i = i + interval) {
             var value = temp['data'][i]['value'];
             var date = temp['data'][i]['timestamp'];
+            date = (new Date(date.slice(1, -1))).toString().slice(16, 24)
             data_temp.push([i, value]);
-            dates.push([i, date.slice(-13, -8)]);
+
+            if (i % 2 == 0) {};
+            dates.push([i, date]);
             current_temp = value;
             current_date = date;
         }
@@ -27,7 +31,7 @@ function HomeTempPlot(){
         $.getJSON(url_humi, function(humi){
             // console.log(humi);
 
-            for (var j = 0; j < humi['data'].length; j++) {
+            for (var j = 0; j < humi['data'].length; j = j + interval) {
                 var humi_value = humi['data'][j]['value'];
                 data_humi.push([j, humi_value])
                 current_humi = humi_value;
@@ -42,8 +46,9 @@ function HomeTempPlot(){
                 temp['data'].length,
                 dates.slice(-10)
             );
-            // console.log(dates);
-            $("#current_temp").text(current_temp + ' ' + current_humi + ' ' + current_date);
+
+            $("#home_temperature").text(Math.round(current_temp).toString() + "°C");
+            $("#home_humidity").text(Math.round(current_humi).toString() + "%");
         });
     });
 
@@ -58,20 +63,58 @@ function plot_chart(data1, data2, label1, label2, xmax, dates){
 
         // datas
         [
-            {data: data1, label: label1, color: "orange"},
+            {data: data1, label: label1, color: "orange",
+                curvedLines:  { apply: true}
+            },
             {data: data2, label: label2, color: "blue", yaxis: 2}
         ],
 
+
         // options
         {
+            series: { stack: true,
+             lines: {show: true, fill: true, },
+            curvedLines: {  active: true, fit: true, apply: true },},
+
             legend: {position: "sw"},
 
-            yaxis: {min: 0, max: 50},
-            y2axis: {min: 0, max: 100},
+            yaxis: {
+                min: 0,
+                max: 50,
+                tickFormatter: function(val) {return val+" °C";},
+                font:{
+                    size:12,
+                    style:"italic",
+                    weight:"bold",
+                    family:"sans-serif",
+                    variant:"small-caps"
+                },
+            },
+
+            y2axis: {
+                min: 0,
+                max: 100,
+                tickFormatter: function(val) {return val+" %";},
+                font:{
+                    size:12,
+                    style:"italic",
+                    weight:"bold",
+                    family:"sans-serif",
+                    variant:"small-caps"
+                },
+            },
+
             // xaxis: {min: xmax-100, max: xmax},
             xaxis: {
-                ticks: dates
-            }
+                ticks: dates,
+                font:{
+                    size:10,
+                    style:"italic",
+                    weight:"bold",
+                    family:"sans-serif",
+                    variant:"small-caps"
+                }
+            },
         }
 
     );
