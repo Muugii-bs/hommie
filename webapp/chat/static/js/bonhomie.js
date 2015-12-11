@@ -20,7 +20,7 @@ emotion_score["happy"] 		= 2;
 
 colors["grandma"] 	= "#B4E0DC";
 colors["dad"] 		= "#1DAFEC";
-colors["mom"] 		= "#9CD09C";
+colors["mom"] 		= "#13A89E";
 colors["son"] 		= "#A18981";
 colors["daughter"] 	= "#F3896B";
 colors["grandpa"] 	= "#BF1E2E";
@@ -439,7 +439,7 @@ $('#3>div').click(function(){
 });
 
 function home_msg_sad() {
-	 msg_senti = "皆、雰囲気が良くないね！元気出して、お仕事、お勉強頑張ろう!";
+	 msg_senti = "皆元気出して、お仕事、お勉強頑張ろう!";
 	 render_msg(familySize - 1, msg_senti, 'sad', 'home');
 }
 
