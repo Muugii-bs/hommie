@@ -4,6 +4,7 @@ from socketio.mixins import RoomsMixin, BroadcastMixin
 from chat import app, db
 from .utils import mood, get_current_time
 from .models import Message
+from sqlalchemy import desc
 
 class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
     nicknames = []
@@ -48,8 +49,19 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         db.session.commit()
         return True
 
+    def on_home_get_message(self, home_last_msg_id):
+        # get last home message
+        m = Message.query.filter(Message.sender_user_id == 6, Message.family_id == self.room).order_by(desc(Message.timestamp)).first()
+        msg_id = m.id
+        msg = m.text
+        msg_mood = m.emotion
 
-    # helper mothods #
+        # if msg_id is not same as last msg, then emit msg
+        if home_last_msg_id != msg_id:
+            self.emit("msg_from_home", msg, msg_mood, msg_id)
+        return True
+
+    # helper methods #
     def emit_to_room_including_self(self, room, event, *args):
         """This is sent to all in the room (in this particular Namespace) including self"""
         pkt = dict(type="event",

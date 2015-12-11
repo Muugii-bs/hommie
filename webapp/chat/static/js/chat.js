@@ -46,9 +46,9 @@ $(function() {
     socket.on('error', function (e) {
         render_msg('System', e ? e : 'A unknown error occurred', '');
     });
-	
+
     // DOM manipulation
-   
+
     $("#nick").val(user);
 
     //$('#set-nickname').submit(function (ev) {
@@ -77,8 +77,20 @@ $(function() {
          $('#lines').get(0).scrollTop = 10000000;
     });
 
+    // === HOME chat functions ===
+    // function to check home message every second
+    var home_last_msg_id = 0;
+    setInterval(function(){
+        socket.emit('home_get_message', home_last_msg_id);
+    },1000);
+    // if new message exists, server emits new message to this socket
+    socket.on('msg_from_home', function (msg, emotion, msg_id) {
+        home_last_msg_id = msg_id;
+        render_msg('6', msg, emotion);
+    });
+
     var clear = function () {
         $('#message').val('').focus();
-    }   
+    };
 });
 

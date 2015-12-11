@@ -113,6 +113,21 @@ def api_sensor_value():
         # todo send to sockets
     return ('OK', 200)
 
+@app.route('/api/home_message', methods=['POST'])
+def api_home_message():
+    """
+    Gets home message.
+    """
+    data = request.get_json()
+    print "Home message received: ", data
+    family_id = data.get('family_id')
+    msg = data.get('msg')
+    emotion = data.get('emotion')
+
+    m = Message(text = msg, emotion = emotion, timestamp = get_current_time(), sender_user_id=6, family_id = family_id)
+    db.session.add(m)
+    db.session.commit()
+    return ('OK', 200)
 
 @app.route('/api/sensor_history', methods=['GET'])
 def api_sensor_history():
