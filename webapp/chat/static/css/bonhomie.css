@@ -1,10 +1,10 @@
 body {
-	background-image: url('../img/summer_wp1.jpg');
+    /* background-image: url('../img/summer_wp1.jpg'); */
 }
 
 #people> div{
-	position:relative;
-	top:20px;
+    position:relative;
+    top:20px;
     /*border: 10px;*/
     /*border-color: black;*/
     /*border-style: solid;*/
@@ -13,106 +13,106 @@ body {
 }
 
 #lines{
-  /*background-color: #5D4037;*/
-  background-color: #424242;
-  color: floralwhite;
-  border-radius: 3px;
-  text-align: inherit;
-  text-indent: 20px;
-  height: 35vh;
-  overflow-y: scroll;
-  height:665px;
+    /*background-color: #5D4037;*/
+    background-color: #424242;
+    color: floralwhite;
+    border-radius: 3px;
+    text-align: inherit;
+    text-indent: 20px;
+    height: 35vh;
+    overflow-y: scroll;
+    height:665px;
 }
 
 img.flip {
-  -moz-transform: scaleX(-1);    /* Gecko */
-  -o-transform: scaleX(-1);      /* Opera */
-  -webkit-transform: scaleX(-1); /* Webkit */
-  transform: scaleX(-1);         /* Standard */
-  filter: FlipH;                 /* IE 6/7/8 */
+    -moz-transform: scaleX(-1);    /* Gecko */
+    -o-transform: scaleX(-1);      /* Opera */
+    -webkit-transform: scaleX(-1); /* Webkit */
+    transform: scaleX(-1);         /* Standard */
+    filter: FlipH;                 /* IE 6/7/8 */
 }
 
 #home-light{
-  position: relative;
-  left: 80%;
-  bottom: 120px;
+    position: relative;
+    left: 80%;
+    bottom: 120px;
 }
 
 
 
 .talkbubble {
-   width: 120px;
-   height: 100px;
-   padding: 10px;
-   background: orange;
-   position: relative;
-   -moz-border-radius:    10px;
-   -webkit-border-radius: 10px;
-   border-radius:         10px;
+    width: 120px;
+    height: 100px;
+    padding: 10px;
+    background: orange;
+    position: relative;
+    -moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
 }
 .talkbubble.left:before {
-   content:"";
-   position: absolute;
-   right: 100%;
-   top: 26px;
-   width: 0;
-   height: 0;
-   border-top: 13px solid transparent;
-   /*border-right: 26px solid orange;*/
-   border-bottom: 13px solid transparent;
+    content:"";
+    position: absolute;
+    right: 100%;
+    top: 26px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    /*border-right: 26px solid orange;*/
+    border-bottom: 13px solid transparent;
 }
 .talkbubble.right:before {
-   content:"";
-   position: absolute;
-   left: 100%;
-   top: 26px;
-   width: 0;
-   height: 0;
-   border-top: 13px solid transparent;
-   /*border-left: 26px solid orange;*/
-   border-bottom: 13px solid transparent;
+    content:"";
+    position: absolute;
+    left: 100%;
+    top: 26px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    /*border-left: 26px solid orange;*/
+    border-bottom: 13px solid transparent;
 }
 
 .homebubble {
-   width: 90%;
-   height: 150px;
-   padding: 10px;
-   background: orange;
-   position: relative;
-   -moz-border-radius:    10px;
-   -webkit-border-radius: 10px;
-   border-radius:         10px;
+    width: 90%;
+    height: 150px;
+    padding: 10px;
+    background: orange;
+    position: relative;
+    -moz-border-radius:    10px;
+    -webkit-border-radius: 10px;
+    border-radius:         10px;
 }
 
 /*p {
     background-color: green;
 }*/
 #nickname .wrap{
- padding-top: 0px;
+    padding-top: 0px;
 }
 
-.col-xs-8 {
-	background-color:currentColor;
-	border-radius: 4px;
-}
+/* .col-xs-8 { */
+/* 	background-color:currentColor; */
+/* 	border-radius: 4px; */
+/* } */
 
 #line-title {
-	text-align:end;
-	background-color:floralwhite;
-	color:#5D4037;
-	border-radius: 2px;
-	position:relative;
-	top: -20px;
+    text-align:end;
+    background-color:floralwhite;
+    color:#5D4037;
+    border-radius: 2px;
+    position:relative;
+    top: -20px;
 }
 
-.container {
-	position:relative;
-	top: 20px;
-}
+/* .container { */
+/* 	position:relative; */
+/* 	top: 20px; */
+/* } */
 
 #character {
-	position:absolute;
-	left: 0px;
+    position:absolute;
+    left: 0px;
     bottom: 0px;
-	opacity: 0.01;
+    opacity: 0.01;
 }

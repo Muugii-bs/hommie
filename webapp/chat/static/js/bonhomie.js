@@ -1,10 +1,10 @@
 var total = 0;
 // var types = ["grandma", "dad", "mom", "son", "daughter", "grandpa"];
 var emos = ["angry", "sad", "happy", "normal", "scared"];
-var colors = ["#B4E0DC", "#1DAFEC", "#9CD09C", "#A18981", "#F3896B", "#BF1E2E"];
-var colors = {}
-var atms = []
-var images = ["static/img/winter_wp1.jpg", "static/img/winter_wp2.jpg", "static/img/winter_wp3.jpg", "static/img/summer_wp1.jpg", "static/img/summer_wp2.png", "static/img/summer_wp3.jpg"]
+// var colors = ["#B4E0DC", "#1DAFEC", "#9CD09C", "#A18981", "#F3896B", "#BF1E2E"];
+var colors = {};
+var atms = [];
+var images = ["static/img/winter_wp1.jpg", "static/img/winter_wp2.jpg", "static/img/winter_wp3.jpg", "static/img/summer_wp1.jpg", "static/img/summer_wp2.png", "static/img/summer_wp3.jpg"];
 
 colors["grandma"] = "#B4E0DC";
 colors["dad"] = "#1DAFEC";
@@ -15,17 +15,17 @@ colors["grandpa"] = "#BF1E2E";
 
 var render_msg = function (user_id, msg, emotion, place){
 	console.log("place: " + place);
-	
+
 	if (place=='undefined')  place='street-view';
 	atms.push(emotion);
 	if (user_id=='System' || user_id=='undefined'){
 		return;
 	}
 	$("#" + user_id).find("div .qtime").remove();
-	
+
 	fa = '<i class="fa fa-2x fa-' + place+ '"></i>';
 	$('#lines').append($('<p>').append(fa + '<b>' + ms[user_id] + ': </b>').append($('<em>').text(msg)));
-	
+
 	tag = (new Date()).getTime();
 	$span = $("<span>", {tag:tag}).html(msg+"<br/>");
 	// $span = $("<span>", {tag:tag});
@@ -35,12 +35,12 @@ var render_msg = function (user_id, msg, emotion, place){
  //        typeSpeed: 3
  //      })
 	if (emotion) $("#" + user_id +"> div>img").attr('src','static/img/'+ms[user_id]+'_' + emotion+'.png');
-}
+};
 
 var render_user = function(user){
 	var bit = user%2;
 	var side = bit ? 'left': 'right';
-	var sideDiv = 'col-xs-6 pull-' + side; 
+	var sideDiv = 'col-xs-6 pull-' + side;
   	var sideMessage = 'talkbubble ' + side;
 
 	var $div = [];
@@ -58,7 +58,7 @@ var render_user = function(user){
 		$div[0].append($qi);
 	}
 	render_msg(user, (ms[user]=='house')?"HOME":"", "normal", my_place);
-}
+};
 
 var declare_users = function(){
 	var house=0;
@@ -70,7 +70,7 @@ var declare_users = function(){
 		render_user(msid[i]);
 	}
 	render_user(msid[house]);
-}
+};
 
 declare_users();
 // for (var i=1; i<6; i++)
@@ -87,7 +87,7 @@ var calcSpan = function(dtime){
 	} else text = text + " a few seconds ";
 	text = text+" ago.";
 	return text;
-}
+};
 
 window.setInterval(function(){
 	$(".message").each(function(){
@@ -103,7 +103,7 @@ window.setInterval(function(){
 				$(this).find('div').append($qp);
 			}
 			else {
-				$(this).find('.qtime').html(calcSpan(dtime))
+			    $(this).find('.qtime').html(calcSpan(dtime));
 			}
 			return;
 		}
@@ -131,7 +131,7 @@ window.setInterval(function(){
 	if (sum > cnt/2) {
 		num = Math.floor((Math.random() * (images.length - 1)) + 1);
 		console.log('num: ', num, 'sum: ', sum);
-		$(document.body).css('background-image', 'url(' + images[num] + ')');
+		// $(document.body).css('background-image', 'url(' + images[num] + ')');
 		move_character();
 	}
 	atms = [];
@@ -160,21 +160,21 @@ function move_character() {
 
 
 function distance(lat1, lon1, lat2, lon2, unit) {
-    var radlat1 = Math.PI * lat1/180
-    var radlat2 = Math.PI * lat2/180
-    var radlon1 = Math.PI * lon1/180
-    var radlon2 = Math.PI * lon2/180
-    var theta = lon1-lon2
-    var radtheta = Math.PI * theta/180
+    var radlat1 = Math.PI * lat1/180;
+    var radlat2 = Math.PI * lat2/180;
+    var radlon1 = Math.PI * lon1/180;
+    var radlon2 = Math.PI * lon2/180;
+    var theta = lon1-lon2;
+    var radtheta = Math.PI * theta/180;
     var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-    dist = Math.acos(dist)
-    dist = dist * 180/Math.PI
-    dist = dist * 60 * 1.1515
-    if (unit=="K") { dist = dist * 1.609344 }
-    if (unit=="N") { dist = dist * 0.8684 }
-    return dist
+    dist = Math.acos(dist);
+    dist = dist * 180/Math.PI;
+    dist = dist * 60 * 1.1515;
+    if (unit=="K") { dist = dist * 1.609344; };
+    if (unit=="N") { dist = dist * 0.8684; };
+    return dist;
 }
- 
+
 
 
 
@@ -188,7 +188,7 @@ function showPosition(position) {
 	//street-view, university, building, home
 	if (Math.round(distance(lat, lon, home_lat, home_long, "K")*1000) < 50){
 		my_place = 'home';
-		
+
 	} else if (Math.round(distance(lat, lon, work_lat, work_long, "K")*1000) < 50){
 		my_place = 'work';
 		if (user == 3 || user == 4)  my_place = 'university';
@@ -202,7 +202,7 @@ function getLocation() {
 	}
 }
 
-getLocation();   
+getLocation();
 
 
 $('#6>div>img').click(function(){
@@ -211,7 +211,7 @@ $('#6>div>img').click(function(){
 	$tmp = $("#" + familySize + "div >img");
 	console.log($tmp);
 
-})
+});
 
 
 $('#home-light').click(function(){
@@ -219,16 +219,16 @@ $('#home-light').click(function(){
 	$.get('http://10.10.0.209:8000/api/action1');
 	pic = msid[familySize - 1];
 	$tmp = $("#" + pic).find('div>img');
-	$tmp.attr('src', 'static/img/house_happy.png');  
-	console.log("id: ", pic, "tmp: ", $tmp); 
+	$tmp.attr('src', 'static/img/house_happy.png');
+	console.log("id: ", pic, "tmp: ", $tmp);
 	setTimeout(function(){
 		$tmp.attr('src', 'static/img/house_normal.png');
 	}, 5000);
-})
+});
 
 
 $('#3>div>img').click(function(){
 	console.log("grandpa clicked");
 	$('.grandpa-modal').modal();
 
-})
+});

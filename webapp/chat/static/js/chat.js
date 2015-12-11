@@ -20,9 +20,9 @@ $(function() {
 		// declare_users(nicknames);
     });
 
-	socket.on('sensor_data', function (nickname, data) {
-		render_data(nickname, data);
-	});
+    socket.on('sensor_data', function (nickname, data) {
+	render_data(nickname, data);
+    });
 
     socket.on('msg_to_room', function (nickname, msg, emotion, place) {
         render_msg(nickname, msg, emotion, place);
@@ -55,10 +55,10 @@ $(function() {
     socket.emit('nickname', user, function (set) {
         if (set) {
             clear();
-            return $('#chat').addClass('nickname-set');
+            $('#chat').addClass('nickname-set');
         }
         $('#nickname-err').css('visibility', 'visible');
-     });
+    });
         //return false;
     //});
 
@@ -93,4 +93,3 @@ $(function() {
         $('#message').val('').focus();
     };
 });
-
