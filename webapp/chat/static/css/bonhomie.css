@@ -1,8 +1,8 @@
 body {
     /* background-image: url('../img/summer_wp1.jpg'); */
     font: 18px/1.5em "proxima-nova", Helvetica, Arial, sans-serif;
+    background-color: rgb(78, 127, 126);
 }
-
 
 #people> div{
     position:relative;
@@ -24,9 +24,9 @@ body {
     /* border-radius: 3px; */
     /* text-align: inherit; */
     /* text-indent: 20px; */
-    height: 35vh;
+    height: 90vh;
     overflow-y: scroll;
-    height:665px;
+    /*height:665px;*/
 }
 
 img.flip {
@@ -113,6 +113,11 @@ img.flip {
 /* Timeline elements */
 #lines {
     padding: 30px;
+    background: white;
+    margin-top: 10px;
+}
+#send-message{
+  margin-bottom: 10px;
 }
 
 #lines> div {

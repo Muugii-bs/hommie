@@ -127,7 +127,7 @@ var render_msg = function (sender, msg, emotion, place){
   $("#" + sender).find("div .qtime").remove();
   if (place!='home' && place!='university')  place='building';
   fa = '<i class="fa fa-2x fa-' + place+ '"></i>';
-  $('#lines').append('<div class="clear"></div>');
+  
   $icon = $('<div class="icon">');
   $icon.css({'background-image':'url(static/img/'+ ms[sender]+'.png)'});
   $icon.css({'background-repeat': 'no-repeat'});
@@ -141,9 +141,11 @@ var render_msg = function (sender, msg, emotion, place){
       $('#lines').append($('<div class="from-them" style="background-color: ' + colors[ms[sender]] + ';">')
           .append($icon).append($('<p style="margin: 0;">').text(msg)));
   }
+  $('#lines').append('<div class="clear"></div>');
   $('#lines').get(0).scrollTop = $('#lines').get(0).scrollHeight;
   $("#" + sender + " > .message").html(msg);
-  $("#" + sender + " > .message").fadeIn(0).delay(2000).fadeOut( 400 );
+  console.log("asa");
+  $("#" + sender + " > .message").fadeOut( 400 );
 
   tag = (new Date()).getTime();
   $span = $("<span>", {tag:tag}).html(msg+"<br/>");
