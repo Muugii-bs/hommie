@@ -24,7 +24,7 @@ colors["mom"] 		= "#13A89E";
 colors["son"] 		= "#A18981";
 colors["daughter"] 	= "#F3896B";
 colors["grandpa"] 	= "#BF1E2E";
-colors["house"] 	= "#B3B8C2";
+colors["house"] 	= "#2F3590";
 
 Plot = function ( stage ) {
 
