@@ -146,8 +146,19 @@ var render_msg = function (sender, msg, emotion, place){
  //      })
  //console.log(sender + " is " + emotion);
   if (emotion) {
-	  $("#" + sender +"> .emotion").css({'background-image':'url(static/img/'+ emotion+'.png)'});
-    $("#" + sender +"> .emotion").css({'background-repeat': 'no-repeat'});
+	  	$("#" + sender +"> .emotion").css('background-image','');
+		$("#" + sender +"> .emotion").css({'background-image':'url(static/img/'+ emotion+'.png)'});
+		$("#" + sender +"> .emotion").css({'background-repeat': 'no-repeat'});
+	 /* for (var j = 0; j < 3; j ++){
+	  	$("#" + sender +"> .emotion").css('background-image','');
+	  	$("#" + sender +"> .emotion").css('background-image','url(static/img/'+ emotion+'.png)');
+	  }
+	 */	
+	  for (var i = 100; i < 1100; i += 100) {
+		  $("#" + sender +"> .emotion").animate({
+		  	opacity: 1 - 0.001 * i,
+	  	}, i);
+	  }
 
   }
 }
