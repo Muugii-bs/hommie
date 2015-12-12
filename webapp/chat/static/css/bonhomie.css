@@ -84,17 +84,9 @@ img.flip {
     border-radius:         10px;
 }
 
-/*p {
-    background-color: green;
-}*/
 #nickname .wrap{
     padding-top: 0px;
 }
-
-/* .col-xs-8 { */
-/* 	background-color:currentColor; */
-/* 	border-radius: 4px; */
-/* } */
 
 #line-title {
     text-align:end;
@@ -105,14 +97,49 @@ img.flip {
     top: -20px;
 }
 
-/* .container { */
-/* 	position:relative; */
-/* 	top: 20px; */
-/* } */
-
 #character {
     position:absolute;
     left: 0px;
     bottom: 0px;
     opacity: 0.01;
 }
+
+
+/* Timeline elements */
+#lines {
+    padding: 10px;
+}
+
+#lines> div {
+    max-width: 250px;
+    word-wrap: break-word;
+    margin-bottom: 5px;
+    line-height: 20px;
+    /* font-family: "Helvetica Neue"; */
+    font-size: 18px;
+}
+
+#lines> p {
+    margin: 0;
+}
+
+.clear {clear: both}
+.from-me {
+    position: relative;
+    padding: 6px 12px;
+    color: white;
+    background: #0B93F6;
+    border-radius: 10px;
+    float: right;
+    text-indent: 0;
+}
+.from-them {
+    position: relative;
+    padding: 6px 12px;
+    background: #E5E5EA;
+    border-radius: 10px;
+    color: white;
+    float: left;
+    text-indent: 0;
+}
+/* Timeline elements end */
