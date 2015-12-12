@@ -143,7 +143,6 @@ var render_msg = function (sender, msg, emotion, place){
   }
   $('#lines').get(0).scrollTop = $('#lines').get(0).scrollHeight;
   $("#" + sender + " > .message").html(msg);
-  $("#" + sender + " > .message").fadeIn(0).delay(2000).fadeOut( 400 );
 
   tag = (new Date()).getTime();
   $span = $("<span>", {tag:tag}).html(msg+"<br/>");
@@ -156,7 +155,7 @@ var render_msg = function (sender, msg, emotion, place){
  //console.log(sender + " is " + emotion);
 
   if (emotion) {
-	  $("#" + sender +"> .emotion").css('background-image','');
+	  	$("#" + sender +"> .emotion").css('background-image','').finish();
 		$("#" + sender +"> .emotion").css({'background-image':'url(static/img/'+ emotion+'.png)'});
 		$("#" + sender +"> .emotion").css({'background-repeat': 'no-repeat'});
 	 /* for (var j = 0; j < 3; j ++){
@@ -170,6 +169,12 @@ var render_msg = function (sender, msg, emotion, place){
 	  	}, i);
 	  }
 
+	$("#" + sender +"> .message").css('background-image','').finish();
+  	for (var i = 100; i < 1100; i += 100) {
+		  $("#" + sender +"> .message").animate({
+		  	opacity: 1 - 0.001 * i,
+	  	}, i);
+	  }
   }
 
 
