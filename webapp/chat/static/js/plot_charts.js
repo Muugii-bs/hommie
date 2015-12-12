@@ -79,8 +79,8 @@ function plot_chart(data1, data2, label1, label2, xmax, dates){
             legend: {position: "nw"},
 
             yaxis: {
-                min: 0,
-                max: 50,
+                min: 10,
+                max: 35,
                 tickFormatter: function(val) {return val+" °C";},
                 font:{
                     size:12,
