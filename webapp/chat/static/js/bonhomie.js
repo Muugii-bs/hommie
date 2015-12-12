@@ -49,7 +49,7 @@ Plot = function ( stage ) {
     this.message.innerHTML = "";
 
     this.stat.setAttribute("class", "stat");
-    this.stat.style.bottom= y +unit;
+    this.stat.style.bottom= (y-3) +unit;
 
     this.width = x;
     this.height = y;
@@ -128,13 +128,22 @@ var render_msg = function (sender, msg, emotion, place){
   if (place!='home' && place!='university')  place='building';
   fa = '<i class="fa fa-2x fa-' + place+ '"></i>';
   $('#lines').append('<div class="clear"></div>');
+  $icon = $('<div class="icon">');
+  $icon.css({'background-image':'url(static/img/'+ ms[sender]+'.png)'});
+  $icon.css({'background-repeat': 'no-repeat'});
   if (sender == user) {
-      $('#lines').append($('<div class="from-me" style="background-color: ' + colors[ms[sender]] + ';">').append($('<p style="margin: 0;">').text(msg)));
+      $icon.css('right','-30px');
+      $('#lines').append($('<div class="from-me" style="background-color: ' + colors[ms[sender]] + ';">')
+                          .append($icon)
+                          .append($('<p style="margin: 0;">').text(msg)));
   } else {
-      $('#lines').append($('<div class="from-them" style="background-color: ' + colors[ms[sender]] + ';">').append($('<p style="margin: 0;">').text(msg)));
+      $icon.css('left','-30px');
+      $('#lines').append($('<div class="from-them" style="background-color: ' + colors[ms[sender]] + ';">')
+          .append($icon).append($('<p style="margin: 0;">').text(msg)));
   }
   $('#lines').get(0).scrollTop = $('#lines').get(0).scrollHeight;
   $("#" + sender + " > .message").html(msg);
+  $("#" + sender + " > .message").fadeIn(0).delay(2000).fadeOut( 400 );
 
   tag = (new Date()).getTime();
   $span = $("<span>", {tag:tag}).html(msg+"<br/>");
@@ -145,8 +154,9 @@ var render_msg = function (sender, msg, emotion, place){
  //        typeSpeed: 3
  //      })
  //console.log(sender + " is " + emotion);
+
   if (emotion) {
-	  	$("#" + sender +"> .emotion").css('background-image','');
+	  $("#" + sender +"> .emotion").css('background-image','');
 		$("#" + sender +"> .emotion").css({'background-image':'url(static/img/'+ emotion+'.png)'});
 		$("#" + sender +"> .emotion").css({'background-repeat': 'no-repeat'});
 	 /* for (var j = 0; j < 3; j ++){
@@ -161,6 +171,8 @@ var render_msg = function (sender, msg, emotion, place){
 	  }
 
   }
+
+
 }
 
 
