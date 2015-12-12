@@ -113,11 +113,6 @@ var animateMe = function(object, x, y){
 }
 
 
-feel = function (emotion){
-  	this.emotion.style.background="url('../static/img/" + emotion+ ".png') no-repeat right top";
-  	this.emotion.style.backgroundSize="contain";
-}
-
 var render_msg = function (sender, msg, emotion, place){
   var user_emotion = ms[sender] + '.' + emotion;
   atms.push(user_emotion);
@@ -144,56 +139,11 @@ var render_msg = function (sender, msg, emotion, place){
  //      })
  //console.log(sender + " is " + emotion);
   if (emotion) {
-	  $("#" + sender +"> .emotion").css('background-image','url(static/img/'+ emotion+'.png)');
+	  $("#" + sender +"> .emotion").css({'background-image':'url(static/img/'+ emotion+'.png)'});
+    $("#" + sender +"> .emotion").css({'background-repeat': 'no-repeat'});
+
   }
 }
-
-// var render_msg = function (user_id, msg, emotion, place){
-// 	console.log("place: " + place);
-
-// 	if (place=='undefined')  place='street-view';
-// 	atms.push(emotion);
-// 	if (user_id=='System' || user_id=='undefined'){
-// 		return;
-// 	}
-// 	$("#" + user_id).find("div .qtime").remove();
-
-// 	fa = '<i class="fa fa-2x fa-' + place+ '"></i>';
-// 	$('#lines').append($('<p>').append(fa + '<b>' + ms[user_id] + ': </b>').append($('<em>').text(msg)));
-
-// 	tag = (new Date()).getTime();
-// 	$span = $("<span>", {tag:tag}).html(msg+"<br/>");
-// 	// $span = $("<span>", {tag:tag});
-// 	$("#" + user_id + " .message > div").append($span);
-// 	// $span.typed({
-//  //        strings: [msg],
-//  //        typeSpeed: 3
-//  //      })
-// 	if (emotion) $("#" + user_id +"> div>img").attr('src','static/img/'+ms[user_id]+'_' + emotion+'.png');
-// }
-
-// var render_user = function(user){
-// 	var bit = user%2;
-// 	var side = bit ? 'left': 'right';
-// 	var sideDiv = 'col-xs-6 pull-' + side;
-//   	var sideMessage = 'talkbubble ' + side;
-
-// 	var $div = [];
-// 	var $person = $("<div>", {id: user, class: sideDiv});
-// 	$div[0] = $("<div>", {class: "col-xs-6"})
-// 	.html($("<img>", {class: "img-responsive"+(bit ?" ":""),src:"static/img/"+ms[user]+"_normal.png", style: "width: 100%;"}));
-// 	$div[1] = $("<div>", {class: "message col-xs-6"})
-// 		.html($("<div>", {class: sideMessage, style: "background-color: " + colors[ms[user]]}));
-// 	//$div[1].html({class: "img-responsive", id: "myHome", src:"static/img/house.png, style: "width: 30%});
-// 	$person.append($div[1-bit]).append($div[bit]);
-// 	$("#people").append($person);
-// 	if (user==familySize){
-// 		// $qi = $("<i>", {class: "fa fa-power-off"});
-// 		$qi = $("<button>", {type:"button",id:"home-light"}).text("Light");
-// 		$div[0].append($qi);
-// 	}
-// 	render_msg(user, (ms[user]=='house')?"HOME":"", "normal", my_place);
-// }
 
 
 
@@ -357,16 +307,6 @@ function move_character() {
 	character.animate({left: "+=1550px"}, 1);
 	character.animate({opacity: 0.01}, 1);
 }
-
-// var work = [];
-// work["lat"]= 35.5969408;
-// work["long"]= 139.67262;
-// var home = [];
-// home["lat"]=35.6597839;
-// home["long"] = 139.6770864;
-// var school =[];
-// school["lat"]= 35.7085195;
-// school["long"]=139.7568903;
 
 
 function distance(lat1, lon1, lat2, lon2, unit) {
