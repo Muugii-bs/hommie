@@ -46,7 +46,10 @@ Plot = function ( stage ) {
     this.message.style.position="relative";
     this.message.style.width = x + unit;
     // this.message.style.top = y + unit;
-    this.message.innerHTML = "Last Message";
+    this.message.innerHTML = "";
+
+    this.stat.setAttribute("class", "stat");
+    this.stat.style.bottom= y +unit;
 
     this.width = x;
     this.height = y;
@@ -88,9 +91,11 @@ Plot = function ( stage ) {
   this.elm = document.createElement( 'div' );
   this.emotion = document.createElement( 'div' );
   this.message = document.createElement( 'div' );
+  this.stat = document.createElement( 'div' );
   // this.emotion.innerHTML = "ETETE";
   this.elm.appendChild(this.emotion);
   this.elm.appendChild(this.message);
+  this.elm.appendChild(this.stat);
 
   this.elm.style.position = 'absolute';
   stage.appendChild( this.elm );
@@ -141,15 +146,26 @@ var render_msg = function (sender, msg, emotion, place){
  //      })
  //console.log(sender + " is " + emotion);
   if (emotion) {
-	  $("#" + sender +"> .emotion").css({'background-image':'url(static/img/'+ emotion+'.png)'});
-    $("#" + sender +"> .emotion").css({'background-repeat': 'no-repeat'});
+	  	$("#" + sender +"> .emotion").css('background-image','');
+		$("#" + sender +"> .emotion").css({'background-image':'url(static/img/'+ emotion+'.png)'});
+		$("#" + sender +"> .emotion").css({'background-repeat': 'no-repeat'});
+	 /* for (var j = 0; j < 3; j ++){
+	  	$("#" + sender +"> .emotion").css('background-image','');
+	  	$("#" + sender +"> .emotion").css('background-image','url(static/img/'+ emotion+'.png)');
+	  }
+	 */	
+	  for (var i = 100; i < 1100; i += 100) {
+		  $("#" + sender +"> .emotion").animate({
+		  	opacity: 1 - 0.001 * i,
+	  	}, i);
+	  }
 
   }
 }
 
 
 
-var picSize = 150/familySize, //vmin
+var picSize = 130/familySize, //vmin
     centerX = 45 - picSize, //vw
     centerY = 65- picSize, //vh
     plotRadius = 30; //vmin
