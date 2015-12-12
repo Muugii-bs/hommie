@@ -419,8 +419,8 @@ $('#6').click(function(){
 });
 
 
-$('#home-light').click(function(){
-	//console.log("light on");
+$('#home_light').click(function(){
+	console.log("light Clicked");
 	$.get('http://10.10.0.209:8000/api/action1');
 	pic = msid[familySize - 1];
 	$tmp = $("#" + pic).find('div>img');
