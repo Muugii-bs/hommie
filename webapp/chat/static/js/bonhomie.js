@@ -410,7 +410,7 @@ function getLocation() {
 getLocation();
 
 
-$('#6>div').click(function(){
+$('#6').click(function(){
 	$('.home-modal-lg').modal();
 	$('#temps').html(13);
 	$tmp = $("#" + familySize + "div >img");
@@ -420,8 +420,8 @@ $('#6>div').click(function(){
 });
 
 
-$('#home-light').click(function(){
-	//console.log("light on");
+$('#home_light').click(function(){
+	console.log("light Clicked");
 	$.get('http://10.10.0.209:8000/api/action1');
 	pic = msid[familySize - 1];
 	$tmp = $("#" + pic).find('div>img');
@@ -433,7 +433,7 @@ $('#home-light').click(function(){
 });
 
 
-$('#3>div').click(function(){
+$('#3').click(function(){
 	//console.log("grandpa clicked");
 	$('.grandpa-modal').modal();
 
