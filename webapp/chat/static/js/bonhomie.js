@@ -113,11 +113,6 @@ var animateMe = function(object, x, y){
 }
 
 
-feel = function (emotion){
-  	this.emotion.style.background="url('../static/img/" + emotion+ ".png') no-repeat right top";
-  	this.emotion.style.backgroundSize="contain";
-}
-
 var render_msg = function (sender, msg, emotion, place){
   var user_emotion = ms[sender] + '.' + emotion;
   atms.push(user_emotion);
@@ -134,6 +129,7 @@ var render_msg = function (sender, msg, emotion, place){
       $('#lines').append($('<div class="from-them" style="background-color: ' + colors[ms[sender]] + ';">').append($('<p style="margin: 0;">').text(msg)));
   }
   $('#lines').get(0).scrollTop = $('#lines').get(0).scrollHeight;
+  $("#" + sender + " > .message").html(msg);
 
   tag = (new Date()).getTime();
   $span = $("<span>", {tag:tag}).html(msg+"<br/>");
@@ -145,56 +141,11 @@ var render_msg = function (sender, msg, emotion, place){
  //      })
  //console.log(sender + " is " + emotion);
   if (emotion) {
-	  $("#" + sender +"> .emotion").css('background-image','url(static/img/'+ emotion+'.png)');
+	  $("#" + sender +"> .emotion").css({'background-image':'url(static/img/'+ emotion+'.png)'});
+    $("#" + sender +"> .emotion").css({'background-repeat': 'no-repeat'});
+
   }
 }
-
-// var render_msg = function (user_id, msg, emotion, place){
-// 	console.log("place: " + place);
-
-// 	if (place=='undefined')  place='street-view';
-// 	atms.push(emotion);
-// 	if (user_id=='System' || user_id=='undefined'){
-// 		return;
-// 	}
-// 	$("#" + user_id).find("div .qtime").remove();
-
-// 	fa = '<i class="fa fa-2x fa-' + place+ '"></i>';
-// 	$('#lines').append($('<p>').append(fa + '<b>' + ms[user_id] + ': </b>').append($('<em>').text(msg)));
-
-// 	tag = (new Date()).getTime();
-// 	$span = $("<span>", {tag:tag}).html(msg+"<br/>");
-// 	// $span = $("<span>", {tag:tag});
-// 	$("#" + user_id + " .message > div").append($span);
-// 	// $span.typed({
-//  //        strings: [msg],
-//  //        typeSpeed: 3
-//  //      })
-// 	if (emotion) $("#" + user_id +"> div>img").attr('src','static/img/'+ms[user_id]+'_' + emotion+'.png');
-// }
-
-// var render_user = function(user){
-// 	var bit = user%2;
-// 	var side = bit ? 'left': 'right';
-// 	var sideDiv = 'col-xs-6 pull-' + side;
-//   	var sideMessage = 'talkbubble ' + side;
-
-// 	var $div = [];
-// 	var $person = $("<div>", {id: user, class: sideDiv});
-// 	$div[0] = $("<div>", {class: "col-xs-6"})
-// 	.html($("<img>", {class: "img-responsive"+(bit ?" ":""),src:"static/img/"+ms[user]+"_normal.png", style: "width: 100%;"}));
-// 	$div[1] = $("<div>", {class: "message col-xs-6"})
-// 		.html($("<div>", {class: sideMessage, style: "background-color: " + colors[ms[user]]}));
-// 	//$div[1].html({class: "img-responsive", id: "myHome", src:"static/img/house.png, style: "width: 30%});
-// 	$person.append($div[1-bit]).append($div[bit]);
-// 	$("#people").append($person);
-// 	if (user==familySize){
-// 		// $qi = $("<i>", {class: "fa fa-power-off"});
-// 		$qi = $("<button>", {type:"button",id:"home-light"}).text("Light");
-// 		$div[0].append($qi);
-// 	}
-// 	render_msg(user, (ms[user]=='house')?"HOME":"", "normal", my_place);
-// }
 
 
 
@@ -359,16 +310,6 @@ function move_character() {
 	character.animate({opacity: 0.01}, 1);
 }
 
-// var work = [];
-// work["lat"]= 35.5969408;
-// work["long"]= 139.67262;
-// var home = [];
-// home["lat"]=35.6597839;
-// home["long"] = 139.6770864;
-// var school =[];
-// school["lat"]= 35.7085195;
-// school["long"]=139.7568903;
-
 
 function distance(lat1, lon1, lat2, lon2, unit) {
     var radlat1 = Math.PI * lat1/180;
@@ -427,10 +368,21 @@ $('#6').click(function(){
 
 });
 
-
+var light_status = 0;
 $('#home_light').click(function(){
 	console.log("light Clicked");
 	$.get('http://10.10.0.209:8000/api/action1');
+
+	// hue toggle
+	if (light_status == 0){
+		// ON
+		light_toggle(true, 254, 40000); // white
+		light_status = 1;
+	} else {
+		light_toggle(false, 254, 40000);
+		light_status = 0;
+	}
+
 	pic = msid[familySize - 1];
 	$tmp = $("#" + pic).find('div>img');
 	$tmp.attr('src', 'static/img/house_happy.png');
@@ -449,10 +401,25 @@ $('#3').click(function(){
 
 function home_msg_sad() {
 	 msg_senti = "皆元気出して、お仕事、お勉強頑張ろう!";
+	light_toggle(true, 254, 20000); // yellow
 	 render_msg(6, msg_senti, 'sad', 'home');
 }
 
 function home_msg_happy() {
 	msg_senti = "皆今日元気だね！嬉しい！";
+	light_toggle(true, 254, 6000); // red
 	render_msg(6, msg_senti, 'happy', 'home');
+}
+
+function light_toggle(on, sat, hue){
+	var data = '{"on":' + on + ', "sat":' + sat + ',"bri":254,"hue":' + hue + '}'
+	$.ajax({
+			"url" : "http://192.168.2.2/api/31a88c2e125b55271ac3b4218f9bf4b/lights/2/state",
+			"data" : data,
+			"success" : function() {},
+			"type" : "PUT",
+			"cache" : false,
+			"error" : function() {},
+			"dataType" : "json"
+		});
 }
