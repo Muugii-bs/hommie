@@ -128,6 +128,7 @@ var render_msg = function (sender, msg, emotion, place){
   } else {
       $('#lines').append($('<div class="from-them" style="background-color: ' + colors[ms[sender]] + ';">').append($('<p style="margin: 0;">').text(msg)));
   }
+  $("#" + sender + " > .message").html(msg);
 
   tag = (new Date()).getTime();
   $span = $("<span>", {tag:tag}).html(msg+"<br/>");
