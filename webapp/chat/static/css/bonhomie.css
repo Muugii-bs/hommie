@@ -1,6 +1,8 @@
 body {
     /* background-image: url('../img/summer_wp1.jpg'); */
+    font: 18px/1.5em "proxima-nova", Helvetica, Arial, sans-serif;
 }
+
 
 #people> div{
     position:relative;
@@ -14,11 +16,14 @@ body {
 
 #lines{
     /*background-color: #5D4037;*/
-    background-color: #424242;
-    color: floralwhite;
-    border-radius: 3px;
-    text-align: inherit;
-    text-indent: 20px;
+    /* background-color: #424242; */
+    /* background-color: white; */
+    /* color: floralwhite; */
+    color: white;
+    border-left: 2px rgba(0, 0, 0, .30) solid;
+    /* border-radius: 3px; */
+    /* text-align: inherit; */
+    /* text-indent: 20px; */
     height: 35vh;
     overflow-y: scroll;
     height:665px;
@@ -84,17 +89,9 @@ img.flip {
     border-radius:         10px;
 }
 
-/*p {
-    background-color: green;
-}*/
 #nickname .wrap{
     padding-top: 0px;
 }
-
-/* .col-xs-8 { */
-/* 	background-color:currentColor; */
-/* 	border-radius: 4px; */
-/* } */
 
 #line-title {
     text-align:end;
@@ -105,14 +102,49 @@ img.flip {
     top: -20px;
 }
 
-/* .container { */
-/* 	position:relative; */
-/* 	top: 20px; */
-/* } */
-
 #character {
     position:absolute;
     left: 0px;
     bottom: 0px;
     opacity: 0.01;
 }
+
+
+/* Timeline elements */
+#lines {
+    padding: 10px;
+}
+
+#lines> div {
+    max-width: 250px;
+    word-wrap: break-word;
+    margin-bottom: 5px;
+    line-height: 20px;
+    /* font-family: "Helvetica Neue"; */
+    font-size: 18px;
+}
+
+#lines> p {
+    margin: 0;
+}
+
+.clear {clear: both}
+.from-me {
+    position: relative;
+    padding: 6px 12px;
+    /* color: white; */
+    background: #0B93F6;
+    border-radius: 10px;
+    float: right;
+    text-indent: 0;
+}
+.from-them {
+    position: relative;
+    padding: 6px 12px;
+    background: #E5E5EA;
+    border-radius: 10px;
+    /* color: white; */
+    float: left;
+    text-indent: 0;
+}
+/* Timeline elements end */
