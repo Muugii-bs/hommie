@@ -24,7 +24,7 @@ colors["mom"] 		= "#13A89E";
 colors["son"] 		= "#A18981";
 colors["daughter"] 	= "#F3896B";
 colors["grandpa"] 	= "#BF1E2E";
-
+colors["house"] 	= "#B3B8C2";
 
 Plot = function ( stage ) {
 
@@ -35,7 +35,7 @@ Plot = function ( stage ) {
     this.emotion.style.width = x + unit;
     this.emotion.style.height = y + unit;
     this.emotion.style.zIndex = 1;
-    this.emotion.style.background="url('../static/img/happy.png') no-repeat right top";
+    //this.emotion.style.background="url('../static/img/happy.png') no-repeat right top";
     this.emotion.style.backgroundSize="contain";
     this.emotion.style.position="relative";
     this.emotion.style.left="8vmin";
@@ -80,11 +80,11 @@ Plot = function ( stage ) {
   };
   this.round = function( round ) {
     this.elm.style.borderRadius = round ? '50%/50%' : '';
-  };
+  };/*
   this.feel = function (emotion){
   	this.emotion.style.background="url('../static/img/" + emotion+ ".png') no-repeat right top";
   	this.emotion.style.backgroundSize="contain";
-  }
+  }*/
   this.elm = document.createElement( 'div' );
   this.emotion = document.createElement( 'div' );
   this.message = document.createElement( 'div' );
@@ -113,6 +113,10 @@ var animateMe = function(object, x, y){
 }
 
 
+feel = function (emotion){
+  	this.emotion.style.background="url('../static/img/" + emotion+ ".png') no-repeat right top";
+  	this.emotion.style.backgroundSize="contain";
+}
 
 var render_msg = function (sender, msg, emotion, place){
   var user_emotion = ms[sender] + '.' + emotion;
@@ -138,7 +142,9 @@ var render_msg = function (sender, msg, emotion, place){
  //        typeSpeed: 3
  //      })
  //console.log(sender + " is " + emotion);
-  if (emotion) $("#" + sender +"> div>img").attr('src','static/img/'+ms[sender]+'_' + emotion+'.png');
+  if (emotion) {
+	  $("#" + sender +"> .emotion").css('background-image','url(static/img/'+ emotion+'.png)');
+  }
 }
 
 // var render_msg = function (user_id, msg, emotion, place){
@@ -225,6 +231,7 @@ var distribute_users = function(){
 }
 
 
+//console.log(ms);
 distribute_users();
 
 // var declare_users = function(){
@@ -413,7 +420,7 @@ $('#6>div').click(function(){
 	$('.home-modal-lg').modal();
 	$('#temps').html(13);
 	$tmp = $("#" + familySize + "div >img");
-	console.log($tmp);
+	//console.log($tmp);
 	HomeTempPlot();
 
 });
@@ -440,10 +447,10 @@ $('#3>div').click(function(){
 
 function home_msg_sad() {
 	 msg_senti = "皆元気出して、お仕事、お勉強頑張ろう!";
-	 render_msg(familySize - 1, msg_senti, 'sad', 'home');
+	 render_msg(6, msg_senti, 'sad', 'home');
 }
 
 function home_msg_happy() {
 	msg_senti = "皆今日元気だね！嬉しい！";
-	render_msg(familySize - 1, msg_senti, 'happy', 'home');
+	render_msg(6, msg_senti, 'happy', 'home');
 }
