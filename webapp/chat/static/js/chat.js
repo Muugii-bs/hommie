@@ -13,6 +13,14 @@ $(function() {
         // render_msg(user.substring(0,1), "Logged In");
     });
     socket.on('nicknames', function (nicknames) {
+        for (var i = 1; i<=6;i++) {
+            if (nicknames.indexOf(i.toString()) < 0) {
+                $("#" + i + " > .stat").css("background", "#aaa");
+            } else {
+                $("#" + i + " > .stat").css("background", "#7FFF00");
+            }
+        }
+
         /*$('#nicknames').empty().append($('<span>Online: </span>'));
         for (var i in nicknames) {
           $('#nicknames').append($('<b>').text(nicknames[i]));

@@ -46,7 +46,10 @@ Plot = function ( stage ) {
     this.message.style.position="relative";
     this.message.style.width = x + unit;
     // this.message.style.top = y + unit;
-    this.message.innerHTML = "Last Message";
+    this.message.innerHTML = "";
+
+    this.stat.setAttribute("class", "stat");
+    this.stat.style.bottom= y +unit;
 
     this.width = x;
     this.height = y;
@@ -88,9 +91,11 @@ Plot = function ( stage ) {
   this.elm = document.createElement( 'div' );
   this.emotion = document.createElement( 'div' );
   this.message = document.createElement( 'div' );
+  this.stat = document.createElement( 'div' );
   // this.emotion.innerHTML = "ETETE";
   this.elm.appendChild(this.emotion);
   this.elm.appendChild(this.message);
+  this.elm.appendChild(this.stat);
 
   this.elm.style.position = 'absolute';
   stage.appendChild( this.elm );
@@ -160,7 +165,7 @@ var render_msg = function (sender, msg, emotion, place){
 
 
 
-var picSize = 150/familySize, //vmin
+var picSize = 130/familySize, //vmin
     centerX = 45 - picSize, //vw
     centerY = 65- picSize, //vh
     plotRadius = 30; //vmin
@@ -372,7 +377,7 @@ getLocation();
 
 $('#6').click(function(){
 	$('.home-modal-lg').modal();
-	$('#temps').html(13);
+	// $('#temps').html(13);
 	$tmp = $("#" + familySize + "div >img");
 	//console.log($tmp);
 	HomeTempPlot();
