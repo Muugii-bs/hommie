@@ -148,3 +148,17 @@ img.flip {
     text-indent: 0;
 }
 /* Timeline elements end */
+
+.stat
+{
+width:10px;
+height:10px;
+border-radius:50%;
+/*font-size:50px;*/
+/*color:#aaa;*/
+/*line-height:500px;*/
+/*text-align:center;*/
+background:#aaa;
+left:5px;
+position: absolute;;
+}
