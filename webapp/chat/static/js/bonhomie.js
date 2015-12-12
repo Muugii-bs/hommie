@@ -2,11 +2,11 @@ var total = 0;
 var emos = ["angry", "sad", "happy", "normal", "scared"];
 var colors = {};
 var atms = [];
-var images = ["static/img/winter_wp1.jpg", 
-			  "static/img/winter_wp2.jpg", 
-			  "static/img/winter_wp3.jpg", 
-			  "static/img/summer_wp1.jpg", 
-			  "static/img/summer_wp2.png", 
+var images = ["static/img/winter_wp1.jpg",
+			  "static/img/winter_wp2.jpg",
+			  "static/img/winter_wp3.jpg",
+			  "static/img/summer_wp1.jpg",
+			  "static/img/summer_wp2.png",
 			  "static/img/summer_wp3.jpg"];
 
 var emotion_score = {}
@@ -65,15 +65,15 @@ Plot = function ( stage ) {
     // this.elm.style.backgroundImage="url('../static/img/"+role+"_normal.png')";
     this.elm.style.background="url('../static/img/"+ms[role]+".png') no-repeat right top";
     this.elm.style.backgroundSize="contain";
-  
+
   };
   this.kill = function() {
     stage.removeChild( this.elm );
   };
   this.rotate = function( str ) {
-    this.elm.style.webkitTransform = this.elm.style.MozTransform = 
-    this.elm.style.OTransform = this.elm.style.transform = 
-    'rotate(' + str + ')'; 
+    this.elm.style.webkitTransform = this.elm.style.MozTransform =
+    this.elm.style.OTransform = this.elm.style.transform =
+    'rotate(' + str + ')';
   };
   this.content = function( content ) {
     this.elm.innerHTML = content;
@@ -91,7 +91,7 @@ Plot = function ( stage ) {
   // this.emotion.innerHTML = "ETETE";
   this.elm.appendChild(this.emotion);
   this.elm.appendChild(this.message);
-  
+
   this.elm.style.position = 'absolute';
   stage.appendChild( this.elm );
 };
@@ -127,10 +127,11 @@ var render_msg = function (sender, msg, emotion, place){
   $("#" + sender).find("div .qtime").remove();
   if (place!='home' && place!='university')  place='building';
   fa = '<i class="fa fa-2x fa-' + place+ '"></i>';
+  $('#lines').append('<div class="clear"></div>');
   if (sender == user) {
-	$('#lines').append($('<p style=\"text-align: right\">').append($('<em style=\"background-color: ' + colors[ms[sender]] + '; padding: 6px; border-radius: 10px\">').text(msg)));
+      $('#lines').append($('<div class="from-me" style="background-color: ' + colors[ms[sender]] + ';">').append($('<p style="margin: 0;">').text(msg)));
   } else {
-	$('#lines').append($('<p>').append($('<em style=\"background-color: ' + colors[ms[sender]] + '; padding: 6px; border-radius: 10px\">').text(msg)));
+      $('#lines').append($('<div class="from-them" style="background-color: ' + colors[ms[sender]] + ';">').append($('<p style="margin: 0;">').text(msg)));
   }
 
   tag = (new Date()).getTime();
@@ -149,17 +150,17 @@ var render_msg = function (sender, msg, emotion, place){
 
 // var render_msg = function (user_id, msg, emotion, place){
 // 	console.log("place: " + place);
-	
+
 // 	if (place=='undefined')  place='street-view';
 // 	atms.push(emotion);
 // 	if (user_id=='System' || user_id=='undefined'){
 // 		return;
 // 	}
 // 	$("#" + user_id).find("div .qtime").remove();
-	
+
 // 	fa = '<i class="fa fa-2x fa-' + place+ '"></i>';
 // 	$('#lines').append($('<p>').append(fa + '<b>' + ms[user_id] + ': </b>').append($('<em>').text(msg)));
-	
+
 // 	tag = (new Date()).getTime();
 // 	$span = $("<span>", {tag:tag}).html(msg+"<br/>");
 // 	// $span = $("<span>", {tag:tag});
@@ -174,7 +175,7 @@ var render_msg = function (sender, msg, emotion, place){
 // var render_user = function(user){
 // 	var bit = user%2;
 // 	var side = bit ? 'left': 'right';
-// 	var sideDiv = 'col-xs-6 pull-' + side; 
+// 	var sideDiv = 'col-xs-6 pull-' + side;
 //   	var sideMessage = 'talkbubble ' + side;
 
 // 	var $div = [];
@@ -200,7 +201,7 @@ var picSize = 150/familySize, //vmin
     centerX = 45 - picSize, //vw
     centerY = 65- picSize, //vh
     plotRadius = 30; //vmin
-  
+
 
 var distribute_users = function(){
   var stage = document.querySelector('.stage'),
@@ -416,7 +417,7 @@ function getLocation() {
 getLocation();
 
 
-$('#6>div').click(function(){
+$('#6').click(function(){
 	$('.home-modal-lg').modal();
 	$('#temps').html(13);
 	$tmp = $("#" + familySize + "div >img");
@@ -426,8 +427,8 @@ $('#6>div').click(function(){
 });
 
 
-$('#home-light').click(function(){
-	//console.log("light on");
+$('#home_light').click(function(){
+	console.log("light Clicked");
 	$.get('http://10.10.0.209:8000/api/action1');
 	pic = msid[familySize - 1];
 	$tmp = $("#" + pic).find('div>img');
@@ -439,7 +440,7 @@ $('#home-light').click(function(){
 });
 
 
-$('#3>div').click(function(){
+$('#3').click(function(){
 	//console.log("grandpa clicked");
 	$('.grandpa-modal').modal();
 
