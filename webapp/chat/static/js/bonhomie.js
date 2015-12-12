@@ -24,7 +24,7 @@ colors["mom"] 		= "#13A89E";
 colors["son"] 		= "#A18981";
 colors["daughter"] 	= "#F3896B";
 colors["grandpa"] 	= "#BF1E2E";
-colors["house"] 	= "#B3B8C2";
+colors["house"] 	= "#2F3590";
 
 Plot = function ( stage ) {
 
@@ -389,7 +389,7 @@ getLocation();
 
 $('#6').click(function(){
 	$('.home-modal-lg').modal();
-	$('#temps').html(13);
+	// $('#temps').html(13);
 	$tmp = $("#" + familySize + "div >img");
 	//console.log($tmp);
 	HomeTempPlot();
