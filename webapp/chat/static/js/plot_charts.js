@@ -5,7 +5,7 @@ function HomeTempPlot(){
     var dates = [];
     var current_temp = 20;
     var current_date;
-    var interval = 12 * 5;
+    var interval = 1 * 5;
 
     // Temperature
     $.getJSON(url, function(temp){

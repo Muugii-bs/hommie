@@ -67,14 +67,12 @@ $(function() {
         // message('me', $('#message').val());
         socket.emit('user message', $('#message').val(), my_place);
         clear();
-        $('#lines').get(0).scrollTop = 10000000;
         return false;
     });
     $("#messageButton").click(function(){
          console.log("Message" + my_place);
          socket.emit('user message', $('#message').val(), my_place);
          clear();
-         $('#lines').get(0).scrollTop = 10000000;
     });
 
     // === HOME chat functions ===
