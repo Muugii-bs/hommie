@@ -113,11 +113,6 @@ var animateMe = function(object, x, y){
 }
 
 
-feel = function (emotion){
-  	this.emotion.style.background="url('../static/img/" + emotion+ ".png') no-repeat right top";
-  	this.emotion.style.backgroundSize="contain";
-}
-
 var render_msg = function (sender, msg, emotion, place){
   var user_emotion = ms[sender] + '.' + emotion;
   atms.push(user_emotion);
@@ -144,7 +139,18 @@ var render_msg = function (sender, msg, emotion, place){
  //      })
  //console.log(sender + " is " + emotion);
   if (emotion) {
-	  $("#" + sender +"> .emotion").css('background-image','url(static/img/'+ emotion+'.png)');
+	  	$("#" + sender +"> .emotion").css('background-image','');
+	  	$("#" + sender +"> .emotion").css('background-image','url(static/img/'+ emotion+'.png)');
+	 /* for (var j = 0; j < 3; j ++){
+	  	$("#" + sender +"> .emotion").css('background-image','');
+	  	$("#" + sender +"> .emotion").css('background-image','url(static/img/'+ emotion+'.png)');
+	  }
+	 */	
+	  for (var i = 100; i < 1100; i += 100) {
+		  $("#" + sender +"> .emotion").animate({
+		  	opacity: 1 - 0.001 * i,
+	  	}, i);
+	  }
   }
 }
 
