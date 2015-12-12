@@ -409,7 +409,7 @@ function getLocation() {
 getLocation();
 
 
-$('#6 div').click(function(){
+$('#6').click(function(){
 	$('.home-modal-lg').modal();
 	$('#temps').html(13);
 	$tmp = $("#" + familySize + "div >img");
@@ -432,7 +432,7 @@ $('#home-light').click(function(){
 });
 
 
-$('#3 div').click(function(){
+$('#3').click(function(){
 	//console.log("grandpa clicked");
 	$('.grandpa-modal').modal();
 
