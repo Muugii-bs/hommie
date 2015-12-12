@@ -142,11 +142,10 @@ server.listen(http_port);
 
 // ===POST data to main server
 var request = require("request")
-var mainServerURL = "http://10.10.1.228:5000/api/sensor_value"
+var mainServerURL = "http://hommee.co/"
 // loop every 5 second
 // sends sensor datas
 setInterval(function(){
-    var url = mainServerURL;
 
     var data = new Object();
     data.humidity = gl_humidity;
@@ -159,37 +158,47 @@ setInterval(function(){
     sendSensorData(1, String(data.temperature));
     sendSensorData(2, String(data.humidity));
     sendSensorData(3, String(data.shake));
-},5000);
+},60 * 1000);
 
 function sendSensorData (sensor_id, value){
-    // { "sensor_id": sensor_id, "value": value }
+    var url = mainServerURL + "api/sensor_value";
+
     var query = { form: { "sensor_id": sensor_id, "value": value } };
     request.post(
-        mainServerURL,
+        url,
         query,
         function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                console.log( "Sensor data sent. " + sensor_id + ":" + value + body)
+                console.log( "Sensor data sent. " + sensor_id + ":" + value + ": " + body)
             }
         }
     );
 }
 
-// ===socketio-client
-var mainServerSocket = "http://10.10.1.228:5000/chat";
-var io = require('socket.io-client');
-var socket = io.connect(mainServerSocket);
-socket.on('connect', function (data) {
-  console.log("socket connect.");
-});
-socket.on('sendMsgFromServer', function (msg) {
-    console.log("message:",msg);
-});
+// ===send message to home
+function sendMessage(msg, emotion){
+    var url = mainServerURL + "api/home_message"
 
-setInterval(function(){
-  socket.emit("sendMsgFromClient","send client msg");
-}, 1000 * 5);
+    var family_id = 1;
+    var query = new Object();
+    query.msg = msg;
+    query.family_id =  family_id;
+    query.emotion = emotion;
 
+    var options = {
+      url: url,
+      method: 'POST',
+      json: query
+    };
+
+    request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log( "Message sent. " + msg + ":" + emotion);
+      }
+    });
+
+}
+sendMessage("Edison server restarted.", "happy")
 
 // ===reset shake every 5 min
 setInterval(function(){
