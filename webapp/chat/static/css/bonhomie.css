@@ -176,3 +176,8 @@ position: absolute;
   background-size: contain;
   top: 0px;
 }
+
+.message{
+  color: white;
+  font-size: 25px;
+}
