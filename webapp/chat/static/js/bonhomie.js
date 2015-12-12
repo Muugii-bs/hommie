@@ -377,7 +377,7 @@ getLocation();
 
 $('#6').click(function(){
 	$('.home-modal-lg').modal();
-	$('#temps').html(13);
+	// $('#temps').html(13);
 	$tmp = $("#" + familySize + "div >img");
 	//console.log($tmp);
 	HomeTempPlot();
