@@ -419,10 +419,21 @@ $('#6').click(function(){
 
 });
 
-
+var light_status = 0;
 $('#home_light').click(function(){
 	console.log("light Clicked");
 	$.get('http://10.10.0.209:8000/api/action1');
+
+	// hue toggle
+	if (light_status == 0){
+		// ON
+		light_toggle(true, 254, 40000); // white
+		light_status = 1;
+	} else {
+		light_toggle(false, 254, 40000);
+		light_status = 0;
+	}
+
 	pic = msid[familySize - 1];
 	$tmp = $("#" + pic).find('div>img');
 	$tmp.attr('src', 'static/img/house_happy.png');
@@ -441,10 +452,25 @@ $('#3').click(function(){
 
 function home_msg_sad() {
 	 msg_senti = "皆元気出して、お仕事、お勉強頑張ろう!";
+	light_toggle(true, 254, 20000); // yellow
 	 render_msg(familySize - 1, msg_senti, 'sad', 'home');
 }
 
 function home_msg_happy() {
 	msg_senti = "皆今日元気だね！嬉しい！";
+	light_toggle(true, 254, 6000); // red
 	render_msg(familySize - 1, msg_senti, 'happy', 'home');
+}
+
+function light_toggle(on, sat, hue){
+	var data = '{"on":' + on + ', "sat":' + sat + ',"bri":254,"hue":' + hue + '}'
+	$.ajax({
+			"url" : "http://192.168.2.2/api/31a88c2e125b55271ac3b4218f9bf4b/lights/2/state",
+			"data" : data,
+			"success" : function() {},
+			"type" : "PUT",
+			"cache" : false,
+			"error" : function() {},
+			"dataType" : "json"
+		});
 }
