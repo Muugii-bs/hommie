@@ -127,7 +127,7 @@ var render_msg = function (sender, msg, emotion, place){
   if (sender == user) {
       $('#lines').append($('<div class="from-me" style="background-color: ' + colors[ms[sender]] + ';">').append($('<p style="margin: 0;">').text(msg)));
   } else {
-      // $('#lines').append($('<p>').append($('<div style=\"background-color: ' + colors[ms[sender]] + '; padding: 6px; border-radius: 10px\">').text(msg)));
+      $('#lines').append($('<div class="from-them" style="background-color: ' + colors[ms[sender]] + ';">').append($('<p style="margin: 0;">').text(msg)));
   }
 
   tag = (new Date()).getTime();
